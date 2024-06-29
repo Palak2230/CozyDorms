@@ -1,0 +1,44 @@
+.container{
+    display: flex;
+    flex-direction: column;
+   
+}
+.filter-section {
+    position: fixed;
+   
+ 
+    width: 40vh;
+    overflow-y: scroll;
+     top: 0;
+    bottom: 0;
+    .filter-header{
+        padding: 0 24px;
+    display: flex;
+    align-items: baseline;
+    flex: 1;
+    justify-content: space-between;
+    max-height: 70px;
+        .heading{font-size: 26px;
+            font-weight: 700;
+            font-stretch: normal;
+            line-height: 1.23;
+            color: #333;
+            margin-top: 16px;}
+        .sidebar-clearall{
+            font-size: 14px;
+            font-weight: 600;
+            color: #ee2a24;
+            text-align: right;
+            cursor: pointer;
+        }
+    }
+  
+   
+}
+.pg-card{
+    flex:60%;
+}
+
+.rangepicker{
+   padding:20px 40px
+}
