@@ -1,23 +1,58 @@
-<div class=".container">
-    <aside class="filter-section">
+<div class="container">
+    <div class="filter-section">
         <div class="filter-header">
             <span class="heading">
                 Filters
             </span>
-            <a class="sidebar-clearall">Clear All</a>
+            <a class="clearall">Clear All</a>
         </div>
         <div class="filters__wrapper">
             <div class="filters__item">
-                <div class="rangepicker">
-                    <h4>Price</h4>
-                    <mat-slider min="0" max="100000" step="1000" discrete [displayWith]="formatLabel">
-                        <input matSliderStartThumb>
-                        <input matSliderEndThumb>
-                    </mat-slider>
+                <span>Add popular locations</span>
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose a locality</mat-label>
+                    <input type="text" matInput [formControl]="formControl" [matAutocomplete]="auto"
+                        style="color: black;">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filterOptions | async" [value]="option.name">
+                            {{ option.name }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div class="filters__item">
+                    <span>Room Type</span>
+                    <ul>
+                        <li *ngFor="let tenant of tenant_type;let i=index">
+                            <input type="checkbox" [(ngModel)]="selectedTenants[i]" (change)="getPgs()">
+                            <label>{{tenant.type}}</label>
+                        </li>
+                    </ul>
                 </div>
+                <div class="filters__item">
+                    <span>Room Type</span>
+                    <ul>
+                        <li *ngFor="let room of room_type;let i=index">
+                            <input type="checkbox" [(ngModel)]="selectedRooms[i]" (change)="getPgs()">
+                            <label>{{room.type}}</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="filters__item">
+                    <span>Ratings</span>
+                    <ul>
+                        <li *ngFor="let rating of rating_type;let i=index">
+                            <input type="checkbox" [(ngModel)]="selectedRatings[i]" (change)="getPgs()">
+                            <label>{{rating.type}}</label>
+                        </li>
+                    </ul>
+                </div>
+
+
             </div>
         </div>
-    </aside>
+    </div>
 
-    <div class="pg-card"><app-pg-card></app-pg-card></div>
+
+
+
 </div>

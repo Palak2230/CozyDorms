@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { PgService } from 'src/app/services/pg.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -18,7 +20,7 @@ declare const ScrollReveal: any;
 
 })
 export class HomeComponent implements OnInit {
-  constructor(private renderer: Renderer2) { }
+
 
 
   ngAfterViewInit(): void {
@@ -106,7 +108,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  options: string[] = ['Angular', 'React', 'Vue'];
+  options: string[] = ['Mumbai', 'Delhi', 'Pune'];
   filteroptions !: Observable<string[]>;
   formcontrol = new FormControl('');
   ngOnInit(): void {
@@ -125,5 +127,16 @@ export class HomeComponent implements OnInit {
 
     return `${value}`;
   }
- 
+
+  constructor(private renderer: Renderer2, private pgService: PgService, private activatedRoute: ActivatedRoute, private router: Router) {
+
+  }
+  
+  searchpg(term: string): void {
+    if (term) {
+      this.router.navigateByUrl('/results/' + term);
+    }
+  }
+
+
 }
