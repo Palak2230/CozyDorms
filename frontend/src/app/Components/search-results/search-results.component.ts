@@ -25,19 +25,30 @@ export class SearchResultsComponent implements OnInit {
     private pgService: PgService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
+    let PgsObservable: Observable<Pg[]>;
+    let LocalityObservable: Observable<Locality[]>;
     this.activatedRoute.params.subscribe((params) => {
       if (params['searchTerm']) {
-        this.pgs = this.pgService.getAllBySearch(params['searchTerm']);
-        this.localities = this.pgService.getlocalitiesBySearch(params['searchTerm']);
+        PgsObservable = this.pgService.getAllBySearch(params['searchTerm']);
+        LocalityObservable = this.pgService.getlocalitiesBySearch(params['searchTerm']);
 
       } else {
-        this.pgs = this.pgService.getAll();
-        this.localities = this.pgService.getLocalities();
+        PgsObservable = this.pgService.getAll();
+        LocalityObservable = this.pgService.getLocalities();
       }
-      console.log(this.pgs);
+      PgsObservable.subscribe((serverpgs) => {
+        this.pgs = serverpgs;
+        this.pgsample = serverpgs;
+      });
+      LocalityObservable.subscribe((serverlocalities) => {
+        this.localities = serverlocalities;
+        this.filterOptions = LocalityObservable;
+      });
     });
 
     this.filterOptions = this.formControl.valueChanges.pipe(
@@ -97,11 +108,11 @@ export class SearchResultsComponent implements OnInit {
     this.pgsample = this.pgService.filter(this.pgs, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues, this.selectedLocalities);
     console.log(this.pgsample);
   }
-  clearAll(){
-    this.selectedLocalities= [];
-    this.selectedRatings=[];
-    this.selectedRooms=[];
-    this.selectedTenants=[];
+  clearAll() {
+    this.selectedLocalities = [];
+    this.selectedRatings = [];
+    this.selectedRooms = [];
+    this.selectedTenants = [];
     this.getPgs();
 
   }

@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { SearchResultsComponent } from './Components/search-results/search-results.component';
-
+import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { PgDetailedComponent } from './Components/pg-detailed/pg-detailed.component';
 import { NgbCarousel, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -46,7 +46,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatCheckboxModule,
     MatPaginatorModule,
     FormsModule
-
+    , HttpClientModule
 
 
 

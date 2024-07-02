@@ -1,26 +1,59 @@
+
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Pg } from '../shared/models/pg';
-import { sample_pgs } from 'src/data';
 import { Locality } from '../shared/models/localities';
-import { sample_localities } from 'src/localitiesdata';
+import { PGS_URL, LOCALITIES_URL, PGS_BY_CITY_URL, LOCALITIES_BY_CITY_URL } from '../shared/constants/urls';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PgService {
 
-  constructor() { }
-  getAll(): Pg[] {
-    return sample_pgs;
+  constructor(private http: HttpClient) { }
+
+  getAll(): Observable<Pg[]> {
+    return this.http.get<Pg[]>(PGS_URL).pipe(
+      catchError(this.handleError)
+    );
   }
-  getLocalities(): Locality[] {
-    return sample_localities;
+
+  getLocalities(): Observable<Locality[]> {
+    return this.http.get<Locality[]>(LOCALITIES_URL).pipe(
+      catchError(this.handleError)
+    );
   }
-  getAllBySearch(searchTerm: string): Pg[] {
-    return this.getAll().filter(pg => pg.city.toLowerCase().includes(searchTerm.toLowerCase()));
+
+  getAllBySearch(searchTerm: string): Observable<Pg[]> {
+    return this.http.get<Pg[]>(`${PGS_BY_CITY_URL}${searchTerm}`).pipe(
+      catchError(this.handleError)
+    );
   }
-  getlocalitiesBySearch(searchTerm: string) {
-    return this.getLocalities().filter(locality => locality.city.toLowerCase() == (searchTerm.toLowerCase()));
+
+  getlocalitiesBySearch(searchTerm: string): Observable<Locality[]> {
+    return this.http.get<Locality[]>(`${LOCALITIES_BY_CITY_URL}${searchTerm}`).pipe(
+      catchError(this.handleError)
+    );
   }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError('Something bad happened; please try again later.');
+  }
+
+
 
   filter(pgs: Pg[], selectedTenantsValues: any, selectedRoomsValues: any, selectedRatingsValues: any, selectedLocalities: any): Pg[] {
 
@@ -69,15 +102,7 @@ export class PgService {
 
 
     return pgsample;
-    //   pgsample = pgsample.filter(pg => {
-    //     let matchesTenant = selectedTenantsValues.some((index, selected) => selected && pg.tenant_type === this.tenant_type[index].type);
-    //     let matchesRoom = this.selectedRooms.some((selected, index) => selected && pg.room_type === this.room_type[index].type);
-    //     let matchesRating = this.selectedRatings.some((selected, index) => selected && pg.rating === this.rating_type[index].type);
-    //     return matchesTenant && matchesRoom && matchesRating;
-    //   });
-    // }
-    //   // console.log(pgsample);
-    //   return pgsample;
+
 
   }
 }
