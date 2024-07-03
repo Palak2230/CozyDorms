@@ -54,8 +54,17 @@ export const sample_localities: any[] = [
 ]
 export const sample_users: any[] = [
     {
+        id: 1,
         name: 'Palak',
-        email: '21ucc072@lnmiit.ac.in',
-        password: 'Palak1522',
+        email: 'palak',
+        password: '22',
+        isOwner: false,
+    },
+    {
+        id: 1,
+        name: 'Palak',
+        email: 'Palak',
+        password: '22',
+        isOwner: false,
     }
 ]

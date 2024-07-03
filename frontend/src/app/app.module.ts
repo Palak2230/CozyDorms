@@ -29,6 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { ToastrModule } from 'ngx-toastr';
+import { timeout } from 'rxjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +62,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     MatDialogModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot({ timeOut: 3000, positionClass: 'toast-bottom-right', newestOnTop: false })
     ,
     MatCardModule,
     MatButtonModule,

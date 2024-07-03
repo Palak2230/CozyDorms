@@ -5,12 +5,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { sample_users } from 'src/data';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NgOtpInputComponent } from 'ng-otp-input';
 import { NgOtpInputModule } from 'ng-otp-input';
-
+import { UserService } from 'src/app/services/user.service';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -27,8 +30,10 @@ export class LoginPageComponent implements OnInit {
   userLogged: boolean = false;
   forgotpassword: boolean = false;
   otpverified: boolean = false;
+  returnUrl: string = '';
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router,
+    public dialogRef: MatDialogRef<LoginPageComponent>
   ) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -41,16 +46,27 @@ export class LoginPageComponent implements OnInit {
       ],
       password: ['', Validators.required],
     });
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl;
   }
-
+  get fc() {
+    return this.loginForm.controls;
+  }
   userLogin(): void {
     if (this.loginForm.valid) {
       console.log('required');
+    }
+    else {
+      this.userLogged = true;
+      console.log(this.fc.email.value, this.fc.password.value);
+      this.userService.login({ email: this.fc.email.value, password: this.fc.password.value }).subscribe((res) => {
+        console.log(res);
+      });
 
     }
-    if (sample_users.filter(user => user.email == this.loginForm.controls.email && user.password == this.loginForm.controls.password).length == 1) {
-      this.userLogged = true;
-    }
+    this.loginForm.reset();
+    this.dialogRef.close();
+
+
   }
 
 
@@ -102,11 +118,10 @@ export class LoginPageComponent implements OnInit {
     this.showpassword = false;
     this.showpassword2 = false;
     this.loginError = '';
-    this.userLogged = false;
     this.forgotpassword = false;
     this.otpverified = false;
+    this.userLogin();
   }
 
+
 }
-
-
