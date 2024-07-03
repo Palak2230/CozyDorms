@@ -7,11 +7,13 @@ import { PgService } from 'src/app/services/pg.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Locality } from 'src/app/shared/models/localities';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
+
 export class SearchResultsComponent implements OnInit {
   liked: boolean = false;
   report: boolean = false;
@@ -28,6 +30,7 @@ export class SearchResultsComponent implements OnInit {
   ) {
 
   }
+
 
   ngOnInit(): void {
     let PgsObservable: Observable<Pg[]>;
@@ -47,7 +50,7 @@ export class SearchResultsComponent implements OnInit {
       });
       LocalityObservable.subscribe((serverlocalities) => {
         this.localities = serverlocalities;
-        this.filterOptions = LocalityObservable;
+
       });
     });
 
@@ -116,4 +119,5 @@ export class SearchResultsComponent implements OnInit {
     this.getPgs();
 
   }
+
 }

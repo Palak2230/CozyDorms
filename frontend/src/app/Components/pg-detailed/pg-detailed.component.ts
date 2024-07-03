@@ -3,6 +3,8 @@ import { MatSort } from '@angular/material/sort';
 import { trigger, transition, style, animate } from "@angular/animations";
 import { Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginPageComponent } from '../login-page/login-page.component';
 
 export interface RoomPrices {
   roomtype: string;
@@ -108,7 +110,7 @@ export class PgDetailedComponent implements OnInit {
 
   @Input() address: string = 'Shakti Nagar Colony , Near V-Mart ,Jhansi';
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.embedMap();
@@ -124,4 +126,7 @@ export class PgDetailedComponent implements OnInit {
     document.querySelector('.place')!.innerHTML = embed;
   }
 
+  openlogin() {
+    this._dialog.open(LoginPageComponent);
+  }
 }

@@ -52,3 +52,10 @@ export const sample_localities: any[] = [
         city: 'Mumbai',
     }
 ]
+export const sample_users: any[] = [
+    {
+        name: 'Palak',
+        email: '21ucc072@lnmiit.ac.in',
+        password: 'Palak1522',
+    }
+]

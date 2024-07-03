@@ -1,0 +1,124 @@
+body {
+    background: #e2e2e2;
+}
+.login-wrapper {
+    height: 100%;
+}
+
+.box {
+    position: relative;
+    top: 0;
+    opacity: 1;
+    float: left;
+    padding: 40px 40px 40px 30px;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    z-index: 5;
+}
+.box.back {
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    top: -20px;
+    opacity: 0.8;
+    z-index: -1;
+}
+.box:before {
+    content: "";
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    position: absolute;
+    top: -10px;
+    background: rgba(255, 255, 255, 0.6);
+    left: 0;
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    z-index: -1;
+}
+.login-wrapper .example-form {
+    min-width: 100%;
+    max-width: 300px;
+    width: 100%;
+}
+.login-wrapper .example-full-width,
+.login-wrapper .btn-block {
+    width: 100%;
+}
+.login-wrapper mat-card-header {
+    // text-align: center;
+    width: 100%;
+    display: block;
+
+    // font-weight: 700;
+}
+.login-wrapper mat-card-header mat-card-title {
+    font-size: 30px;
+    margin: 0;
+}
+
+button {
+    // background-color: var(--primary-color) !important;
+    background-color: #355562 !important;
+    margin: 34px 0px;
+    font-size: 16px;
+    // font-weight: bold;
+    font-family: Roboto !important;
+    // width: 70px;
+    // height: 50px;
+    // margin: 20px;
+    // position: absolute;
+
+    // left: 50%;
+    // -ms-transform: translateX(-50%);
+    // transform: translateX(-50%);
+}
+// .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
+//     padding: 0.8375em 0;
+// }
+.login-wrapper[_ngcontent-ng-c3307086481] .example-full-width[_ngcontent-ng-c3307086481],
+.login-wrapper[_ngcontent-ng-c3307086481] .btn-block[_ngcontent-ng-c3307086481] {
+    height: 30px !important;
+}
+label {
+    color: rgba(0, 0, 0, 0.815);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+// mat-card-content {
+//     padding: 0px 0px;
+// }
+.mat-mdc-card-content:last-child {
+    padding-bottom: 0px !important;
+}
+
+.mat-mdc-card-content:first-child {
+    padding-top: 0px !important;
+}
+.password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-32%);
+    cursor: pointer;
+}
+
+.password-toggle-icon i {
+    font-size: 16px;
+    line-height: 1;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+    // margin-bottom: 20px;
+}
+
+.otps {
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px !important;
+}

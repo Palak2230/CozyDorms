@@ -1,0 +1,124 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="isLoggedIn && !forgotpassword">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Log in</mat-card-title>
+            <p style="color: gray; padding: 10px 0px;">Don't have an account ? <u (click)="isLoggedIn=!isLoggedIn"
+                    style="color: var(--primary-color-dark);">Sign
+                    Up</u></p>
+        </mat-card-header>
+        <form class="example-form" (submit)="userLogin()" [formGroup]="loginForm">
+            <mat-card-content>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" type="email" formControlName="email">
+                </mat-form-field>
+
+
+
+                <mat-form-field class="example-full-width">
+                    <div class="password-toggle-icon" (click)="showpassword=!showpassword"><i
+                            [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
+                    <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'"
+                        formControlName="password">
+                </mat-form-field>
+
+                <div style="color: var(--primary-color-dark);"><u (click)="forgotpassword=true">Forgot Password</u>
+                </div>
+
+                <button mat-raised-button color="primary" style="width: 100%; height: 50px;" type="submit">
+                    LOGIN
+                </button>
+            </mat-card-content>
+            <!-- <div style="text-align: center;"> -->
+
+            <!-- </div> -->
+        </form>
+    </mat-card>
+</div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!isLoggedIn">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title style="margin-bottom:10px ;">Sign Up</mat-card-title>
+        </mat-card-header>
+        <form class="example-form">
+            <mat-card-content>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name" type="text">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" type="email">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <div class="password-toggle-icon" (click)="showpassword=!showpassword"><i
+                            [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
+                    <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'">
+                </mat-form-field>
+
+
+                <button mat-raised-button color="primary" style="width: 100%; height: 50px;">
+                    SIGN UP
+                </button>
+            </mat-card-content>
+            <!-- <div style="text-align: center;"> -->
+
+            <!-- </div> -->
+        </form>
+    </mat-card>
+</div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="forgotpassword">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title style="margin-bottom:20px ;font-size: 20px;">Reset Password</mat-card-title>
+        </mat-card-header>
+        <form class="example-form">
+            <mat-card-content>
+
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" type="email" [readonly]="showOtpComponent || otpverified">
+                </mat-form-field>
+                <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
+                    (click)="showOtpComponent=true" *ngIf="!showOtpComponent && !otpverified">
+                    SUBMIT
+                </button>
+                <div *ngIf="showOtpComponent">
+                    <div style="align-items: center; font-size: 16px;margin-bottom: 20px;">Enter OTP sent to
+                        your email.</div>
+                    <div>
+                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"
+                            class="otps"></ng-otp-input>
+                    </div>
+
+                </div>
+                <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
+                    (click)="otpverified=true;showOtpComponent=false" *ngIf="showOtpComponent && !otpverified">
+                    SUBMIT
+                </button>
+                <div *ngIf="otpverified">
+                    <mat-form-field class="example-full-width">
+                        <div class="password-toggle-icon" (click)="showpassword=!showpassword"><i
+                                [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
+                        <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <div class="password-toggle-icon" (click)="showpassword2=!showpassword2"><i
+                                [class]="showpassword2? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
+                        <input matInput placeholder="Comfirm password" [type]="showpassword2 ? 'text' : 'password'">
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
+                        (click)="passwordReset()">
+                        RESET
+                    </button>
+                </div>
+
+
+            </mat-card-content>
+            <!-- <div style="text-align: center;"> -->
+
+            <!-- </div> -->
+        </form>
+    </mat-card>
+</div>

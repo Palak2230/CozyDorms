@@ -8,7 +8,7 @@
 
                 </ng-container>
 
-                <!-- controls -->
+                
                 <button class="control prev" (click)="onPreviousClick()">
                     <span class="arrow left"></span>
                 </button>
@@ -16,13 +16,7 @@
                     <span class="arrow right"></span>
                 </button>
             </div>
-            <!-- <div class="extra-images">
-                <img src="../../../assets/room-1.jpg">
-                <img src="../../../assets/room-1.jpg">
-                <img src="../../../assets/room-1.jpg">
-                <img src="../../../assets/room-1.jpg">
-                <img src="../../../assets/room-1.jpg">
-            </div> -->
+         
         </div>
         <div class="header-side">
             <div class="pg-name">Super OYO Kailash Park </div>
@@ -38,7 +32,7 @@
 
             </div>
             <div class="owner-section">
-                <button class="owner-details">Get Owner details</button>
+                <button class="owner-details" (click)="openlogin()">Get Owner details</button>
                 <button class="contact-btn"><img src="../../../assets/phone-call.png"></button>
                 <button class="contact-btn"><img src="../../../assets/email (3).png"></button>
                 <button class="contact-btn"><img src="../../../assets/event.png"></button>
@@ -72,21 +66,18 @@ background-color: #f8f8f8;
                
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
                 (matSortChange)="announceSortChange($event)">
-                    <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-
-                    <!-- Position Column -->
+                
                     <ng-container matColumnDef="roomtype">
                         <th mat-header-cell *matHeaderCellDef>Room Type</th>
                         <td mat-cell *matCellDef="let room"> {{room.roomtype}} </td>
                     </ng-container>
-                    <!-- Position Column -->
+                 
                     <ng-container matColumnDef="rooms">
                         <th mat-header-cell *matHeaderCellDef>Rooms</th>
                         <td mat-cell *matCellDef="let room"> {{room.rooms}} </td>
                     </ng-container>
 
-                    <!-- Name Column -->
+                
                     <ng-container matColumnDef="vacancies">
                         <th mat-header-cell *matHeaderCellDef>Vacancies</th>
                         <td mat-cell *matCellDef="let room"> {{room.vacancies}} </td>

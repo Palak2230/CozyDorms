@@ -37,3 +37,10 @@ export const sample_pgs: Pg[] = [
         imageUrl: '../../../../assets/room-2.jpg',
     }
 ]
+export const sample_users: any[] = [
+    {
+        name: 'Palak',
+        email: '21ucc072@lnmiit.ac.in',
+        password: 'Palak1522',
+    }
+]

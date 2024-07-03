@@ -1,50 +1,53 @@
-.container {
+.wrap-div {
+    margin: 40px 30px;
     display: flex;
-    flex-direction: row;
-    margin: 0;
 }
 .filter-section {
-    position: fixed;
+    // position: fixed;
 
-    overflow-y: scroll;
-    top: 0;
-    bottom: 0;
+    // overflow-y: scroll;
+    // top: 0;
+    // bottom: 0;
     .filter-header {
-        padding: 0 24px;
         display: flex;
-        align-items: baseline;
-        flex: 1;
-        justify-content: space-between;
-        max-height: 70px;
+        // justify-content: space-between;
+        // max-height: 70px;
+        align-items: center;
         gap: 100px;
+        flex-direction: row;
+
         .heading {
-            font-size: 26px;
-            font-weight: 700;
-            font-stretch: normal;
-            line-height: 1.23;
+            font-size: 30px;
+            font-weight: 500;
+            // font-stretch: normal;
+            // line-height: 1.23;
             color: #333;
-            margin-top: 16px;
+            // margin-top: 16px;
         }
         .clearall {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 500;
             color: #ee2a24;
-            text-align: right;
+            // text-align: right;
             cursor: pointer;
         }
     }
-}
-.pg-card {
-    flex: 60%;
-    align-self: flex-start;
+    .filters__item {
+        display: flex;
+        flex-direction: column;
+        span {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
 }
 
-.rangepicker {
-    padding: 20px 40px;
+.pg-section {
+    // flex: 60%;
+    align-self: flex-start;
+    margin-top: 40px;
 }
-.container {
-    display: flex;
-}
+
 ul {
     display: flex;
     flex-direction: column;
