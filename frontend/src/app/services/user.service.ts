@@ -5,6 +5,7 @@ import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { HttpClient } from '@angular/common/http';
 import { USER_LOGIN_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
+import { USER_SIGNUP_URL } from '../shared/constants/urls';
 import { JsonPipe } from '@angular/common';
 const USER_KEY = 'User';
 @Injectable({
@@ -20,14 +21,27 @@ export class UserService {
   login(userLogin: IUserLogin) {
     return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(tap({
       next: (user) => {
-        this.setuserLocalStorage(user);
-        this.userSubject.next(user);
-        this.toastrService.success(`Welcome back to CozyDorms ${user.name}`, 'Login Successful')
-        
-      },
-      error: (errorResponse) => {
-        console.log(errorResponse);
-        this.toastrService.error(errorResponse.error, 'Login failed');
+        if (user) {
+          this.setuserLocalStorage(user);
+          this.userSubject.next(user);
+
+        }
+      }
+    })
+    );
+  }
+  signup(userLogin: IUserLogin) {
+    return this.http.post<User>(USER_SIGNUP_URL, userLogin).pipe(tap({
+      next: (user) => {
+        if (user) {
+          // this.setuserLocalStorage(user);
+          // this.userSubject.next(user);
+
+        }
+        else {
+          this.setuserLocalStorage(user);
+          this.userSubject.next(user);
+        }
       }
     })
     );

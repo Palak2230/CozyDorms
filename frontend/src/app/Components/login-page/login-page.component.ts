@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 import { sample_users } from 'src/data';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -23,6 +23,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
+  signUpForm!: FormGroup;
   isLoggedIn: boolean = true;
   showpassword: boolean = false;
   showpassword2: boolean = false;
@@ -33,7 +34,8 @@ export class LoginPageComponent implements OnInit {
   returnUrl: string = '';
   constructor(
     private formBuilder: FormBuilder, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router,
-    public dialogRef: MatDialogRef<LoginPageComponent>
+    public dialogRef: MatDialogRef<LoginPageComponent>,
+    private toastrService: ToastrService
   ) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -45,30 +47,72 @@ export class LoginPageComponent implements OnInit {
         ],
       ],
       password: ['', Validators.required],
+
     });
-    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl;
+
+    this.signUpForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^([a-zA-Z0-9]+)@([a-zA-Z0-9]+).([a-zA-Z]{2,3})$'),
+        ],
+      ],
+      password: ['', Validators.required],
+
+    });
+
   }
-  get fc() {
+  get fclogin() {
     return this.loginForm.controls;
+  }
+  get fcsignup() {
+    return this.signUpForm.controls;
   }
   userLogin(): void {
     if (this.loginForm.valid) {
       console.log('required');
     }
     else {
-      this.userLogged = true;
-      console.log(this.fc.email.value, this.fc.password.value);
-      this.userService.login({ email: this.fc.email.value, password: this.fc.password.value }).subscribe((res) => {
-        console.log(res);
+
+      console.log(this.fclogin.email.value, this.fclogin.password.value);
+      this.userService.login({ email: this.fclogin.email.value, password: this.fclogin.password.value }).subscribe((res) => {
+        if (res) {
+          this.toastrService.success(`Welcome back to CozyDorms ${res.name}`, 'Login Successful')
+          this.userLogged = true;
+        }
+        else {
+          this.toastrService.error('Login failed');
+        }
       });
 
     }
     this.loginForm.reset();
     this.dialogRef.close();
-
-
   }
 
+  userSignUp() {
+    if (this.signUpForm.valid) {
+      console.log('required');
+    }
+    else {
+      this.userLogged = true;
+      // console.log(this.fcsignup.email.value, this.fcsignup.password.value);
+      this.userService.signup({ email: this.fcsignup.email.value, password: this.fcsignup.password.value }).subscribe((res) => {
+        if (res) {
+          this.toastrService.error('User Already exists.');
+        }
+        else {
+          this.toastrService.success(`Welcome to CozyDorms ${this.fcsignup.name.value}`, 'Sign up Successful')
+          console.log(this.fcsignup);
+        }
+      }
+      );
+    }
+    this.signUpForm.reset();
+    this.dialogRef.close();
+  }
 
 
   otp: any;

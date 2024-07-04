@@ -1,54 +1,26 @@
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
+
 const bodyParser = require('body-parser');
+import PgRouter from './router/pg.router';
+import UserRouter from './router/user.router';
 
 import { sample_pgs } from "./data";
 import { sample_localities } from "./data";
 import { sample_users } from "./data";
-
+import { dbConnect } from './configs/database.config';
+dbConnect();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
     credentials: true,
     origin: ["http://localhost:4200"],
 }))
-
-app.get('/api/pgs', (req: any, res: any) => {
-    res.json(sample_pgs);
-});
-app.get('/api/localities', (req: any, res: any) => {
-    res.json(sample_localities);
-});
-app.get('/api/users', (req: any, res: any) => {
-    res.json(sample_users);
-});
-app.get('/api/pgs/search', (req: any, res: any) => {
-    const searchTerm = req.query.q;
-    const result = sample_pgs.filter(pg => pg.city.toLowerCase().includes(searchTerm.toLowerCase()));
-    res.json(result);
-});
-
-
-app.get('/api/localities/search', (req: any, res: any) => {
-    const searchTerm = req.query.q;
-    const result = sample_localities.filter(locality => locality.city.toLowerCase() == searchTerm.toLowerCase());
-    res.json(result);
-});
-
-app.post('/api/users/login', (req: any, res: any) => {
-    // console.log(req.body);
-    const { email, password } = req.body;
-    const user = sample_users.find(user => user.email === email && user.password === password);
-
-    if (user) {
-        console.log('you are user palak!');
-        res.send(user);
-    } else {
-        console.log('you are not a user palak!');
-        res.status(400).send("not successful");
-    }
-});
-
+app.use('/api/pgs', PgRouter)
+app.use('/api/users', UserRouter)
+// app.use('/api/locality', LocalityRouter)
 
 
 const port = 5000;

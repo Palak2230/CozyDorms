@@ -37,25 +37,26 @@
         <mat-card-header>
             <mat-card-title style="margin-bottom:10px ;">Sign Up</mat-card-title>
         </mat-card-header>
-        <form class="example-form">
+        <form class="example-form" [formGroup]="signUpForm" (submit)="userSignUp()">
             <mat-card-content>
 
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Name" type="text">
+                    <input matInput placeholder="Name" type="text" formControlName="name">
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" type="email">
+                    <input matInput placeholder="Email" type="email" formControlName="email">
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <div class="password-toggle-icon" (click)="showpassword=!showpassword"><i
                             [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
-                    <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'">
+                    <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'"
+                        formControlName="password">
                 </mat-form-field>
 
 
-                <button mat-raised-button color="primary" style="width: 100%; height: 50px;">
+                <button mat-raised-button color="primary" style="width: 100%; height: 50px;" type="submit">
                     SIGN UP
                 </button>
             </mat-card-content>

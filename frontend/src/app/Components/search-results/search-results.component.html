@@ -21,8 +21,8 @@
                         style="color: black;">
 
                     <mat-autocomplete #auto="matAutocomplete" disableRipple="true">
-                        <mat-option *ngFor="let option of filterOptions | async" [value]="option.name">
-                            {{ option.name }}
+                        <mat-option *ngFor="let option of filterOptions | async" [value]="option">
+                            {{ option}}
                         </mat-option>
                     </mat-autocomplete>
 
@@ -140,8 +140,8 @@
                         <button (click)="liked=!liked " class="like-btn">
                             <mat-icon *ngIf="!liked" style=" color: 1px  solid #355562 ;">favorite_border</mat-icon>
                             <mat-icon *ngIf="liked" style="color:var(--primary-color);">favorite</mat-icon>
-                          
-            </button>
+
+                        </button>
                         <button class="report-btn" (click)="report = !report">
                             <mat-icon *ngIf="report" style="color:var(--primary-color)">flag</mat-icon>
                             <mat-icon *ngIf="!report" style=" color: 1px  solid #355562 ;">outlined_flag</mat-icon>

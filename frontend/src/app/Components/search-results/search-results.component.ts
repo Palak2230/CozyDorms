@@ -5,7 +5,6 @@ import { map, startWith } from 'rxjs/operators';
 import { Pg } from 'src/app/shared/models/pg';
 import { PgService } from 'src/app/services/pg.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Locality } from 'src/app/shared/models/localities';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -19,8 +18,9 @@ export class SearchResultsComponent implements OnInit {
   report: boolean = false;
   pgs: Pg[] = [];
   pgsample: Pg[] = [];
-  localities: Locality[] = [];
-  filterOptions!: Observable<Locality[]>;
+  localities: string[] = [];
+
+  filterOptions!: Observable<string[]>;
   formControl = new FormControl('');
 
   constructor(
@@ -34,7 +34,7 @@ export class SearchResultsComponent implements OnInit {
 
   ngOnInit(): void {
     let PgsObservable: Observable<Pg[]>;
-    let LocalityObservable: Observable<Locality[]>;
+    let LocalityObservable: Observable<string[]>;
     this.activatedRoute.params.subscribe((params) => {
       if (params['searchTerm']) {
         PgsObservable = this.pgService.getAllBySearch(params['searchTerm']);
@@ -49,8 +49,8 @@ export class SearchResultsComponent implements OnInit {
         this.pgsample = serverpgs;
       });
       LocalityObservable.subscribe((serverlocalities) => {
+        console.log(serverlocalities);
         this.localities = serverlocalities;
-
       });
     });
 
@@ -59,10 +59,10 @@ export class SearchResultsComponent implements OnInit {
       map(value => this._filter(value || ''))
     );
   }
-
-  private _filter(value: string): Locality[] {
+  private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.localities.filter(option => option.name.toLowerCase().includes(filterValue));
+
+    return this.localities.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   tenant_type: any[] = [{ id: 1, type: 'Female' },
