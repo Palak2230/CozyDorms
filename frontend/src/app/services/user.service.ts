@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../shared/models/User';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
+import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { HttpClient } from '@angular/common/http';
-import { USER_LOGIN_URL } from '../shared/constants/urls';
+import { USER_LOGIN_URL, USER_REGISTER_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
-import { USER_SIGNUP_URL } from '../shared/constants/urls';
+
 import { JsonPipe } from '@angular/common';
 const USER_KEY = 'User';
 @Injectable({
@@ -21,32 +22,44 @@ export class UserService {
   login(userLogin: IUserLogin) {
     return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(tap({
       next: (user) => {
-        if (user) {
-          this.setuserLocalStorage(user);
-          this.userSubject.next(user);
-
-        }
+        this.setuserToLocalStorage(user);
+        this.userSubject.next(user);
+        this.toastrService.success(`Welcome back to CozyDorms ${user.name}`,
+          "Login successful !"
+        )
+      },
+      error: (errorResponse) => {
+        this.toastrService.error(errorResponse.error,
+          "Login failed !")
       }
-    })
-    );
+    }))
   }
-  signup(userLogin: IUserLogin) {
-    return this.http.post<User>(USER_SIGNUP_URL, userLogin).pipe(tap({
-      next: (user) => {
-        if (user) {
-          // this.setuserLocalStorage(user);
-          // this.userSubject.next(user);
-
-        }
-        else {
-          this.setuserLocalStorage(user);
+  logout() {
+    this.userSubject.next(new User());
+    localStorage.removeItem(USER_KEY);
+    window.location.reload();
+  }
+  register(userRegister: IUserRegister) {
+    return this.http.post<User>(USER_REGISTER_URL, userRegister).pipe
+      (tap({
+        next: (user) => {
+          this.setuserToLocalStorage(user);
           this.userSubject.next(user);
+          this.toastrService.success(`Welcome to CozyDorms ${user.name}`,
+            "Registration successful !"
+          )
+        },
+        error: (errorResponse) => {
+          this.toastrService.error(errorResponse.error,
+            "Registration failed !")
         }
-      }
-    })
-    );
+      }))
   }
-  private setuserLocalStorage(user: User) {
+
+
+
+
+  private setuserToLocalStorage(user: User) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
   private getUserFromLocalStorage(): User {

@@ -3,7 +3,7 @@ export const sample_pgs: any[] = [
     {
         id: '1',
         name: 'A',
-        address: 'near jdkfkc',
+        address: 'Shakti Nagar Colony , Near V-Mart ,Jhansi',
         locality: 'Kopar',
         city: 'Mumbai',
         price: 194,

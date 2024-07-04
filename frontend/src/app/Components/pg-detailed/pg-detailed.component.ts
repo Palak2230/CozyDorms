@@ -5,6 +5,10 @@ import { Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginPageComponent } from '../login-page/login-page.component';
+import { Pg } from 'src/app/shared/models/pg';
+import { ActivatedRoute } from '@angular/router';
+import { PgService } from 'src/app/services/pg.service';
+import { Observable } from 'rxjs';
 
 export interface RoomPrices {
   roomtype: string;
@@ -108,15 +112,38 @@ export class PgDetailedComponent implements OnInit {
   }
   //MAP 
 
-  @Input() address: string = 'Shakti Nagar Colony , Near V-Mart ,Jhansi';
+  // @Input() address: string = 'Shakti Nagar Colony , Near V-Mart ,Jhansi';
+  // @Input() address2: string = this.pg.address;
+  address: string = '';
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _dialog: MatDialog, private activatedRoute: ActivatedRoute, private pgService: PgService) {
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _dialog: MatDialog) { }
-
-  ngOnInit(): void {
-    this.embedMap();
   }
 
+  ngOnInit(): void {
+
+    // this.activatedRoute.params.subscribe((params) => {
+    //   if (params.id)
+    //     this.pg = pgservice.getPgById('mumbai');
+    // })
+    let PgsObservable: Observable<Pg>;
+
+    this.activatedRoute.params.subscribe((params) => {
+
+      PgsObservable = this.pgService.getPgById(params['searchTerm']);
+      PgsObservable.subscribe((serverpgs) => {
+        this.pg = serverpgs;
+        console.log(this.pg);
+        this.address = serverpgs.address;
+      });
+
+    });
+
+  }
+  ngAfterViewInit() {
+    this.embedMap();
+  }
   embedMap(): void {
+    console.log(this.address);
     const encodedAddress = encodeURIComponent(this.address);
     const embed = `
       <iframe width='900' height='400' frameborder='0' loading='lazy'
@@ -129,4 +156,7 @@ export class PgDetailedComponent implements OnInit {
   openlogin() {
     this._dialog.open(LoginPageComponent);
   }
+
+  pg!: Pg;
+
 }

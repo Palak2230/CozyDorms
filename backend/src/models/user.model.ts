@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 // import { Tag } from "./Tag";
 export interface User {
-    id: number;
+    id: string;
     name: string;
     email: string;
     password: string;

@@ -7,18 +7,19 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { sample_users } from 'src/data';
 import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { NgOtpInputComponent } from 'ng-otp-input';
-import { NgOtpInputModule } from 'ng-otp-input';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { PasswordsMatchValidator } from 'src/app/shared/validators/password_match';
+
+import emailjs from '@emailjs/browser';
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
+
 
 
 export class LoginPageComponent implements OnInit {
@@ -43,25 +44,29 @@ export class LoginPageComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^([a-zA-Z0-9]+)@([a-zA-Z0-9]+).([a-zA-Z]{2,3})$'),
+          Validators.pattern('^([a-zA-Z0-9]+)@([a-zA-Z0-9]+).([a-zA-Z]{2,3})$'), Validators.email
         ],
       ],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
 
     });
 
     this.signUpForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required]],
       email: [
         '',
         [
           Validators.required,
-          Validators.pattern('^([a-zA-Z0-9]+)@([a-zA-Z0-9]+).([a-zA-Z]{2,3})$'),
+          Validators.pattern('^([a-zA-Z0-9]+)@([a-zA-Z0-9]+).([a-zA-Z]{2,3})$'), Validators.email
         ],
       ],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmpassword: ['', Validators.required],
 
-    });
+    }, {
+      validators: PasswordsMatchValidator('password', 'confirmpassword')
+    }
+    );
 
   }
   get fclogin() {
@@ -71,47 +76,39 @@ export class LoginPageComponent implements OnInit {
     return this.signUpForm.controls;
   }
   userLogin(): void {
-    if (this.loginForm.valid) {
+    if (this.loginForm.invalid) {
       console.log('required');
     }
     else {
-
-      console.log(this.fclogin.email.value, this.fclogin.password.value);
       this.userService.login({ email: this.fclogin.email.value, password: this.fclogin.password.value }).subscribe((res) => {
-        if (res) {
-          this.toastrService.success(`Welcome back to CozyDorms ${res.name}`, 'Login Successful')
-          this.userLogged = true;
-        }
-        else {
-          this.toastrService.error('Login failed');
-        }
+        this.dialogRef.close();
       });
 
     }
     this.loginForm.reset();
-    this.dialogRef.close();
+
   }
 
-  userSignUp() {
-    if (this.signUpForm.valid) {
+  userRegister() {
+    console.log(this.signUpForm);
+    if (this.signUpForm.invalid) {
       console.log('required');
     }
     else {
       this.userLogged = true;
       // console.log(this.fcsignup.email.value, this.fcsignup.password.value);
-      this.userService.signup({ email: this.fcsignup.email.value, password: this.fcsignup.password.value }).subscribe((res) => {
-        if (res) {
-          this.toastrService.error('User Already exists.');
-        }
-        else {
-          this.toastrService.success(`Welcome to CozyDorms ${this.fcsignup.name.value}`, 'Sign up Successful')
-          console.log(this.fcsignup);
-        }
+      this.userService.register({
+        name: this.fcsignup.name.value,
+        email: this.fcsignup.email.value,
+        password: this.fcsignup.password.value,
+        confirmpassword: this.fcsignup.password.value
+      }).subscribe((res) => {
+        this.dialogRef.close();
       }
       );
     }
     this.signUpForm.reset();
-    this.dialogRef.close();
+
   }
 
 
@@ -167,5 +164,33 @@ export class LoginPageComponent implements OnInit {
     this.userLogin();
   }
 
-
+  sentotp: any = Math.floor(Math.random() * 5);
+  sendotp(email: string) {
+    let templateParams = {
+      OTP: this.sentotp,
+      message: "We are glad to have you as a user !",
+      reply_to: email
+    };
+    emailjs
+      .send('service_72nvjte', 'template_agitgfz', templateParams, {
+        publicKey: 'SfoE5YvBs0oWcuRD1',
+      })
+      .then(
+        (response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        },
+        (err) => {
+          console.log('FAILED...', err);
+        },
+      );
+  }
+  otpEntered() {
+    if (this.otp == this.sentotp) {
+      this.passwordReset();
+    }
+    else {
+      //wrong otp
+    }
+  }
 }
+//tasks for today - errors and validations , compelte reset password 

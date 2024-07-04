@@ -3,8 +3,7 @@
         <mat-card-header>
             <mat-card-title>Log in</mat-card-title>
             <p style="color: gray; padding: 10px 0px;">Don't have an account ? <u (click)="isLoggedIn=!isLoggedIn"
-                    style="color: var(--primary-color-dark);">Sign
-                    Up</u></p>
+                    style="color: var(--primary-color-dark);">Register</u></p>
         </mat-card-header>
         <form class="example-form" (submit)="userLogin()" [formGroup]="loginForm">
             <mat-card-content>
@@ -35,9 +34,11 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!isLoggedIn">
     <mat-card class="box">
         <mat-card-header>
-            <mat-card-title style="margin-bottom:10px ;">Sign Up</mat-card-title>
+            <mat-card-title>Register</mat-card-title>
+            <p style="color: gray; padding: 10px 0px;">Already have an account ? <u (click)="isLoggedIn=!isLoggedIn"
+                    style="color: var(--primary-color-dark);">Login</u></p>
         </mat-card-header>
-        <form class="example-form" [formGroup]="signUpForm" (submit)="userSignUp()">
+        <form class="example-form" [formGroup]="signUpForm" (submit)="userRegister()">
             <mat-card-content>
 
                 <mat-form-field class="example-full-width">
@@ -53,6 +54,12 @@
                             [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
                     <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'"
                         formControlName="password">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <div class="password-toggle-icon" (click)="showpassword2=!showpassword2"><i
+                            [class]="showpassword2? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
+                    <input matInput placeholder="Confirm Password" [type]="showpassword2 ? 'text' : 'password'"
+                        formControlName="confirmpassword">
                 </mat-form-field>
 
 
@@ -73,10 +80,10 @@
 
 
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" type="email" [readonly]="showOtpComponent || otpverified">
+                    <input matInput placeholder="Email" type="email" [readonly]="showOtpComponent || otpverified" #c>
                 </mat-form-field>
                 <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
-                    (click)="showOtpComponent=true" *ngIf="!showOtpComponent && !otpverified">
+                    (click)="showOtpComponent=true;sendotp(c.value)" *ngIf="!showOtpComponent && !otpverified">
                     SUBMIT
                 </button>
                 <div *ngIf="showOtpComponent">
@@ -89,7 +96,7 @@
 
                 </div>
                 <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
-                    (click)="otpverified=true;showOtpComponent=false" *ngIf="showOtpComponent && !otpverified">
+                    (click)="otpverified=true;showOtpComponent=false;otpEntered()" *ngIf="showOtpComponent && !otpverified">
                     SUBMIT
                 </button>
                 <div *ngIf="otpverified">
@@ -101,7 +108,7 @@
                     <mat-form-field class="example-full-width">
                         <div class="password-toggle-icon" (click)="showpassword2=!showpassword2"><i
                                 [class]="showpassword2? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
-                        <input matInput placeholder="Comfirm password" [type]="showpassword2 ? 'text' : 'password'">
+                        <input matInput placeholder="Cofirm password" [type]="showpassword2 ? 'text' : 'password'">
                     </mat-form-field>
                     <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
                         (click)="passwordReset()">

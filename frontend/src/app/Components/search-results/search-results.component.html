@@ -75,6 +75,7 @@
                 </div>
                 <div class="pg-info">
                     <h3>{{pg.name}}</h3>
+                    <h3>{{pg.id}}</h3>
                     <span
                         style=" margin: 5px 0px; font-size: 16px; font-family: Inter,sans-serif; line-height: 25px; font-weight: 400;">{{pg.address}}
                     </span>
@@ -136,7 +137,7 @@
                         </ul>
                     </div>
                     <div class="footer">
-                        <button class="owner-details-btn">Get Owner Details</button>
+                        <button class="owner-details-btn" [routerLink]="'/results/pg/'+pg.id">Get Owner Details</button>
                         <button (click)="liked=!liked " class="like-btn">
                             <mat-icon *ngIf="!liked" style=" color: 1px  solid #355562 ;">favorite_border</mat-icon>
                             <mat-icon *ngIf="liked" style="color:var(--primary-color);">favorite</mat-icon>

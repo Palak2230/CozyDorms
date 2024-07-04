@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Pg } from '../shared/models/pg';
 
-import { PGS_URL, LOCALITIES_URL, PGS_BY_CITY_URL, LOCALITIES_BY_CITY_URL } from '../shared/constants/urls';
+import { PGS_URL, LOCALITIES_URL, PGS_BY_CITY_URL, LOCALITIES_BY_CITY_URL, PGS_BY_ID_URL } from '../shared/constants/urls';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,12 @@ export class PgService {
 
   getlocalitiesBySearch(searchTerm: string): Observable<string[]> {
     return this.http.get<string[]>(`${LOCALITIES_BY_CITY_URL}${searchTerm}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getPgById(searchTerm: string): Observable<Pg> {
+    return this.http.get<Pg>(`${PGS_BY_ID_URL}${searchTerm}`).pipe(
       catchError(this.handleError)
     );
   }

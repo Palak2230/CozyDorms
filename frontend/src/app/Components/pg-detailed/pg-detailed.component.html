@@ -8,7 +8,7 @@
 
                 </ng-container>
 
-                
+
                 <button class="control prev" (click)="onPreviousClick()">
                     <span class="arrow left"></span>
                 </button>
@@ -16,11 +16,11 @@
                     <span class="arrow right"></span>
                 </button>
             </div>
-         
+
         </div>
         <div class="header-side">
-            <div class="pg-name">Super OYO Kailash Park </div>
-            <div class="address"> Near Shivaji International Airport</div>
+            <div class="pg-name">{{pg.name}}</div>
+            <div class="address"> {{pg.address}}</div>
             <div class="rating"><span class="fa fa-star "></span>
                 <span class="fa fa-star "></span>
                 <span class="fa fa-star "></span>
@@ -48,7 +48,6 @@
                     <button>Wrong info</button>
                     <button>Listed by broker</button>
                     <button>Rented Out</button>
-
                 </div>
             </div>
         </div>
@@ -63,21 +62,21 @@ background-color: #f8f8f8;
         <div class="container">
             <div class="display">
                 <div class="heading">Room Details</div>
-               
+
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-                (matSortChange)="announceSortChange($event)">
-                
+                    (matSortChange)="announceSortChange($event)">
+
                     <ng-container matColumnDef="roomtype">
                         <th mat-header-cell *matHeaderCellDef>Room Type</th>
                         <td mat-cell *matCellDef="let room"> {{room.roomtype}} </td>
                     </ng-container>
-                 
+
                     <ng-container matColumnDef="rooms">
                         <th mat-header-cell *matHeaderCellDef>Rooms</th>
                         <td mat-cell *matCellDef="let room"> {{room.rooms}} </td>
                     </ng-container>
 
-                
+
                     <ng-container matColumnDef="vacancies">
                         <th mat-header-cell *matHeaderCellDef>Vacancies</th>
                         <td mat-cell *matCellDef="let room"> {{room.vacancies}} </td>

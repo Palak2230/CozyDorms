@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'results/:searchTerm', component: SearchResultsComponent },
   { path: 'results', component: SearchResultsComponent },
-  { path: 'pg', component: PgDetailedComponent },
+  { path: 'results/pg/:searchTerm', component: PgDetailedComponent },
   { path: 'login', component: LoginPageComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

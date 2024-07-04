@@ -30,23 +30,13 @@ router.get('/search', expressAsyncHandler(
         res.json(pgs);
     }));
 
-// router.get('/localities', expressAsyncHandler(
-//     async (req: any, res: any) => {
-//         // const searchRegex = new RegExp(req.query.q, 'i');
-//         // const pgs = await PgModel.find({ city: { $regex: searchRegex } });
-//         const localities = await PgModel.distinct('locality').find();
-//         console.log(localities);
-//         res.json(localities);
-//     }));
+router.get('/search/id', expressAsyncHandler(
+    async (req: any, res: any) => {
+        const pg = await PgModel.findById(req.query.q);
+        res.json(pg);
+    }));
 
 
-
-// router.get('/localities/search', expressAsyncHandler(
-//     async (req: any, res: any) => {
-//         const searchRegex = new RegExp(req.query.q, 'i');
-//         const localities = await PgModel.distinct('locality').find({ city: { $regex: searchRegex } });
-//         res.json(localities);
-//     }));
 router.get('/localities', expressAsyncHandler(
     async (req: any, res: any) => {
         try {
