@@ -81,5 +81,21 @@ router.post('/register', expressAsyncHandler(
         }
 
     }));
+router.post('/update-password', expressAsyncHandler(
+    async (req: any, res: any) => {
+        const { email, password } = req.body;
+
+        const user = await UserModel.findOne({ email: email.toLowerCase() });
+        if (!user) {
+            return res.status(404).send("User not found.");
+        }
+
+        const encryptedPassword = await bcrypt.hash(password, 10);
+        user.password = encryptedPassword;
+        await user.save();
+
+        res.json({ message: "Password updated successfully." });
+    }
+));
 
 export default router;

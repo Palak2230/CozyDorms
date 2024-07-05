@@ -1,126 +1,259 @@
+<!-- //login -->
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="isLoggedIn && !forgotpassword">
     <mat-card class="box">
         <mat-card-header>
             <mat-card-title>Log in</mat-card-title>
-            <p style="color: gray; padding: 10px 0px;">Don't have an account ? <u (click)="isLoggedIn=!isLoggedIn"
+            <p style="color: gray; padding: 10px 0px;">Don't have an account? <u (click)="isLoggedIn=!isLoggedIn"
                     style="color: var(--primary-color-dark);">Register</u></p>
         </mat-card-header>
         <form class="example-form" (submit)="userLogin()" [formGroup]="loginForm">
             <mat-card-content>
-
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Email" type="email" formControlName="email">
+                    <mat-error *ngIf="fclogin.email.hasError('required')">
+                        Email is required.
+                    </mat-error>
+                    <mat-error *ngIf="fclogin.email.hasError('email')">
+                        Please enter a valid email address.
+                    </mat-error>
                 </mat-form-field>
+
                 <mat-form-field class="example-full-width">
-                    <div class="password-toggle-icon" (click)="showpassword=!showpassword"><i
-                            [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
+
                     <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'"
                         formControlName="password">
+                    <div (click)="showpassword=!showpassword" matSuffix><i
+                            [class]="showpassword ? 'fa solid fa-eye' : 'fa-solid fa-eye-slash' "></i></div>
+                    <mat-error *ngIf="fclogin.password.hasError('required')">
+                        Password is required.
+                    </mat-error>
+                    <mat-error *ngIf="fclogin.password.hasError('minlength')">
+                        Password must be at least 8 characters.
+                    </mat-error>
                 </mat-form-field>
 
-                <div style="color: var(--primary-color-dark);"><u (click)="forgotpassword=true">Forgot Password</u>
+                <div style="color: var(--primary-color-dark);"><u (click)="forgotpassword=true;userforreset=true">Forgot
+                        Password</u>
                 </div>
 
-                <button mat-raised-button color="primary" style="width: 100%; height: 50px;" type="submit">
+                <button mat-raised-button color="primary" type="submit">
                     LOGIN
                 </button>
             </mat-card-content>
-            <!-- <div style="text-align: center;"> -->
-
-            <!-- </div> -->
         </form>
     </mat-card>
 </div>
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!isLoggedIn">
+<!-- //sign in -->
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center"
+    *ngIf="!isLoggedIn && !forgotpassword && !userforsignup">
     <mat-card class="box">
         <mat-card-header>
+
             <mat-card-title>Register</mat-card-title>
-            <p style="color: gray; padding: 10px 0px;">Already have an account ? <u (click)="isLoggedIn=!isLoggedIn"
+            <p style="color: gray; padding: 10px 0px;">Already have an account? <u (click)="isLoggedIn=!isLoggedIn"
                     style="color: var(--primary-color-dark);">Login</u></p>
         </mat-card-header>
+
+
+
+
         <form class="example-form" [formGroup]="signUpForm" (submit)="userRegister()">
             <mat-card-content>
-
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Name" type="text" formControlName="name">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" type="email" formControlName="email">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width">
-                    <div class="password-toggle-icon" (click)="showpassword=!showpassword"><i
-                            [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
-                    <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'"
-                        formControlName="password">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <div class="password-toggle-icon" (click)="showpassword2=!showpassword2"><i
-                            [class]="showpassword2? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
-                    <input matInput placeholder="Confirm Password" [type]="showpassword2 ? 'text' : 'password'"
-                        formControlName="confirmpassword">
-                </mat-form-field>
-
-
-                <button mat-raised-button color="primary" style="width: 100%; height: 50px;" type="submit">
-                    SIGN UP
-                </button>
-            </mat-card-content>
-        </form>
-    </mat-card>
-</div>
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="forgotpassword">
-    <mat-card class="box">
-        <mat-card-header>
-            <mat-card-title style="margin-bottom:20px ;font-size: 20px;">Reset Password</mat-card-title>
-        </mat-card-header>
-        <form class="example-form">
-            <mat-card-content>
-
-
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" type="email" [readonly]="showOtpComponent || otpverified" #c>
-                </mat-form-field>
-                <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
-                    (click)="showOtpComponent=true;sendotp(c.value)" *ngIf="!showOtpComponent && !otpverified">
-                    SUBMIT
-                </button>
-                <div *ngIf="showOtpComponent">
-                    <div style="align-items: center; font-size: 16px;margin-bottom: 20px;">Enter OTP sent to
-                        your email.</div>
-                    <div>
-                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"
-                            class="otps"></ng-otp-input>
-                    </div>
-
-                </div>
-                <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
-                    (click)="otpverified=true;showOtpComponent=false;otpEntered()" *ngIf="showOtpComponent && !otpverified">
-                    SUBMIT
-                </button>
-                <div *ngIf="otpverified">
+                <div *ngIf="!otpverified">
                     <mat-form-field class="example-full-width">
-                        <div class="password-toggle-icon" (click)="showpassword=!showpassword"><i
-                                [class]="showpassword? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
-                        <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'">
+                        <input matInput placeholder="Name" type="text" formControlName="name">
+                        <mat-error *ngIf="fcsignup.name.hasError('required') && fcsignup.name.touched">
+                            Name is required.
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="example-full-width">
-                        <div class="password-toggle-icon" (click)="showpassword2=!showpassword2"><i
-                                [class]="showpassword2? 'fa solid fa-eye' :'fa-solid fa-eye-slash' "></i></div>
-                        <input matInput placeholder="Cofirm password" [type]="showpassword2 ? 'text' : 'password'">
+                        <input matInput placeholder="Email" type="email" formControlName="email">
+                        <mat-error *ngIf="fcsignup.email.hasError('required') && fcsignup.email.touched">
+                            Email is required.
+                        </mat-error>
+                        <mat-error *ngIf="fcsignup.email.hasError('email') && fcsignup.email.touched">
+                            Please enter a valid email address.
+                        </mat-error>
                     </mat-form-field>
                     <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
-                        (click)="passwordReset()">
-                        RESET
+                        (click)="userforsignup=true;this.sendotp(this.signUpForm.controls.email.value)">
+                        NEXT &rarr;
+                    </button>
+                </div>
+                <div *ngIf="otpverified">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Email" type="email" formControlName="email"
+                            value="this.signUpForm.controls.email.value" readonly>
+
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+
+                        <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'"
+                            formControlName="password">
+                        <div (click)="showpassword=!showpassword" matSuffix><i
+                                [class]="showpassword ? 'fa solid fa-eye' : 'fa-solid fa-eye-slash' "></i></div>
+                        <mat-error *ngIf="fcsignup.password.hasError('required')">
+                            Password is required.
+                        </mat-error>
+                        <mat-error *ngIf="fcsignup.password.hasError('minlength')">
+                            Password must be at least 8 characters long.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+
+                        <input matInput placeholder="Confirm Password" [type]="showpassword2 ? 'text' : 'password'"
+                            formControlName="confirmpassword">
+                        <div (click)="showpassword2=!showpassword2" matSuffix><i
+                                [class]="showpassword2 ? 'fa solid fa-eye' : 'fa-solid fa-eye-slash' "></i></div>
+                        <mat-error *ngIf="fcsignup.confirmpassword.hasError('required')">
+                            Confirm Password is required.
+                        </mat-error>
+                        <mat-error *ngIf="this.fcsignup.confirmpassword.value !=this.fcsignup.password.value">
+                            Passwords do not match.
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" style="width: 100%; height: 50px;" type="submit"
+                        [disabled]="this.signUpForm.errors || this.fcsignup.confirmpassword.value !=this.fcsignup.password.value">
+                        SIGN UP
                     </button>
                 </div>
 
 
             </mat-card-content>
-            <!-- <div style="text-align: center;"> -->
+        </form>
+    </mat-card>
+</div>
+<!-- //verify otp -->
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="(forgotpassword )&& !otpverified">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title style="font-size: 24px;">OTP Verification</mat-card-title>
+        </mat-card-header>
+        <br>
+        <form class="example-form" [formGroup]="resetForm">
+            <mat-card-content>
+                <div *ngIf="!showOtpComponent">
+                    <h3 style="font-weight: 500;">Enter your email address</h3>
+                    <p>You will receive an email with a One-time password</p>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Email" type="email" [readonly]="showOtpComponent || otpverified"
+                            formControlName="email">
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
+                        (click)="showOtpComponent=true;sendotp(resetForm.controls.email.value)"
+                        [disabled]="this.resetForm.controls.email.errors">
+                        NEXT &rarr;
+                    </button>
+                </div>
 
-            <!-- </div> -->
+                <div *ngIf="showOtpComponent && !otpverified">
+                    <h3 style="font-weight: 500;">Enter one-time password.</h3>
+                    <p style="color: var(--primary-color-dark); font-weight: 500; margin: 0px;">Enter the 4-digit code
+                        we sent you to
+                        continue.</p>
+                    <div class="otp-group">
+                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"
+                            class="otps"></ng-otp-input>
+                    </div>
+
+                    <p style="color: var(--primary-color-dark); font-weight: 500; margin: 0px;">Not your email?<br>
+                        Didn't receive the
+                        code? <a (click)="showOtpComponent=false;"><u>Try Again</u></a>
+                    </p>
+                    <button mat-raised-button color="primary" style="width: 100%; height: 50px;" (click)="otpEntered()"
+                        [ngClass]="{'error-shake': incorrectotp}">
+                        VERIFY &rarr;
+                    </button>
+                </div>
+
+
+
+            </mat-card-content>
+        </form>
+    </mat-card>
+</div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="userforsignup&& !otpverified">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title style="font-size: 24px;">OTP Verification</mat-card-title>
+        </mat-card-header>
+        <br>
+        <form class="example-form" [formGroup]="resetForm">
+            <mat-card-content>
+
+
+                <h3 style="font-weight: 500;">Enter one-time password.</h3>
+                <p style="color: var(--primary-color-dark); font-weight: 500; margin: 0px;">Enter the 4-digit code
+                    we sent you to
+                    continue.</p>
+                <div class="otp-group">
+                    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config" class="otps"></ng-otp-input>
+                </div>
+
+                <p style="color: var(--primary-color-dark); font-weight: 500; margin: 0px;">Not your email?<br>
+                    Didn't receive the
+                    code? <a (click)="showOtpComponent=false;"><u>Try Again</u></a>
+                </p>
+                <button mat-raised-button color="primary" style="width: 100%; height: 50px;" (click)="otpEntered()"
+                    [ngClass]="{'error-shake': incorrectotp}">
+                    VERIFY &rarr;
+                </button>
+
+
+
+
+            </mat-card-content>
+        </form>
+    </mat-card>
+</div>
+
+<!-- //reset password -->
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center"
+    *ngIf="forgotpassword && otpverified && userforreset">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title style="font-size: 24px;">Reset Password</mat-card-title>
+        </mat-card-header>
+        <br>
+        <form class="example-form" [formGroup]="resetForm">
+            <mat-card-content>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" type="email" readonly [value]="resetForm.controls.email.value">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+
+                    <input matInput placeholder="Password" [type]="showpassword ? 'text' : 'password'"
+                        formControlName="password">
+                    <div (click)="showpassword=!showpassword" matSuffix><i
+                            [class]="showpassword ? 'fa solid fa-eye' : 'fa-solid fa-eye-slash' "></i></div>
+                    <mat-error *ngIf="fcupdate.password.hasError('required')">
+                        Password is required.
+                    </mat-error>
+                    <mat-error *ngIf="fcupdate.password.hasError('minlength')">
+                        Password must be at least 8 characters long.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+
+                    <input matInput placeholder="Confirm Password" [type]="showpassword2 ? 'text' : 'password'"
+                        formControlName="confirmpassword">
+                    <div (click)="showpassword2=!showpassword2" matSuffix><i
+                            [class]="showpassword2 ? 'fa solid fa-eye' : 'fa-solid fa-eye-slash' "></i></div>
+                    <mat-error *ngIf="fcupdate.confirmpassword.hasError('required')">
+                        Confirm Password is required.
+                    </mat-error>
+                    <mat-error *ngIf="this.fcupdate.confirmpassword.value !=this.fcupdate.password.value">
+                        Passwords do not match.
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" style="width: 100%; height: 50px;" (click)="passwordReset()"
+                    [disabled]="this.resetForm.errors || this.fcupdate.confirmpassword.value !=this.fcupdate.password.value ">
+                    RESET
+                </button>
+            </mat-card-content>
         </form>
     </mat-card>
 </div>

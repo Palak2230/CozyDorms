@@ -10,9 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 import { OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PasswordsMatchValidator } from 'src/app/shared/validators/password_match';
 
 import emailjs from '@emailjs/browser';
+import { inputs } from '@syncfusion/ej2-angular-dropdowns/src/drop-down-list/dropdownlist.component';
+import { PasswordsMatchValidator } from 'src/app/shared/validators/password_match.validator';
 
 @Component({
   selector: 'app-login-page',
@@ -25,6 +26,7 @@ import emailjs from '@emailjs/browser';
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
   signUpForm!: FormGroup;
+  resetForm!: FormGroup;
   isLoggedIn: boolean = true;
   showpassword: boolean = false;
   showpassword2: boolean = false;
@@ -33,6 +35,9 @@ export class LoginPageComponent implements OnInit {
   forgotpassword: boolean = false;
   otpverified: boolean = false;
   returnUrl: string = '';
+
+  userforsignup: boolean = false;
+  userforreset: boolean = false;
   constructor(
     private formBuilder: FormBuilder, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router,
     public dialogRef: MatDialogRef<LoginPageComponent>,
@@ -52,28 +57,28 @@ export class LoginPageComponent implements OnInit {
     });
 
     this.signUpForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^([a-zA-Z0-9]+)@([a-zA-Z0-9]+).([a-zA-Z]{2,3})$'), Validators.email
-        ],
-      ],
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmpassword: ['', Validators.required],
+      confirmpassword: ['', Validators.required]
+    });
 
-    }, {
-      validators: PasswordsMatchValidator('password', 'confirmpassword')
-    }
-    );
-
+    this.resetForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmpassword: ['', Validators.required]
+    });
   }
+
+
   get fclogin() {
     return this.loginForm.controls;
   }
   get fcsignup() {
     return this.signUpForm.controls;
+  }
+  get fcupdate() {
+    return this.resetForm.controls;
   }
   userLogin(): void {
     if (this.loginForm.invalid) {
@@ -95,7 +100,7 @@ export class LoginPageComponent implements OnInit {
       console.log('required');
     }
     else {
-      this.userLogged = true;
+      // this.userLogged = true;
       // console.log(this.fcsignup.email.value, this.fcsignup.password.value);
       this.userService.register({
         name: this.fcsignup.name.value,
@@ -112,22 +117,76 @@ export class LoginPageComponent implements OnInit {
   }
 
 
-  otp: any;
+
   showOtpComponent = false;
+
+  passwordReset() {
+    console.log(this.resetForm);
+
+    if (this.resetForm.errors) {
+      console.log('Form is invalid');
+      return;
+    }
+
+    const email = this.fcupdate.email.value;
+    const password = this.fcupdate.password.value;
+
+    console.log(`Email: ${email}, Password: ${password}`);
+
+    this.userService.update({ email, password }).subscribe(
+      (res) => {
+        console.log('Password update successful:', res);
+        this.isLoggedIn = true;
+        this.otpverified = false;
+        this.forgotpassword = false;
+      },
+      (err) => {
+        console.error('Error updating password:', err);
+      }
+    );
+  }
+
+
+  sentotp: number = 0;
+  sendotp(email: string) {
+    this.sentotp = Math.floor(1000 + Math.random() * 9000);
+    let templateParams = {
+      OTP: this.sentotp,
+      message: "We are glad to have you as a user !",
+      reply_to: email
+    };
+    emailjs
+      .send('service_72nvjte', 'template_agitgfz', templateParams, {
+        publicKey: 'SfoE5YvBs0oWcuRD1',
+      })
+      .then(
+        (response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        },
+        (err) => {
+          console.log('FAILED...', err);
+        },
+      );
+  }
+  // sd26859473
+
   @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
   config = {
     allowNumbersOnly: true,
-    length: 5,
+    length: 4,
     isPasswordInput: false,
     disableAutoFocus: false,
     placeholder: '',
     inputStyles: {
       'font-size': '20px',
-      'border': '2px solid #bc1c5c',
+      'border': 'none',
+      'border-bottom': '1px solid black',
       'width': '40px',
       'height': '40px',
+      'border-radius': '0px'
     }
   };
+  otp?: string;
   onOtpChange(otp: any) {
     this.otp = otp;
   }
@@ -148,49 +207,27 @@ export class LoginPageComponent implements OnInit {
 
   onConfigChange() {
     this.showOtpComponent = false;
-    this.otp = null;
+    // this.otp = null;
     setTimeout(() => {
       this.showOtpComponent = true;
     }, 0);
   }
-  passwordReset() {
-    console.log('password is reset');
-    this.isLoggedIn = false;
-    this.showpassword = false;
-    this.showpassword2 = false;
-    this.loginError = '';
-    this.forgotpassword = false;
-    this.otpverified = false;
-    this.userLogin();
-  }
-
-  sentotp: any = Math.floor(Math.random() * 5);
-  sendotp(email: string) {
-    let templateParams = {
-      OTP: this.sentotp,
-      message: "We are glad to have you as a user !",
-      reply_to: email
-    };
-    emailjs
-      .send('service_72nvjte', 'template_agitgfz', templateParams, {
-        publicKey: 'SfoE5YvBs0oWcuRD1',
-      })
-      .then(
-        (response) => {
-          console.log('SUCCESS!', response.status, response.text);
-        },
-        (err) => {
-          console.log('FAILED...', err);
-        },
-      );
-  }
+  incorrectotp: boolean = false;
   otpEntered() {
-    if (this.otp == this.sentotp) {
-      this.passwordReset();
+    if (this.otp == this.sentotp.toString()) {
+      this.otpverified = true;
+      this.showOtpComponent = false;
+      this.incorrectotp = false;
+      this.userforsignup = false;
+      this.userforreset = false;
     }
     else {
-      //wrong otp
+      this.incorrectotp = true;
+      setTimeout(() => {
+        this.incorrectotp = false;
+      }, 1000);
     }
   }
+
 }
 //tasks for today - errors and validations , compelte reset password 

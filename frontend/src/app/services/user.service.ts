@@ -4,7 +4,7 @@ import { User } from '../shared/models/User';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { HttpClient } from '@angular/common/http';
-import { USER_LOGIN_URL, USER_REGISTER_URL } from '../shared/constants/urls';
+import { USER_LOGIN_URL, USER_REGISTER_URL, USER_UPDATE_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 
 import { JsonPipe } from '@angular/common';
@@ -52,6 +52,22 @@ export class UserService {
         error: (errorResponse) => {
           this.toastrService.error(errorResponse.error,
             "Registration failed !")
+        }
+      }))
+  }
+  update(userUpdate: IUserLogin) {
+    return this.http.post<User>(USER_UPDATE_URL, userUpdate).pipe
+      (tap({
+        next: (user) => {
+          this.setuserToLocalStorage(user);
+          this.userSubject.next(user);
+          this.toastrService.success(`Password changed successfully !`
+
+          )
+        },
+        error: (errorResponse) => {
+          this.toastrService.error(errorResponse.error,
+            "No such user exist !")
         }
       }))
   }
