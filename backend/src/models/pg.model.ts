@@ -1,7 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { Tag, TagSchema } from "./tag.model";
+import { Review,ReviewSchema } from "./reviews.model";
 
-// import { Tag } from "./Tag";
+
 export interface Pg {
     id: string;
     name: string;
@@ -13,8 +14,9 @@ export interface Pg {
     stars: number;
     ratingcnt: number;
     imageUrl: string;
-
+    reviews: Review[];
 }
+
 export const PgSchema = new Schema<Pg>(
     {
         name: { type: String, required: true },
@@ -26,7 +28,7 @@ export const PgSchema = new Schema<Pg>(
         imageUrl: { type: String, required: true },
         ratingcnt: { type: Number, required: true },
         tags: { type: TagSchema, required: true },
-
+        reviews: { type: [ReviewSchema], default: [] }
     },
     {
         toJSON: {
@@ -36,7 +38,7 @@ export const PgSchema = new Schema<Pg>(
             virtuals: true,
         },
         timestamps: true
-
     }
-)
-export const PgModel = model<Pg>('pg', PgSchema);
+);
+
+export const PgModel = model<Pg>('Pg', PgSchema);

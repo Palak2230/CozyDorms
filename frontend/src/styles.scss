@@ -8,12 +8,14 @@
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 :root {
-  // --primary-color: #d6536dcf;
+  // --primary-color: #e96a7e;
+  --primary-color: rgb(204, 77, 77);
 
-  --primary-color: #e82574;
+  // --primary-color: #e82574;
 
   --primary-color-dark: #bc1c5c;
   --text-dark: #0c0a09;
+  // --text-dark: #0c0a09a5;
   --text-light: #78716c;
   --white: #ffffff;
   --max-width: 1200px;
@@ -211,6 +213,7 @@ input {
   color: black !important;
   background-color: white;
   padding: 0;
+  min-height: 0px !important;
   // border-bottom: 1px solid black !important;
 }
 // // /* Add more CSS as needed */
@@ -253,4 +256,13 @@ body {
 // .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
 //   padding-top: 14px;
 //   padding-bottom: 0px;
+// }
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+// .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+//   padding-top: 24px;
+//   padding-bottom: 8px;
 // }

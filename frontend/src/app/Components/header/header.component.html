@@ -1,2 +1,24 @@
-<p>header works!</p>
-<!-- use mat-toolbar -->
+<div class="section">
+    <div class="header">
+
+        <div class="logo">
+            <img src="../../../assets/address.png" alt="logo" (click)="searchpg('Delhi')" />
+            <p>CozyDorms</p>
+        </div>
+        <div class="input-form">
+            <div class="location">
+                <span><i class="ri-map-pin-2-fill"></i></span>
+                <mat-form-field>
+                    <input type="text" placeholder="Location" [matAutocomplete]="auto" matInput value="Mumbai"
+                        readonly />
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteroptions | async" [value]="option">
+                            {{option}}</mat-option>
+                    </mat-autocomplete></mat-form-field>
+            </div>
+        </div>
+        <button class="property">Post Your Property</button>
+        <div class="login">Login/Signup</div>
+
+    </div>
+</div>

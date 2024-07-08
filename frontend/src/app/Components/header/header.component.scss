@@ -1,3 +1,106 @@
-p {
-    background-color: yellow;
+.example-spacer {
+    flex: 1 1 auto;
+}
+.logo {
+    // margin:10px;
+    // max-width: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 10px;
+    img {
+        height: 24px;
+        width: 24px;
+    }
+    p {
+        font-family: Poppins;
+        color: black;
+        font-size: 24px;
+        color: rgba(12, 10, 9, 0.6470588235);
+        // font-weight: 700;
+    }
+}
+.header {
+    z-index: 100;
+    max-width: 100rem;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    // background: #e1e0de;
+    color: black;
+    height: 100px;
+    height: fit-content;
+    // border-bottom: 1px solid black;
+    gap: 50px;
+
+    .input-form {
+        // width: 1000px;
+        // height: 54px;
+        // background-color: white;
+
+        // margin-top: 20px;
+        border-radius: 10px;
+        align-items: center;
+
+        .location {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-top: 10px;
+            justify-content: space-between;
+            // justify-content: center;
+            span {
+                color: var(--primary-color);
+                font-size: 1.75rem;
+                padding-bottom: 20px;
+            }
+            input {
+                // padding-top:10px;
+                background-color: transparent;
+            }
+        }
+    }
+    button {
+        background-color: transparent;
+        // border: 1px solid rgba(12, 10, 9, 0.6470588235);
+        // color: rgba(12, 10, 9, 0.6470588235);
+      
+        padding: 10px;
+
+        font-size: 16px;
+        font-family: Okra, Helvetica, sans-serif;
+    }
+    .property {
+          border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        margin-left: 200px;
+    }
+    button:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    .login {
+        font-size: 18px;
+        color: rgba(12, 10, 9, 0.6470588235);
+        font-family: Okra, Helvetica, sans-serif;
+    }
+}
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding: 0 !important;
+}
+.mat-mdc-form-field-infix {
+    min-height: 20px !important;
+}
+// * {
+//     color: white;
+// }
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent !important;
+    color: black !important;
+    border-bottom: 0.5px solid black !important;
+}
+.section {
+    padding: 0px 170px;
+    // border-bottom: 1px solid var(--text-light);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 11%);
 }

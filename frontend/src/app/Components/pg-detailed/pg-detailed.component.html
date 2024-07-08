@@ -101,7 +101,6 @@ background-color: #f8f8f8;
 
 
             </div>
-            <div class="demo"></div>
         </div>
         <div class="container">
             <div class="display">
@@ -165,7 +164,7 @@ background-color: #f8f8f8;
 
                 </div>
             </div>
-            <div class="demo"></div>
+            
         </div>
 
         <div class="container">
@@ -198,7 +197,7 @@ background-color: #f8f8f8;
                         <span>20K ratings</span>
                     </div>
                 </div>
-                <div class="reviews-bars">
+                <!-- <div class="reviews-bars">
                     <div class="d-flex" style="flex-direction: column;gap: 8px;">
                         <div class="flex-grow-1">
                             <div class="row align-items-center">
@@ -295,43 +294,26 @@ background-color: #f8f8f8;
 
 
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
-        <div class="reviews-main">
-            <div class="user">
-                <div class="heading">
-                    <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
-                    <div class="name col-6">Alexander Rity</div>
-                    <div class="user-rating col-3">4.0 <span class="fa fa-star "></span></div>
-                </div>
-                <div class="user-comment">
-                    <div class="text">Great rooms ! Feels just like home . Owner is very friendly . Prices are easy on
-                        the pocket. Highly recommended !</div>
-                    <div class="images">
-                        <img src="../../../assets/room-1.jpg">
-                        <img src="../../../assets/room-1.jpg">
-                        <img src="../../../assets/room-1.jpg">
-                    </div>
-                </div>
-            </div>
-            <div class="user">
-                <div class="heading">
-                    <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
-                    <div class="name col-6">Alexander Rity</div>
-                    <div class="user-rating col-3">4.0 <span class="fa fa-star "></span></div>
-                </div>
-                <div class="user-comment">
-                    <div class="text">Great rooms ! Feels just like home . Owner is very friendly . Prices are easy on
-                        the pocket. Highly recommended !</div>
-                    <div class="images">
-                        <img src="../../../assets/room-1.jpg">
-                        <img src="../../../assets/room-1.jpg">
-                        <img src="../../../assets/room-1.jpg">
-                    </div>
-                </div>
-            </div>
 
+
+
+        <div class="reviews-main" *ngFor="let review of pg.reviews">
+            <div class="user">
+                <div class="heading">
+                    <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
+                    <div class="name col-6">{{review.user.name}}</div>
+                    <div class="user-rating col-3">{{review.rating}}<span class="fa fa-star "></span></div>
+                </div>
+                <div class="user-comment">
+                    <div class="text">{{review.comment}}</div>
+                    <div class="images" *ngFor="let img of review.imageUrls">
+                        <img [src]="img">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

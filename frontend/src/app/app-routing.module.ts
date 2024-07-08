@@ -4,6 +4,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { SearchResultsComponent } from './Components/search-results/search-results.component';
 import { PgDetailedComponent } from './Components/pg-detailed/pg-detailed.component';
 import { LoginPageComponent } from './Components/login-page/login-page.component';
+import { PgComponent } from './Components/pg/pg.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -11,7 +12,10 @@ const routes: Routes = [
   { path: 'results', component: SearchResultsComponent },
   { path: 'results/pg/:searchTerm', component: PgDetailedComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: 'pg', component: PgComponent },
+
+  { path: '', redirectTo: '/pg', pathMatch: 'full' }
+
 ];
 
 @NgModule({

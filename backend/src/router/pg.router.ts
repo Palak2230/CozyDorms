@@ -62,4 +62,17 @@ router.get('/localities/search', expressAsyncHandler(
         }
     })
 );
+
+// router.get('/reviews/search', expressAsyncHandler(
+//     async (req: any, res: any) => {
+//         try {
+//             // const searchRegex = new RegExp(req.query.q as string, 'i');
+//             const localities = await PgModel.distinct('locality', { city: { $regex: searchRegex } });
+//             res.json(localities);
+//         } catch (error) {
+//             console.error('Error searching localities:', error);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//         }
+//     })
+// );
 export default router;

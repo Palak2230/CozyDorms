@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './Components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,6 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
+import { PgComponent } from './Components/pg/pg.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +41,8 @@ import { timeout } from 'rxjs';
     SearchResultsComponent,
     PgDetailedComponent,
     HeaderComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    PgComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,8 @@ import { timeout } from 'rxjs';
     ,
     MatCardModule,
     MatButtonModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    MatToolbarModule
 
 
 
@@ -79,5 +84,6 @@ import { timeout } from 'rxjs';
   providers: [],
   bootstrap: [AppComponent]
 })
+// { provide: LocationStrategy, useClass: HashLocationStrategy }
 export class AppModule {
 }

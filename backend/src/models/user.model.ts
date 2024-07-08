@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 
-// import { Tag } from "./Tag";
 export interface User {
     id: string;
     name: string;
@@ -8,6 +7,7 @@ export interface User {
     password: string;
     isOwner: boolean;
 }
+
 export const UserSchema = new Schema<User>(
     {
         name: { type: String, required: true },
@@ -23,7 +23,7 @@ export const UserSchema = new Schema<User>(
             virtuals: true,
         },
         timestamps: true
-
     }
-)
-export const UserModel = model<User>('user', UserSchema);
+);
+
+export const UserModel = model<User>('User', UserSchema);

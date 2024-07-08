@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 
+
 declare const ScrollReveal: any;
 
 @Component({

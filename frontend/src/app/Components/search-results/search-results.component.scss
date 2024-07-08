@@ -8,6 +8,7 @@
     // overflow-y: scroll;
     // top: 0;
     // bottom: 0;
+    // margin-left: 150px;
     .filter-header {
         display: flex;
         // justify-content: space-between;
@@ -15,19 +16,19 @@
         align-items: center;
         gap: 100px;
         flex-direction: row;
-
+        margin-bottom: 24px;
         .heading {
             font-size: 30px;
             font-weight: 500;
             // font-stretch: normal;
             // line-height: 1.23;
             color: #333;
-            // margin-top: 16px;
         }
         .clearall {
             font-size: 16px;
             font-weight: 500;
-            color: #ee2a24;
+            // color: #ee2a24;
+            color: var(--primary-color);
             // text-align: right;
             cursor: pointer;
         }
@@ -38,6 +39,26 @@
         span {
             font-size: 16px;
             font-weight: bold;
+            margin-bottom: 20px;
+            // margin-top: 40px;
+        }
+        ul {
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+            li {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 10px;
+                align-items: center;
+                input {
+                    width: 16px;
+                    height: 16px;
+                }
+                label {
+                    padding-left: 10px;
+                }
+            }
         }
     }
 }
@@ -46,20 +67,28 @@
     // flex: 60%;
     align-self: flex-start;
     margin-top: 40px;
-}
-
-ul {
-    display: flex;
-    flex-direction: column;
-    li {
+    margin-left: 100px;
+    ul {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        gap: 20px;
+        li {
+            display: flex;
+            flex-direction: row;
+        }
     }
 }
+
 .pg-image {
     flex: 40%;
-    height: 3vh;
+    // height: 3vh;
+
+    // height: 100px;
     // padding: 20px;
+    img {
+        width: 400px;
+        height: 300px;
+    }
 }
 .pg-info {
     display: flex;
@@ -92,6 +121,7 @@ span {
     border: none;
     border-radius: 5px;
     padding: 4px;
+    align-items: center;
 }
 .Amenities {
     display: flex;
@@ -111,23 +141,18 @@ span {
     // justify-content: space-around;
     gap: 10px;
     margin: 20px 0px;
+    .base-price {
+        font-size: 30px;
+    }
 }
 
 .ri-flag-fill {
     color: rgba(214, 74, 74, 1);
 }
-.owner-details-btn {
-    padding: 10px 40px;
-    font-size: 16px;
-    // background-color: var(--primary-color);
-    background-color: #355562;
-    color: white;
-    font-weight: 500;
-    border: none;
-}
+
 .like-btn {
     // color: rgba(214,74,74,1);
-    padding: 5px 12px;
+    padding: 0px 12px;
     //  border: none;
     //   color: rgba(157, 141, 141, 0.953);
     // font-size: 25px;
@@ -137,14 +162,6 @@ span {
     color: rgba(157, 141, 141, 0.953);
 }
 
-.report-btn {
-    padding: 5px 12px;
-    //  border: none;
-    color: rgba(157, 141, 141, 0.953);
-    font-size: 25px;
-    background-color: white;
-    border: 1px solid rgba(157, 141, 141, 0.953);
-}
 .base-price {
     font-size: 20px;
     color: #222;
@@ -154,23 +171,49 @@ span {
 
 .features {
     margin: 10px 0px;
-    ul {
-        button {
-            padding: 7px 7px;
-            margin: 0px 8px 8px 0px;
-            color: #0f1111;
-            font-size: 16px;
-            font-weight: 400;
-            background-color: rgb(251 136 182 / 35%);
-            //    background-color: #355562;
-            border-radius: 10px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: 500;
 
-            li {
-                display: flex;
-                gap: 5px;
-            }
+    ul {
+        padding: 7px 7px;
+        margin: 0px 8px 8px 0px;
+        color: #0f1111;
+        font-size: 16px;
+        font-weight: 400;
+        background-color: transparent;
+        //    background-color: #355562;
+        border-radius: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 500;
+        display: inline;
+        align-items: center;
+        align-content: center;
+        gap: 20px;
+        display: flex;
+        flex-direction: row;
+        li {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            align-content: center;
         }
+    }
+}
+input[type="checkbox"] {
+    accent-color: var(--primary-color);
+}
+.owner-details-btn {
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 100px;
+    button {
+        background-color: white;
+        color: var(--primary-color);
+        padding: 12px 40px;
+        width: 200px;
+        border: 1px solid var(--primary-color);
+    }
+    button:hover {
+        background-color: var(--primary-color);
+
+        color: white;
     }
 }

@@ -2,6 +2,7 @@
 import { Router } from "express";
 import { sample_users } from "../data";
 import { User, UserModel } from "../models/user.model";
+import { ReviewModel } from "../models/reviews.model";
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // import jwt from 'jsonwebtoken';
@@ -97,5 +98,18 @@ router.post('/update-password', expressAsyncHandler(
         res.json({ message: "Password updated successfully." });
     }
 ));
+// router.post('/review', expressAsyncHandler(
 
+//     async (req: any, res: any) => {
+
+
+
+//         const encryptedPassword = await bcrypt.hash(password, 10);
+//         user.password = encryptedPassword;
+//         await user.save();
+
+//         res.json({ message: "Password updated successfully." });
+//     }
+
+// ));
 export default router;

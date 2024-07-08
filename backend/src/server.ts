@@ -17,7 +17,9 @@ app.use(bodyParser.json());
 app.use(cors({
     credentials: true,
     origin: ["http://localhost:4200"],
+
 }))
+
 app.use('/api/pgs', PgRouter)
 app.use('/api/users', UserRouter)
 // app.use('/api/locality', LocalityRouter)
