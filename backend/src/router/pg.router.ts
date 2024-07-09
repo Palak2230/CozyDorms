@@ -14,6 +14,8 @@ router.get('/seed', expressAsyncHandler(
         }
         await PgModel.create(sample_pgs);
         res.send('seed is done!');
+        console.log(sample_pgs);
+
     })
 );
 

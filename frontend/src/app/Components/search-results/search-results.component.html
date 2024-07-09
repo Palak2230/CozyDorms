@@ -38,6 +38,7 @@
                     </li>
                 </ul>
             </div>
+            <hr>
             <div class="filters__item">
                 <span>Room Type</span>
                 <ul>
@@ -47,6 +48,7 @@
                     </li>
                 </ul>
             </div>
+            <hr>
             <div class="filters__item">
                 <span>Ratings</span>
                 <ul>
@@ -56,15 +58,21 @@
                     </li>
                 </ul>
             </div>
+            <hr>
         </div>
     </div>
 
 
 
     <div class="pg-section ">
-
+        <div class="tags-section">
+            <ul>
+                <li *ngFor="let filter of selectedFilters">{{filter.type}}</li>
+            </ul>
+        </div>
         <ul>
             <li *ngFor="let pg of pgsample" class="pg-card">
+
                 <div class="pg-image">
                     <img [src]="pg.imageUrl" [alt]="pg.name">
                 </div>
@@ -126,7 +134,8 @@
                         <div class="Charges" style="  margin: 10px 0px;">
                             <span><span class="base-price">{{pg.price}}</span> Onwards</span>
                         </div>
-                        <div class="owner-details-btn" [routerLink]="'/results/pg/'+pg.id"><button>View Details</button>
+                        <div class="owner-details-btn" [routerLink]="'/results/pg/'+pg.id"><button>View
+                                Details</button>
                         </div>
                         <button (click)="liked=!liked " class="like-btn">
                             <mat-icon *ngIf="!liked"
@@ -136,8 +145,12 @@
                         </button>
 
                     </div>
+
                 </div>
-                <hr>
+
+
+
+
             </li>
 
         </ul>

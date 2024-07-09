@@ -1,5 +1,7 @@
 import { Tag } from "./Tag";
 import { Review } from "./Review";
+import { Rooms } from "./rooms";
+
 
 export class Pg {
     id!: string;
@@ -13,4 +15,5 @@ export class Pg {
     ratingcnt!: number;
     imageUrl !: string;
     reviews?: Review[];
+    rooms?: Rooms[];
 }

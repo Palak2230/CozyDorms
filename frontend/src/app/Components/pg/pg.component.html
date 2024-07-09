@@ -185,7 +185,7 @@
             <section>
                 <div class="info-summary">
                     <div class="info-1">
-                        <div class="pg-name">British Brewing company</div>
+                        <div class="pg-name">{{pg.name}}</div>
                         <div class="rating-type">
                         </div>
                         <div class="rating"><span class="fas fa-star "></span>
@@ -197,9 +197,9 @@
 
                     </div>
                     <div class="info-2">
-                        <p class="address">811/2 shakti nagar colony , near v-mart </p>
-                        <div></div>
-                        <div></div>
+                        <p class="address">{{pg.address}} </p>
+                        <!-- <div></div>
+                        <div></div> -->
                     </div>
                     <!-- <div class="info-3">
                         <button>
@@ -213,8 +213,7 @@
 
                         </button> -->
                     <div class="info-3">
-                        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=19.0006397338,72.8296941519"
-                            target="_blank" rel="noopener noreferrer" class="sc-kxixoS jpeQyR">
+                        <a [href]="directionlink" target="_blank" rel="noopener noreferrer" class="sc-kxixoS jpeQyR">
                             <div class="btn"><mat-icon>directions</mat-icon>
                                 <span>Direction</span>
                             </div>
@@ -392,6 +391,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- <div class="reporting">
 
                         <div class="report-text"><img src="../../../assets/warning.png">
@@ -423,9 +423,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="footer-section">
+                    <div class="heading">Neighbourhood</div>
+                    <div class="place"></div>
+                </div>
             </section>
 
-            <!-- <div class="place"></div> -->
+
 
         </div>
     </main>

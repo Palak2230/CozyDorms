@@ -42,7 +42,19 @@
   margin-bottom: 1rem;
   color: var(--text-light);
 }
+.property {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  margin-left: 700px;
+  // background-color: transparent;
+  // font-size:20px;
+}
 
+.login {
+  font-size: 18px;
+  color: rgba(12, 10, 9, 0.6470588235);
+  font-family: Okra, Helvetica, sans-serif;
+}
 .btn {
   padding: 0.75rem 1.5rem;
   outline: none;
@@ -75,8 +87,8 @@ a {
   flex-direction: row;
   align-items: center;
   img {
-    height: 45px;
-    width: 45px;
+    height: 24px;
+    width: 24px;
   }
   p {
     font-family: Poppins;
@@ -110,6 +122,20 @@ nav {
   justify-content: space-between;
   gap: 2rem;
   background-color: var(--primary-color);
+  button {
+    background-color: transparent;
+    // border: 1px solid rgba(12, 10, 9, 0.6470588235);
+    // color: rgba(12, 10, 9, 0.6470588235);
+
+    padding: 10px;
+
+    font-size: 16px;
+    font-family: Okra, Helvetica, sans-serif;
+  }
+  button:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
 }
 
 .nav__menu__btn {
@@ -152,7 +178,7 @@ nav {
 
 .header__container {
   padding-block: 12rem 15rem;
-  padding-top: 170px;
+  padding-top: 120px;
   padding-bottom: 300px;
 }
 

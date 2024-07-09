@@ -1,9 +1,9 @@
 .main {
     position: relative;
-    max-width: 110rem;
+    max-width: 140rem;
     max-height: initial;
     // margin: 1rem auto 0px;
-    margin: 10px 170px;
+    margin: 10px 140px;
 }
 
 .images-section {
@@ -918,7 +918,6 @@ html {
                 color: white;
                 font-size: 18px;
                 font-weight: 500;
-
             }
             .call {
                 // border-bottom-left-radius: 12px;
@@ -933,4 +932,23 @@ html {
 }
 .main-div {
     margin-top: 50px;
+}
+.footer-section {
+    .heading {
+        border-bottom: 2px solid var(--primary-color);
+        // border-bottom: 2px solid #fd3752;
+        display: inline-block;
+        margin: 10px;
+        color: #464646;
+        padding: 12px 5px;
+        font-size: 24px;
+
+        font-weight: 500;
+        // font-family: Poppins;
+        font-family: Okra, Helvetica, sans-serif;
+    }
+    .place{
+        margin-top: 24px;
+        // border: 1px solid black;
+    }
 }

@@ -107,11 +107,18 @@ export class SearchResultsComponent implements OnInit {
     this.getPgs();
   }
 
-
+  selectedFilters: any[] = [];
   getPgs() {
+    this.selectedFilters = [];
+    this.selectedFilters = this.selectedFilters.concat(this.selectedLocalities);
+    this.selectedFilters = this.selectedFilters.concat(this.selectedRoomsValues);
+    this.selectedFilters = this.selectedFilters.concat(this.selectedTenantsValues);
+    this.selectedFilters = this.selectedFilters.concat(this.selectedRatingsValues);
+    console.log(this.selectedFilters);
     this.pgsample = this.pgService.filter(this.pgs, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues, this.selectedLocalities);
     console.log(this.pgsample);
   }
+
   clearAll() {
     this.selectedLocalities = [];
     this.selectedRatings = [];

@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'results/:searchTerm', component: SearchResultsComponent },
   { path: 'results', component: SearchResultsComponent },
-  { path: 'results/pg/:searchTerm', component: PgDetailedComponent },
+  { path: 'results/pg/:searchTerm', component: PgComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'pg', component: PgComponent },
 

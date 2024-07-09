@@ -11,7 +11,25 @@ export const sample_pgs: any[] = [
         stars: 4.0,
         ratingcnt: 37,
         imageUrl: '../../../../assets/room-1.jpg',
-        reviews: []
+        reviews: [],
+        rooms: [
+            {
+                roomtype: 'Single Room AC',
+                rooms: 5,
+                vacancies: 7,
+                rent: 10000,
+                deposit: 7000,
+
+            },
+            {
+                roomtype: 'Double Room Non-AC',
+                rooms: 20,
+                vacancies: 12,
+                rent: 6000,
+                deposit: 4000,
+
+            }
+        ]
     },
     {
         id: '2',
@@ -24,7 +42,8 @@ export const sample_pgs: any[] = [
         stars: 3.0,
         ratingcnt: 234,
         imageUrl: '../../../../assets/room-2.jpg',
-        reviews: []
+        reviews: [],
+        rooms: []
     },
     {
         id: '3',
@@ -37,7 +56,8 @@ export const sample_pgs: any[] = [
         stars: 2.0,
         ratingcnt: 234,
         imageUrl: '../../../../assets/room-2.jpg',
-        reviews: []
+        reviews: [],
+        rooms: [],
     }
 ]
 

@@ -11,48 +11,40 @@ import { ActivatedRoute } from '@angular/router';
 import { PgService } from 'src/app/services/pg.service';
 import { Observable } from 'rxjs';
 import { Renderer2 } from '@angular/core';
-export interface RoomPrices {
-
-  roomtype: string;
-  rooms: number;
-  vacancies: number;
-  rent: number;
-  deposit: number;
-
-}
-
-const ELEMENT_DATA: RoomPrices[] = [
-  {
-    roomtype: 'Single Room AC',
-    rooms: 3,
-    vacancies: 4,
-    rent: 5000,
-    deposit: 5000
-  },
-  {
-    roomtype: 'Single Room AC',
-    rooms: 3,
-    vacancies: 4,
-    rent: 5000,
-    deposit: 5000
-  },
-  {
-    roomtype: 'Single Room AC',
-    rooms: 3,
-    vacancies: 4,
-    rent: 5000,
-    deposit: 5000
-  },
-  {
-    roomtype: 'Single Room AC',
-    rooms: 3,
-    vacancies: 4,
-    rent: 5000,
-    deposit: 5000
-  },
 
 
-];
+// const ELEMENT_DATA: RoomPrices[] = [
+//   {
+//     roomtype: 'Single Room AC',
+//     rooms: 3,
+//     vacancies: 4,
+//     rent: 5000,
+//     deposit: 5000
+//   },
+//   {
+//     roomtype: 'Single Room AC',
+//     rooms: 3,
+//     vacancies: 4,
+//     rent: 5000,
+//     deposit: 5000
+//   },
+//   {
+//     roomtype: 'Single Room AC',
+//     rooms: 3,
+//     vacancies: 4,
+//     rent: 5000,
+//     deposit: 5000
+//   },
+//   {
+//     roomtype: 'Single Room AC',
+//     rooms: 3,
+//     vacancies: 4,
+//     rent: 5000,
+//     deposit: 5000
+//   },
+
+
+// ];
 
 
 @Component({
@@ -67,8 +59,6 @@ export class PgComponent implements AfterViewInit, OnInit {
     { src: "../../../assets/room-1.jpg" },
     { src: "../../../assets/room-2.jpg" },
     { src: "../../../assets/room-3.jpg" },
-
-
   ];
   currentSlide = 0;
 
@@ -87,10 +77,10 @@ export class PgComponent implements AfterViewInit, OnInit {
     console.log("next clicked, new current slide is: ", this.currentSlide);
   }
 
-
+  pg!: Pg;
   //ROOM DETAILS
   displayedColumns: string[] = ['roomtype', 'rooms', 'vacancies', 'rent', 'deposit'];
-  dataSource = ELEMENT_DATA;
+  dataSource !: any;
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
@@ -106,12 +96,14 @@ export class PgComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.embedMap();
   }
-  address: string = '811/2 Shakti Nagar Colony , Near V-Mart , Jhansi';
+  // address: string = this.pg.address;
   embedMap(): void {
-    console.log(this.address);
-    const encodedAddress = encodeURIComponent(this.address);
+    console.log(this.pg.address);
+    const encodedAddress = encodeURIComponent(this.pg.address);
+    this.directionlink = 'https://www.google.com/maps/dir//' + encodedAddress;
+    console.log(encodedAddress);
     const embed = `
-      <iframe width='900' height='400' frameborder='0' loading='lazy'
+      <iframe width='900' height='500' frameborder='0' loading='lazy'
       scrolling='no' marginheight='0' marginwidth='0' 
       src='https://maps.google.com/maps?&amp;q=${encodedAddress}&amp;output=embed'></iframe>
     `;
@@ -122,49 +114,35 @@ export class PgComponent implements AfterViewInit, OnInit {
   }
 
 
-  // const tabs: NodeListOf<HTMLElement> = document.querySelectorAll('.tab_btn');
-  // const all_content: NodeListOf<HTMLElement> = document.querySelectorAll('.content');
-
-  // tabs.forEach((tab: HTMLElement, index: number) => {
-  //   tab.addEventListener('click', () => {
-  //     // Remove 'active' class from all tabs before adding it to the clicked one
-  //     tabs.forEach(t => t.classList.remove('active'));
-  //     tab.classList.add('active');
-  //   });
-  // });
+  directionlink: string = '';
   tabs!: NodeListOf<HTMLElement>;
   all_content!: NodeListOf<HTMLElement>;
 
-  // ngOnInit(): void {
-  //   // Assign NodeLists within ngOnInit to ensure DOM is ready
-  //   this.tabs = document.querySelectorAll('.tab_btn');
-  //   this.all_content = document.querySelectorAll('.content');
-
-  //   // Attach click event listeners to each tab
-  //   this.tabs.forEach((tab, index) => {
-  //     tab.addEventListener('click', (e: MouseEvent) => {
-  //       // Remove active class from all tabs
-  //       this.tabs.forEach(t => t.classList.remove('active'));
-  //       // Add active class to the clicked tab
-  //       tab.classList.add('active');
-
-  //       // Update line style based on the clicked tab
-  //       const target = e.target as HTMLElement;
-  //       const line = document.querySelector('.line') as HTMLElement;
-  //       if (line) {
-  //         line.style.width = target.offsetWidth + "px";
-  //         line.style.left = target.offsetLeft + "px";
-  //       }
-  //       this.all_content.forEach(content => {
-  //         content.classList.remove('active');
-  //       })
-  //       this.all_content[index].classList.add('active');
-  //     });
-  //   });
-  // }
 
   ngOnInit(): void {
     // Initially hide all tab contents except the default one
+
+
+    // this.activatedRoute.params.subscribe((params) => {
+    //   if (params.id)
+    //     this.pg = pgservice.getPgById('mumbai');
+    // })
+    let PgsObservable: Observable<Pg>;
+
+    this.activatedRoute.params.subscribe((params) => {
+
+      PgsObservable = this.pgService.getPgById(params['searchTerm']);
+      PgsObservable.subscribe((serverpgs) => {
+        this.pg = serverpgs;
+        this.dataSource = this.pg.rooms;
+        // console.log(this.dataSource);
+        console.log(this.pg);
+        // this.address = serverpgs.address;
+      });
+
+    });
+
+
     const tabContents = document.querySelectorAll('.content');
     tabContents.forEach(content => {
       (content as HTMLElement).style.display = 'none';
