@@ -5,6 +5,7 @@ import { SearchResultsComponent } from './Components/search-results/search-resul
 import { PgDetailedComponent } from './Components/pg-detailed/pg-detailed.component';
 import { LoginPageComponent } from './Components/login-page/login-page.component';
 import { PgComponent } from './Components/pg/pg.component';
+import { PropertyComponent } from './Components/property/property.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -13,8 +14,9 @@ const routes: Routes = [
   { path: 'results/pg/:searchTerm', component: PgComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'pg', component: PgComponent },
+  { path: 'property', component: PropertyComponent },
 
-  { path: '', redirectTo: '/pg', pathMatch: 'full' }
+  { path: '', redirectTo: '/property', pathMatch: 'full' }
 
 ];
 

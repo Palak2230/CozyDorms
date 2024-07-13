@@ -9,6 +9,7 @@ export class Pg {
     address!: string;
     locality!: string;
     city!: string;
+    pincode!: number;
     price!: number;
     tags?: Tag;
     stars!: number;

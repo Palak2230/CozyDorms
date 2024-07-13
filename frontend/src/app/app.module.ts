@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './Components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -34,6 +35,11 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
 import { PgComponent } from './Components/pg/pg.component';
+import { PropertyComponent } from './Components/property/property.component';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { envionment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +48,9 @@ import { PgComponent } from './Components/pg/pg.component';
     PgDetailedComponent,
     HeaderComponent,
     LoginPageComponent,
-    PgComponent
+    PgComponent,
+    PropertyComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -72,7 +80,10 @@ import { PgComponent } from './Components/pg/pg.component';
     MatCardModule,
     MatButtonModule,
     NgOtpInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatStepperModule,
+    MatProgressBarModule,
+
 
 
 

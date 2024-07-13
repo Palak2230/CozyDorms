@@ -1,0 +1,480 @@
+.property {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    height: 100vh;
+    padding: 100px;
+    justify-content: center;
+    background: var(--primary-color-light);
+}
+
+::selection {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.container {
+    max-width: 1050px;
+    width: 100%;
+    padding: 40px 50px 40px 40px;
+    background: #fff;
+    margin: 0 0px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Hide overflow in container */
+}
+
+.container .topic {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    overflow: hidden; /* Hide overflow in content */
+    justify-content: space-between;
+    height: 100%;
+}
+
+.content .list {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin-right: 50px;
+    position: sticky;
+    top: 20px; /* Keep the list sticky at the top */
+    align-self: flex-start; /* Align the list to start */
+}
+
+.content .list label {
+    height: 60px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 60px;
+    cursor: pointer;
+    padding-left: 25px;
+    transition: all 0.5s ease;
+    color: #333;
+    z-index: 12;
+}
+
+#home:checked ~ .list label.home,
+#blog:checked ~ .list label.blog,
+#help:checked ~ .list label.help,
+#code:checked ~ .list label.code,
+#about:checked ~ .list label.about {
+    color: #fff;
+}
+
+.content .list label:hover {
+    color: var(--primary-color);
+}
+
+.content .slider {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    border-radius: 12px;
+    background: var(--primary-color);
+    transition: all 0.4s ease;
+}
+
+#home:checked ~ .list .slider {
+    top: 0;
+}
+
+#blog:checked ~ .list .slider {
+    top: 60px;
+}
+
+#help:checked ~ .list .slider {
+    top: 120px;
+}
+
+#code:checked ~ .list .slider {
+    top: 180px;
+}
+
+#about:checked ~ .list .slider {
+    top: 240px;
+}
+
+.content .text-content {
+    width: 70%; /* Adjust width to take remaining space */
+    padding: 30px 20px; /* Adjust padding as needed */
+    overflow-y: auto; /* Enable vertical scroll */
+    height: 100%; /* Ensure full height */
+}
+
+.content .text {
+    display: none;
+}
+
+.content .text .title {
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.content .text p {
+    text-align: justify;
+}
+
+.content .text-content .home {
+    display: block;
+}
+
+#home:checked ~ .text-content .home,
+#blog:checked ~ .text-content .blog,
+#help:checked ~ .text-content .help,
+#code:checked ~ .text-content .code,
+#about:checked ~ .text-content .about {
+    display: block;
+}
+
+#blog:checked ~ .text-content .home,
+#help:checked ~ .text-content .home,
+#code:checked ~ .text-content .home,
+#about:checked ~ .text-content .home {
+    display: none;
+}
+
+.wrapper {
+    width: 450px;
+    padding: 10px 0;
+}
+
+.input-data {
+    height: 40px;
+    width: 100%;
+    position: relative;
+    margin: 40px 0;
+}
+
+.input-data input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 17px;
+    border-bottom: 2px solid silver;
+}
+
+.input-data textarea:focus,
+.input-data input:focus {
+    outline: none;
+}
+
+.input-data textarea {
+    height: 40px;
+    width: 100%;
+    border: none;
+    font-size: 17px;
+    border-bottom: 2px solid silver;
+}
+
+.input-data label {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.input-data .textarea-label {
+    color: white;
+}
+
+.input-data textarea:focus ~ label,
+.input-data textarea:valid ~ label {
+    transform: translateY(-40px);
+    font-size: 15px;
+    color: var(--primary-color);
+}
+
+.input-data input:focus ~ label,
+.input-data input:valid ~ label {
+    transform: translateY(-30px);
+    font-size: 15px;
+    color: var(--primary-color);
+}
+
+.input-data .underline {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.input-data .underline::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    background-color: rgba(119, 255, 0, 0.169);
+    height: 100%;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.input-data input:focus ~ .underline::before,
+.input-data input:valid ~ .underline::before,
+.input-data textarea:focus ~ .underline::before,
+.input-data textarea:valid ~ .underline::before {
+    transform: scaleX(1);
+}
+.text-2xl {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.text-gray-500 {
+    color: #6b7280;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.primary {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.grid {
+    display: grid;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem;
+}
+
+.my-4 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.md\:grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.lg\:grid-cols-6 {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+input {
+    width: 400px;
+    height: 40px;
+}
+input:focus {
+    outline: 1px solid rgba(119, 255, 0, 0.169);
+}
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.code-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.uploadlabel {
+    width: 100%;
+    min-height: 100px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed var(--primary-color-light);
+    cursor: pointer;
+    span {
+        font-size: 70px;
+        color: var(--primary-color);
+    }
+    p {
+        color: var(--primary-color);
+        font-size: 20px;
+        // font-weight: 800;
+        font-family: Okra;
+    }
+}
+.uploaded {
+    margin: 30px 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+.showfilebox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px 15px;
+    box-shadow: #0000000d 0 0 0 1px;
+    width: 250px;
+    .left {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 35px;
+        justify-content: center;
+        .filetype {
+            border-bottom: 1px solid var(--primary-color);
+            font-size: 20px;
+        }
+        h3 {
+            font-weight: 500;
+            font-size: 16px;
+            margin: 0;
+            color: black;
+        }
+    }
+    .right {
+        span {
+            width: 25px;
+            height: 25px;
+            font-size: 25px;
+            line-height: 25px;
+            display: inline-block;
+            text-align: center;
+        }
+    }
+}
+.perks {
+    margin: 30px 0;
+    .amenities-container {
+        gap: 20px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+        .amenity {
+            background-color: white;
+            border: 1px solid rgba(0, 0, 0, 0.181);
+            width: fit-content;
+            border-radius: 16px;
+            padding: 10px 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            span {
+                font-size: 14px;
+            }
+            // justify-content: center;
+        }
+    }
+}
+.room-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    .room {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+
+        .form-group {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+
+            label {
+                font-weight: bold;
+                width: 150px; /* Adjust as needed for label width */
+            }
+
+            input,
+            select {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                // flex: 1; /* Fill available space */
+                width: 100px;
+                height: 30px;
+            }
+        }
+    }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.add-room-btn {
+    background-color: #4caf50; /* Green background */
+    border: none; /* Remove border */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding inside button */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Display as inline-block */
+    font-size: 16px; /* Increase font size */
+    margin-bottom: 20px; /* Bottom margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.add-room-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+.room {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.342);
+    align-items: center;
+}
+
+.delete-room-btn {
+    background-color: var(--primary-color); /* Red background */
+    border: none; /* Remove border */
+    color: white; /* White text */
+    padding: 8px 16px; /* Padding inside button */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    font-size: 14px; /* Font size */
+    margin-bottom: 10px; /* Bottom margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+
+    align-self: flex-start; /* Align button to start of flex container */
+}
+
+.delete-room-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}

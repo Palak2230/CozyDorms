@@ -14,6 +14,9 @@
   // --primary-color: #e82574;
 
   --primary-color-dark: #bc1c5c;
+  // --primary-color-light: rgba(204, 77, 77, 0.452);
+  // --primary-color-light: rgba(204, 77, 77, 0.612);
+  --primary-color-light: rgba(204, 77, 77, 0.285);
   --text-dark: #0c0a09;
   // --text-dark: #0c0a09a5;
   --text-light: #78716c;
@@ -266,3 +269,42 @@ body {
 //   padding-top: 24px;
 //   padding-bottom: 8px;
 // }
+
+.mat-step-icon-selected {
+  background-color: var(--primary-color) !important;
+  color: var(--mat-stepper-header-selected-state-icon-foreground-color);
+}
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+  display: block;
+  font-family: var(--mat-stepper-container-text-font);
+  background: var(--white) !important;
+}
+.mat-step-label.mat-step-label-active {
+  color: black !important;
+}
+.mat-mdc-button:not(:disabled) {
+  color: black !important;
+}
+.mat-stepper-horizontal-line {
+  border-top-width: 1px;
+  border-top-style: solid;
+  flex: auto;
+  height: 0;
+  margin: 0 -16px;
+  min-width: 32px;
+  border-top-color: var(--primary-color) !important;
+}
+.mat-step-icon {
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  flex-shrink: 0;
+  position: relative;
+  color: white !important;
+  background-color: black !important;
+}
+.mat-step-icon-state-edit {
+  background-color: var(--primary-color) !important;
+  color: var(--mat-stepper-header-edit-state-icon-foreground-color);
+}

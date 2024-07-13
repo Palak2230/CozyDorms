@@ -1,0 +1,183 @@
+<div class="property">
+    <div class="container">
+        <div class="topic">New Property.</div>
+        <div class="content">
+            <input type="radio" name="slider" checked id="home" hidden>
+            <input type="radio" name="slider" id="blog" hidden>
+            <input type="radio" name="slider" id="help" hidden>
+            <input type="radio" name="slider" id="code" hidden>
+            <input type="radio" name="slider" id="about" hidden>
+            <div class="list">
+                <label for="home" class="home">
+                    <span class="title">Property Information</span>
+                </label>
+                <label for="blog" class="blog">
+                    <span class="title">Owner Details</span>
+                </label>
+                <label for="help" class="help">
+                    <span class="title">Room Amenities</span>
+                </label>
+                <label for="code" class="code">
+                    <span class="title">Upload photos</span>
+                </label>
+                <label for="about" class="about">
+                    <span class="title">Acknowledgement</span>
+                </label>
+                <div class="slider"></div>
+            </div>
+            <form class="text-content" [formGroup]="propertyForm" (ngSubmit)="formdetails()">
+                <div class="home text">
+                    <div class="wrapper">
+                        <div class="input-data">
+                            <input type="text" required formControlName="title">
+                            <div class="underline"></div>
+                            <label> Title</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="address">
+                            <div class="underline"></div>
+                            <label>Address</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="city">
+                            <div class="underline"></div>
+                            <label>City</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="pincode">
+                            <div class="underline"></div>
+                            <label>Pincode</label>
+                        </div>
+                        <div class="input-data" style="margin: 70px 0;">
+                            <textarea placeholder="Tell us something about this property "
+                                formControlName="about"></textarea>
+                            <div class="underline"></div>
+                            <label class="textarea-label">About</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog text">
+                    <div class="title">Your Details</div>
+                    <div class="wrapper">
+                        <div class="input-data">
+                            <input type="text" required formControlName="about">
+                            <div class="underline"></div>
+                            <label> Owner Full Name</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="email" required formControlName="owneremail">
+                            <div class="underline"></div>
+                            <label>Email</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="ownercontact">
+                            <div class="underline"></div>
+                            <label>Contact</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="help text">
+                    <div class="perks">
+                        <div class="title">Perks</div>
+                        <p>Select all the facilities you provide.</p>
+                        <div class="amenities-container">
+                            <div *ngFor="let item of amenitieslist">
+                                <button class="amenity" (click)="toggleAmenity(item)">
+                                    <i class="material-icons">{{item.icon}}</i>
+                                    <span>{{item.title}}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="perks">
+                        <div class="title">Rules</div>
+                        <p>Select all the rules you have.</p>
+
+
+                        <div class="amenities-container">
+                            <div *ngFor="let item of ruleslist">
+                                <button class="amenity" (click)="toggleRule(item)">
+                                    <i class="material-icons">{{item.icon}}</i>
+                                    <span>{{item.title}}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="code text">
+                    <h2 class="text-2xl mt-4">Upload Photos</h2>
+                    <p class="text-gray-500 text-sm">More = better.</p>
+                    <div class="input-bx">
+                        <form [formGroup]="uploadForm" (ngSubmit)="uploadFiles()">
+                            <input type="file" id="upload" accept=".png,.jpg,.jpeg" (change)="onFileSelected($event)"
+                                multiple hidden />
+                            <label for="upload" class="uploadlabel">
+                                <span><i class="fa fa-cloud-upload"></i></span>
+                                <p>Click to upload</p>
+                            </label>
+                            <button type="submit" [disabled]="uploadedFiles.length === 0">Upload Files</button>
+                        </form>
+                        <div id="filewrapper">
+                            <h3 class="uploaded">Uploaded documents</h3>
+                            <div *ngFor="let file of uploadedFiles" class="showfilebox">
+                                <div class="left">
+                                    <span class="filetype">{{ getFileType(file.name) }}</span>
+                                    <h3>{{ file.name }}</h3>
+                                </div>
+                                <div class="right">
+                                    <button (click)="removeFile(file)">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about text">
+                    <div id="room-prices-tab">
+                        <h2>Room Prices</h2>
+                        <button (click)="addRoom()" class="add-room-btn">Add Room</button>
+                        <div class="room-tab">
+                            <div *ngFor="let room of rooms;let i=index" class="room">
+
+                                <div class="form-group">
+                                    <label>Occupancy</label>
+                                    <input type="number" [(ngModel)]="room.occupancy">
+                                </div>
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select [(ngModel)]="room.type">
+                                        <option value="AC"> AC</option>
+                                        <option value="Non-AC"> Non-AC</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Total Number of Rooms</label>
+                                    <input type="number" [(ngModel)]="room.totalRooms">
+                                </div>
+                                <div class="form-group">
+                                    <label>Vacancies</label>
+                                    <input type="number" [(ngModel)]="room.vacancies">
+                                </div>
+                                <div class="form-group">
+                                    <label>Rent per Month</label>
+                                    <input type="number" [(ngModel)]="room.rentPerMonth">
+                                </div>
+                                <div class="form-group">
+                                    <label>Deposit to be Paid</label>
+                                    <input type="number" [(ngModel)]="room.deposit">
+                                </div>
+                                <div class="form-group">
+                                    <button class="delete-room-btn" (click)="deleteRoom(i)">Delete Room</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <button type="submit">submit</button>
+            </form>
+        </div>
+    </div>
+</div>

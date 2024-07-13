@@ -3,8 +3,8 @@ import { Tag, TagSchema } from "./tag.model";
 import { Review, ReviewSchema } from "./reviews.model";
 
 export interface Rooms {
-
-    roomtype: string;
+    occupancy: number;
+    type: string;
     rooms: number;
     vacancies: number;
     rent: number;
@@ -13,7 +13,8 @@ export interface Rooms {
 }
 export const RoomSchema = new Schema<Rooms>(
     {
-        roomtype: { type: String, required: true },
+        occupancy: { type: Number, required: true },
+        type: { type: String, required: true },
         rooms: { type: Number, required: true },
         vacancies: { type: Number, required: true },
         rent: { type: Number, required: true },

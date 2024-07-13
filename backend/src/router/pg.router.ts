@@ -1,7 +1,7 @@
 
 import { Router } from "express";
 import { sample_pgs } from "../data";
-import { PgModel } from "../models/pg.model";
+import { Pg, PgModel } from "../models/pg.model";
 const expressAsyncHandler = require("express-async-handler");
 const router = Router();
 
@@ -64,7 +64,44 @@ router.get('/localities/search', expressAsyncHandler(
         }
     })
 );
+router.post('/add', expressAsyncHandler(
+    async (req: any, res: any) => {
+        // const user = await UserModel.findOne({ email });
+        // if (user) res.status(400).send("User already exists !");
+        // else {
+        //     const encryptedPassword = await bcrypt.hash(password, 10);
+        //     const newUser: User = {
+        //         id: '',
+        //         name: name,
+        //         email: email.toLowerCase(),
+        //         password: encryptedPassword,
+        //         isOwner: false,
+        //     }
+        //     const dbuser = await UserModel.create(newUser);
+        //     // res.json(generateTokenResponse(dbuser));
+        // }
 
+        console.log(req.body);
+        const obj = req.body;
+        const newPg: Pg = {
+            id: '',
+            name: obj.title,
+            address: obj.address,
+            locality: 'de',
+            city: obj.city,
+            price: 33,
+            // tags: [''],
+            stars: 0,
+            ratingcnt: 0,
+            imageUrl: obj.images,
+            reviews: [],
+            rooms: obj.addedRooms,
+            amenities: obj.addedAmenities,
+            rules: obj.addedRules
+        }
+        const dbpg = await PgModel.create(newPg);
+        res.send(dbpg);
+    }));
 // router.get('/reviews/search', expressAsyncHandler(
 //     async (req: any, res: any) => {
 //         try {

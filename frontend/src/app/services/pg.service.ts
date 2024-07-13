@@ -2,17 +2,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Pg } from '../shared/models/pg';
-
-import { PGS_URL, LOCALITIES_URL, PGS_BY_CITY_URL, LOCALITIES_BY_CITY_URL, PGS_BY_ID_URL } from '../shared/constants/urls';
+import { ToastrService } from 'ngx-toastr';
+import { PGS_URL, LOCALITIES_URL, PGS_BY_CITY_URL, LOCALITIES_BY_CITY_URL, PGS_BY_ID_URL, ADD_PG_URL } from '../shared/constants/urls';
+import { IPg } from '../shared/interfaces/IPg';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PgService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
   getAll(): Observable<Pg[]> {
     return this.http.get<Pg[]>(PGS_URL).pipe(
@@ -43,7 +44,25 @@ export class PgService {
       catchError(this.handleError)
     );
   }
-
+  addpg(pgadd: IPg) {
+    // console.log('hey');
+    return this.http.post<Pg>(ADD_PG_URL, pgadd).pipe
+      (tap({
+        next: (pg) => {
+          // this.setuserToLocalStorage(user);
+          // this.userSubject.next(user);
+          console.log(pg);
+          this.toastrService.success(`Welcome to CozyDorms`,
+            "Registration successful !"
+          )
+          // console.log('hey');
+        },
+        error: (errorResponse) => {
+          this.toastrService.error(errorResponse.error,
+            "Registration failed !"); console.log('hey');
+        }
+      }))
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
 

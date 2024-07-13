@@ -3,6 +3,7 @@ import { Tag, TagSchema } from "./tag.model";
 import { Review, ReviewSchema } from "./reviews.model";
 
 import { Rooms, RoomSchema } from "./rooms.model";
+import { Amenity, AmenitySchema } from "./amenity.model";
 export interface Pg {
     id: string;
     name: string;
@@ -10,12 +11,13 @@ export interface Pg {
     locality: string;
     city: string;
     price: number;
-    tags?: Tag;
     stars: number;
     ratingcnt: number;
-    imageUrl: string;
+    imageUrl: string[];
     reviews: Review[];
     rooms: Rooms[];
+    amenities: Amenity[];
+    rules: Amenity[];
 }
 
 export const PgSchema = new Schema<Pg>(
@@ -26,11 +28,13 @@ export const PgSchema = new Schema<Pg>(
         city: { type: String, required: true },
         price: { type: Number, required: true },
         stars: { type: Number, required: true },
-        imageUrl: { type: String, required: true },
+        imageUrl: { type: [String], required: true },
         ratingcnt: { type: Number, required: true },
-        tags: { type: TagSchema, required: true },
+        // tags: { type: TagSchema, required: true },
         reviews: { type: [ReviewSchema], default: [] },
-        rooms: { type: [RoomSchema], default: [] }
+        rooms: { type: [RoomSchema], default: [] },
+        amenities: {type:[AmenitySchema],default:[]},
+        rules: {type:[AmenitySchema],default:[]}
     },
     {
         toJSON: {
