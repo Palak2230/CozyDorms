@@ -39,12 +39,12 @@ router.get('/search/id', expressAsyncHandler(
     }));
 
 
-router.get('/localities', expressAsyncHandler(
+router.get('/cities', expressAsyncHandler(
     async (req: any, res: any) => {
         try {
-            const localities = await PgModel.distinct('locality');
-            console.log(localities);
-            res.json(localities);
+            const cities = await PgModel.distinct('city');
+            // console.log(localities);
+            res.json(cities);
         } catch (error) {
             console.error('Error retrieving localities:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -52,18 +52,6 @@ router.get('/localities', expressAsyncHandler(
     })
 );
 
-router.get('/localities/search', expressAsyncHandler(
-    async (req: any, res: any) => {
-        try {
-            const searchRegex = new RegExp(req.query.q as string, 'i');
-            const localities = await PgModel.distinct('locality', { city: { $regex: searchRegex } });
-            res.json(localities);
-        } catch (error) {
-            console.error('Error searching localities:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    })
-);
 router.post('/add', expressAsyncHandler(
     async (req: any, res: any) => {
         // const user = await UserModel.findOne({ email });
@@ -87,10 +75,10 @@ router.post('/add', expressAsyncHandler(
             id: '',
             name: obj.title,
             address: obj.address,
-            locality: 'de',
             city: obj.city,
             price: 33,
-            // tags: [''],
+            about: obj.about,
+            tenantgender: 'female',
             stars: 0,
             ratingcnt: 0,
             imageUrl: obj.images,

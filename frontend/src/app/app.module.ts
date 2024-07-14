@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './Components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -83,6 +84,7 @@ import { envionment } from 'src/environments/environment';
     MatToolbarModule,
     MatStepperModule,
     MatProgressBarModule,
+    MatRadioModule
 
 
 

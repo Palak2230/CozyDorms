@@ -8,8 +8,9 @@ export interface Pg {
     id: string;
     name: string;
     address: string;
-    locality: string;
     city: string;
+    about: string;
+    tenantgender: string;
     price: number;
     stars: number;
     ratingcnt: number;
@@ -24,7 +25,9 @@ export const PgSchema = new Schema<Pg>(
     {
         name: { type: String, required: true },
         address: { type: String, required: true },
-        locality: { type: String, required: true },
+
+        tenantgender: { type: String, required: true },
+        about: { type: String, required: true },
         city: { type: String, required: true },
         price: { type: Number, required: true },
         stars: { type: Number, required: true },
@@ -33,8 +36,8 @@ export const PgSchema = new Schema<Pg>(
         // tags: { type: TagSchema, required: true },
         reviews: { type: [ReviewSchema], default: [] },
         rooms: { type: [RoomSchema], default: [] },
-        amenities: {type:[AmenitySchema],default:[]},
-        rules: {type:[AmenitySchema],default:[]}
+        amenities: { type: [AmenitySchema], default: [] },
+        rules: { type: [AmenitySchema], default: [] }
     },
     {
         toJSON: {

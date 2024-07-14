@@ -270,41 +270,41 @@ body {
 //   padding-bottom: 8px;
 // }
 
-.mat-step-icon-selected {
-  background-color: var(--primary-color) !important;
-  color: var(--mat-stepper-header-selected-state-icon-foreground-color);
+// For outer circle
+
+// :host::ng-deep
+//   .mat-mdc-radio-button
+//   .mdc-radio
+//   .mdc-radio__native-control:enabled:checked
+//   + .mdc-radio__background
+//   .mdc-radio__outer-circle {
+//   border-color: #e31837 !important;
+// }
+
+// //For inner circle
+
+// .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+//   border-color: rgb(66, 134, 244) !important;
+// }
+
+// .mat-radio-button.mat-accent .mat-radio-inner-circle {
+//   color: rgb(66, 134, 244);
+//   background-color: rgb(66, 134, 244) !important;
+// }
+
+// .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+//   background-color: rgb(255, 37, 37, 0.26) !important;
+// }
+.mdc-radio__native-control {
+  opacity: 1 !important;
+  // width: 20px;
+  // color: #bc1c5c;
 }
-.mat-stepper-vertical,
-.mat-stepper-horizontal {
-  display: block;
-  font-family: var(--mat-stepper-container-text-font);
-  background: var(--white) !important;
+.mat-mdc-radio-button .mdc-form-field {
+  color: black;
+  
 }
-.mat-step-label.mat-step-label-active {
-  color: black !important;
-}
-.mat-mdc-button:not(:disabled) {
-  color: black !important;
-}
-.mat-stepper-horizontal-line {
-  border-top-width: 1px;
-  border-top-style: solid;
-  flex: auto;
-  height: 0;
-  margin: 0 -16px;
-  min-width: 32px;
-  border-top-color: var(--primary-color) !important;
-}
-.mat-step-icon {
-  border-radius: 50%;
-  height: 24px;
-  width: 24px;
-  flex-shrink: 0;
-  position: relative;
-  color: white !important;
-  background-color: black !important;
-}
-.mat-step-icon-state-edit {
-  background-color: var(--primary-color) !important;
-  color: var(--mat-stepper-header-edit-state-icon-foreground-color);
-}
+// mat-mdc-radio-button mat-warn mat-mdc-radio-checked cdk-focused cdk-program-focused {
+//   color: pink !important;
+//   background-color: pink !important;
+// }

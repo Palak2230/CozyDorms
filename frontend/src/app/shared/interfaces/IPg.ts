@@ -2,8 +2,8 @@ export interface IPg {
     title: string;
     address: string;
     city: string;
-    pincode: number;
     about: string;
+    tenantgender:string;
     ownername: string;
     owneremail: string;
     ownercontact: string;

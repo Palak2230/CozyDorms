@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { async, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Pg } from 'src/app/shared/models/pg';
 import { PgService } from 'src/app/services/pg.service';
@@ -21,7 +21,7 @@ export class SearchResultsComponent implements OnInit {
   pgsample: Pg[] = [];
   localities: string[] = [];
 
-  filterOptions!: Observable<string[]>;
+  filterOptions!: Observable<Pg[]>;
   formControl = new FormControl('');
 
   constructor(
@@ -39,18 +39,17 @@ export class SearchResultsComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       if (params['searchTerm']) {
         PgsObservable = this.pgService.getAllBySearch(params['searchTerm']);
-        LocalityObservable = this.pgService.getlocalitiesBySearch(params['searchTerm']);
-
+        // LocalityObservable = this.pgService.getlocalitiesBySearch(params['searchTerm']);
       } else {
         PgsObservable = this.pgService.getAll();
-        LocalityObservable = this.pgService.getLocalities();
+        // LocalityObservable = this.pgService.getLocalities();
       }
       PgsObservable.subscribe((serverpgs) => {
         this.pgs = serverpgs;
         this.pgsample = serverpgs;
+        this.pgfiltered = serverpgs;
       });
       LocalityObservable.subscribe((serverlocalities) => {
-        console.log(serverlocalities);
         this.localities = serverlocalities;
       });
     });
@@ -59,21 +58,30 @@ export class SearchResultsComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value || ''))
     );
+    // this.pgsample = this.filterOptions;
+    this.pgsample = this._filter(this.formControl.value || '');
+    this.getPgs();
+
   }
-  private _filter(value: string): string[] {
+  show() {
+    this.pgsample = this._filter(this.formControl.value || '');
+    this.getPgs();
+  }
+  private _filter(value: string): Pg[] {
     const filterValue = value.toLowerCase();
 
-    return this.localities.filter(option => option.toLowerCase().includes(filterValue));
+    this.pgsample = this.pgs.filter(option => option.address.toLowerCase().includes(filterValue));
+    return this.pgsample;
   }
 
   tenant_type: any[] = [{ id: 1, type: 'Female' },
   { id: 2, type: 'Male' },
-  { id: 3, type: 'Any' }];
+  { id: 3, type: 'Unisex' }];
 
-  room_type: any[] = [{ id: 1, type: 'Single Room' },
-  { id: 2, type: 'Double Room' },
-  { id: 3, type: 'Triple Room' },
-  { id: 4, type: 'Other' }
+  room_type: any[] = [{ id: 1, type: 'Single Room', value: '1' },
+  { id: 2, type: 'Double Room', value: '2' },
+  { id: 3, type: 'Triple Room', value: '3' },
+  { id: 4, type: 'Other', value: 'other' }
   ];
 
   rating_type: any[] = [{ id: 1, type: '1' },
@@ -108,19 +116,19 @@ export class SearchResultsComponent implements OnInit {
   }
 
   selectedFilters: any[] = [];
+  pgfiltered: Pg[] = this.pgsample;
   getPgs() {
     this.selectedFilters = [];
-    this.selectedFilters = this.selectedFilters.concat(this.selectedLocalities);
+    // this.selectedFilters = this.selectedFilters.concat(this.selectedLocalities);
     this.selectedFilters = this.selectedFilters.concat(this.selectedRoomsValues);
     this.selectedFilters = this.selectedFilters.concat(this.selectedTenantsValues);
     this.selectedFilters = this.selectedFilters.concat(this.selectedRatingsValues);
     console.log(this.selectedFilters);
-    this.pgsample = this.pgService.filter(this.pgs, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues, this.selectedLocalities);
-    console.log(this.pgsample);
+    this.pgfiltered = this.pgService.filter(this.pgsample, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues);
+    console.log(this.pgfiltered);
   }
 
   clearAll() {
-    this.selectedLocalities = [];
     this.selectedRatings = [];
     this.selectedRooms = [];
     this.selectedTenants = [];

@@ -8,6 +8,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PgService } from 'src/app/services/pg.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Pg } from 'src/app/shared/models/pg';
 
 
 
@@ -112,14 +113,30 @@ export class HomeComponent implements OnInit {
   options: string[] = ['Mumbai', 'Delhi', 'Pune'];
   filteroptions !: Observable<string[]>;
   formcontrol = new FormControl('');
+  cities: string[] = [];
   ngOnInit(): void {
+
+    // let PgsObservable: Observable<Pg[]>;
+    let CityObservable: Observable<string[]>;
+    this.activatedRoute.params.subscribe((params) => {
+
+
+      CityObservable = this.pgService.getCities();
+
+
+      CityObservable.subscribe((serverlocalities) => {
+        this.cities = serverlocalities;
+        console.log(serverlocalities);
+      });
+    });
+
     this.filteroptions = this.formcontrol.valueChanges.pipe(
       startWith(''), map(value => this._FILTER(value || ''))
     );
   }
   private _FILTER(value: string) {
     const searchvalue = value.toLocaleLowerCase();
-    return this.options.filter(option => option.toLocaleLowerCase().includes(searchvalue));
+    return this.cities.filter(option => option.toLocaleLowerCase().includes(searchvalue));
   }
   formatLabel(value: number): string {
     if (value >= 1000) {
@@ -132,7 +149,7 @@ export class HomeComponent implements OnInit {
   constructor(private renderer: Renderer2, private pgService: PgService, private activatedRoute: ActivatedRoute, private router: Router) {
 
   }
-  
+
   searchpg(term: string): void {
     if (term) {
       this.router.navigateByUrl('/results/' + term);

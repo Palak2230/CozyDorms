@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+// import { Rooms } from 'src/app/shared/models/rooms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { validateBasis } from '@angular/flex-layout';
 import { PgService } from 'src/app/services/pg.service';
+import { Rooms } from 'src/app/shared/models/rooms';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 interface Amenity {
   icon: string;
   title: string;
@@ -13,15 +15,7 @@ interface Rule {
   icon: string;
   title: string;
 }
-interface Room {
-  id: number;
-  occupancy: number;
-  type: string;
-  totalRooms: number;
-  vacancies: number;
-  rentPerMonth: number;
-  deposit: number;
-}
+
 @Component({
   selector: 'app-property',
   templateUrl: './property.component.html',
@@ -30,27 +24,15 @@ interface Room {
     {
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
-    },
+    }, {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'warn' },
+    }
   ],
 })
-export class PropertyComponent {
-  rooms: Room[] = [];
+export class PropertyComponent implements OnInit {
+  // rooms: Rooms[] = [];
   roomIdCounter = 1;
-  addRoom(): void {
-    this.rooms.push({
-      id: this.roomIdCounter++,
-      occupancy: 0,
-      type: '',
-      totalRooms: 0,
-      vacancies: 0,
-      rentPerMonth: 0,
-      deposit: 0
-    });
-    console.log(this.rooms);
-  }
-  deleteRoom(index: number): void {
-    this.rooms.splice(index, 1);
-  }
   amenitieslist: Amenity[] = [
     { icon: 'wifi', title: 'Free Wi-fi' },
     { icon: 'tv', title: 'Tv' },
@@ -77,59 +59,102 @@ export class PropertyComponent {
 
   addedAmenities: Amenity[] = [];
   addedRules: Rule[] = [];
+  imageurls: any;
+  uploadedFiles: File[] = [];
+  imageUrls: any[] = [];
+  uploadForm: FormGroup;
+  propertyForm !: FormGroup;
+
+  constructor(private fb: FormBuilder, private http: HttpClient, private pgservice: PgService) {
+    this.uploadForm = this.fb.group({
+      files: ['']
+    });
+
+    this.propertyForm = this.fb.group({
+      title: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      tenantgender: ['', Validators.required],
+      about: ['', Validators.required],
+      ownername: ['', Validators.required],
+      owneremail: ['', [Validators.required, Validators.email]],
+      ownercontact: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      addedAmenities: [this.addedAmenities],
+      addedRules: [this.addedRules],
+      roomsgroup: this.fb.array([]) // Initialize FormArray for rooms
+    });
+  }
+
+  ngOnInit(): void {
+    console.log(this.propertyForm.invalid);
+  }
+
+  get roomsgroup(): FormArray {
+    // return this.propertyForm.get('roomsgroup') as FormArray;
+    return this.propertyForm.controls["roomsgroup"] as FormArray;
+  }
+  // get roomsform(): FormGroup {
+  //   return this.roomsgroup
+  // }
+  addRoom(): void {
+    const roomGroup = this.fb.group({
+      occupancy: [0, Validators.required],
+      type: ['AC', Validators.required],
+      rooms: [0, Validators.required],
+      vacancies: [0, Validators.required],
+      rent: [0, Validators.required],
+      deposit: [0, Validators.required]
+    });
+    this.roomsgroup.push(roomGroup);
+    // this.roomsgroup.push(this.fb.group(new Rooms()));
+  }
+
+  deleteRoom(index: number): void {
+    this.roomsgroup.removeAt(index);
+  }
 
   moveToNextStep(step: string) {
     document.getElementById(step)?.click();
   }
-  imageurls: any;
+
   formdetails() {
     const formData: FormData = new FormData();
     this.uploadedFiles.forEach(file => {
       formData.append('files', file, file.name);
     });
-    console.log(this.uploadedFiles);
+
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
     this.http.post('http://localhost:5000/upload/multiple', formData, { headers })
       .subscribe((response: any) => {
-        // console.log('Upload response:', response);
-
-        // console.log(response.files);
-        // this.imageUrls = response.files;
-        // this.propertyForm.controls.imageUrls.setValue(response.files.map((file: any) => file.downloadURL))
-        // .map((file: any) => {
-        //   file.downloadURL;
-        // })
         this.imageurls = response.files.map((file: any) => file.downloadURL);
         this.nowsubmit();
-        // this.propertyForm.addControl('imageUrls', response.files.map((file: any) => file.downloadURL));
       }, error => {
         console.error('Upload error:', error);
       });
-
-    // console.log(this.propertyForm.controls.imageUrls);
-    // console.log(this.propertyForm.value);
-
   }
+
   nowsubmit() {
-    // console.log(this.propertyForm.controls.title.value);
-    const title = this.propertyForm.controls.title.value;
-    const address = this.propertyForm.controls.address.value;
-    const about = this.propertyForm.controls.about.value;
-    const city = this.propertyForm.controls.city.value;
-    const pincode = this.propertyForm.controls.pincode.value;
-    const ownername = this.propertyForm.controls.ownername.value;
-    const ownercontact = this.propertyForm.controls.ownercontact.value;
-    const owneremail = this.propertyForm.controls.owneremail.value;
-    const addedRooms = this.propertyForm.controls.addedRooms.value;
-    const addedAmenities = this.propertyForm.controls.addedAmenities.value;
-    const addedRules = this.propertyForm.controls.addedRules.value;
+    const { title, address, about, city, tenantgender, ownername, ownercontact, owneremail } = this.propertyForm.controls;
+    const addedRooms = this.propertyForm.get('roomsgroup')?.value;
+    const addedAmenities = this.addedAmenities;
+    const addedRules = this.addedRules;
     const images = this.imageurls;
-    // console.log({ title, address, about, city, pincode, ownername, ownercontact, owneremail, addedRooms, addedAmenities, addedRules, images })
-    // console.log(this.propertyForm.value);
+
     this.pgservice.addpg({
-      title, address, about, city, pincode, ownercontact, owneremail, ownername, addedAmenities, addedRooms, addedRules, images
+      title: title.value,
+      address: address.value,
+      city: city.value,
+      about: about.value,
+      tenantgender: tenantgender.value,
+      ownername: ownername.value,
+      ownercontact: ownercontact.value,
+      owneremail: owneremail.value,
+      addedAmenities,
+      addedRooms,
+      addedRules,
+      images
     }).subscribe({
       next: (res) => {
         console.log('Property addition successful:', res);
@@ -138,35 +163,13 @@ export class PropertyComponent {
         console.error('Error adding property:', err);
       }
     });
-    // console.log('Property addition successful:');
-  }
-  uploadForm: FormGroup;
-  propertyForm !: FormGroup;
-  uploadedFiles: File[] = [];
-  imageUrls: any[] = [];
-  constructor(private fb: FormBuilder, private http: HttpClient, private pgservice: PgService) {
-    this.uploadForm = this.fb.group({
-      files: ['']
-    });
-    this.propertyForm = this.fb.group({
-      title: ['', Validators.required],
-      address: ['', Validators.required],
-      city: ['', Validators.required],
-      pincode: ['', Validators.required],
-      about: ['', Validators.required],
-      ownername: ['', Validators.required],
-      owneremail: ['', Validators.required],
-      ownercontact: ['', Validators.required],
-      addedAmenities: [this.addedAmenities, Validators.required],
-      addedRules: [this.addedRules, Validators.required],
-      // imageUrls: [[''], Validators.required],
-      addedRooms: [this.rooms, Validators.required]
-    })
   }
 
   onFileSelected(event: any): void {
     const files: FileList = event.target.files;
-    this.uploadedFiles.push(files[0]);
+    for (let i = 0; i < files.length; i++) {
+      this.uploadedFiles.push(files[i]);
+    }
     console.log(this.uploadedFiles);
   }
 
@@ -182,12 +185,8 @@ export class PropertyComponent {
     this.uploadedFiles = this.uploadedFiles.filter(f => f !== file);
   }
 
-  numSequence(n: number): Array<number> {
-    return Array(n);
-  }
-
   uploadFiles(): void {
-
+    // Implement upload logic here
   }
 
   toggleAmenity(amenity: Amenity): void {
@@ -206,5 +205,19 @@ export class PropertyComponent {
     } else {
       this.addedRules.push(rule);
     }
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.propertyForm.get(controlName);
+    if (control && control.touched && control.invalid) {
+      if (control.errors?.required) {
+        return 'This field is required';
+      } else if (control.errors?.email) {
+        return 'Enter a valid email';
+      } else if (control.errors?.pattern) {
+        return 'Enter a valid contact number';
+      }
+    }
+    return '';
   }
 }

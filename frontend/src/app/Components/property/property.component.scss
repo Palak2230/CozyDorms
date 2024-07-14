@@ -21,19 +21,32 @@
     border-radius: 12px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     overflow: hidden; /* Hide overflow in container */
+    .headers {
+        display: flex;
+        gap: 600px;
+        align-items: center;
+        .topic {
+            font-size: 30px;
+            font-weight: 500;
+            // margin-bottom: 20px;
+        }
+        button {
+            background-color: black;
+            color: white;
+            height: 40px;
+            padding: 10px;
+            width: 100px;
+            font-size: 18px;
+        }
+    }
 }
 
-.container .topic {
-    font-size: 30px;
-    font-weight: 500;
-    margin-bottom: 20px;
-}
-
-.content {
+.container .content {
     display: flex;
     overflow: hidden; /* Hide overflow in content */
     justify-content: space-between;
     height: 100%;
+    margin-top: 20px;
 }
 
 .content .list {
@@ -103,13 +116,14 @@
 
 .content .text-content {
     width: 70%; /* Adjust width to take remaining space */
-    padding: 30px 20px; /* Adjust padding as needed */
+    padding: 10px 20px; /* Adjust padding as needed */
     overflow-y: auto; /* Enable vertical scroll */
     height: 100%; /* Ensure full height */
 }
 
 .content .text {
     display: none;
+    margin: 30px 0;
 }
 
 .content .text .title {
@@ -143,7 +157,7 @@
 
 .wrapper {
     width: 450px;
-    padding: 10px 0;
+    // padding: 10px 0;
 }
 
 .input-data {
@@ -364,7 +378,7 @@ li {
     }
 }
 .perks {
-    margin: 30px 0;
+    margin-bottom: 50px;
     .amenities-container {
         gap: 20px;
         display: flex;
@@ -421,7 +435,7 @@ li {
                 border-radius: 4px;
                 // flex: 1; /* Fill available space */
                 width: 100px;
-                height: 30px;
+                height: 40px;
             }
         }
     }
@@ -431,6 +445,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .add-room-btn {
     background-color: #4caf50; /* Green background */
     border: none; /* Remove border */
@@ -440,7 +455,7 @@ input::-webkit-inner-spin-button {
     text-decoration: none; /* Remove underline */
     display: inline-block; /* Display as inline-block */
     font-size: 16px; /* Increase font size */
-    margin-bottom: 20px; /* Bottom margin */
+    // margin-bottom: 20px; /* Bottom margin */
     cursor: pointer; /* Pointer cursor on hover */
     border-radius: 5px; /* Rounded corners */
     transition: background-color 0.3s ease; /* Smooth transition */
@@ -478,3 +493,9 @@ input::-webkit-inner-spin-button {
 .delete-room-btn:hover {
     background-color: #d32f2f; /* Darker red on hover */
 }
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 16px;
+    color: pink !important;
+}
+//For inner circle

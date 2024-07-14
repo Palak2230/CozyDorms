@@ -7,28 +7,30 @@
                 Filters
             </span>
             <a class="clearall" (click)="clearAll()">Clear All</a>
+
+        </div>
+        <div class="filters__item">
+            <span>Add popular locations</span>
+            <!-- <mat-form-field>
+                <input type="text">
+            </mat-form-field> -->
+            <mat-form-field appearance="fill">
+                <input type="text" matInput [formControl]="formControl" [matAutocomplete]="auto" style="color: black;">
+
+                <mat-autocomplete #auto="matAutocomplete" disableRipple="true">
+                    <mat-option *ngFor="let option of filterOptions | async" [value]="option.address">
+                        {{ option.address}}
+                    </mat-option>
+                </mat-autocomplete>
+
+
+            </mat-form-field>
+            <button (click)="show()" class="search-btn">SEARCH</button>
+
+
         </div>
         <div class="filters__wrapper">
-            <div class="filters__item">
-                <span>Add popular locations</span>
-                <!-- <mat-form-field>
-                    <input type="text">
-                </mat-form-field> -->
-                <mat-form-field appearance="fill">
-                    <input type="text" matInput [formControl]="formControl" [matAutocomplete]="auto"
-                        style="color: black;">
 
-                    <mat-autocomplete #auto="matAutocomplete" disableRipple="true">
-                        <mat-option *ngFor="let option of filterOptions | async" [value]="option">
-                            {{ option}}
-                        </mat-option>
-                    </mat-autocomplete>
-
-
-                </mat-form-field>
-
-
-            </div>
             <div class="filters__item">
                 <span>Occupancy</span>
                 <ul>
@@ -38,7 +40,7 @@
                     </li>
                 </ul>
             </div>
-            <hr>
+            <!-- <div class="line">--</div> -->
             <div class="filters__item">
                 <span>Room Type</span>
                 <ul>
@@ -48,7 +50,7 @@
                     </li>
                 </ul>
             </div>
-            <hr>
+            <!-- <hr> -->
             <div class="filters__item">
                 <span>Ratings</span>
                 <ul>
@@ -58,20 +60,20 @@
                     </li>
                 </ul>
             </div>
-            <hr>
+            <!-- <hr> -->
         </div>
     </div>
 
 
 
     <div class="pg-section ">
-        <div class="tags-section">
+        <!-- <div class="tags-section">
             <ul>
                 <li *ngFor="let filter of selectedFilters">{{filter.type}}</li>
             </ul>
-        </div>
+        </div> -->
         <ul>
-            <li *ngFor="let pg of pgsample" class="pg-card">
+            <li *ngFor="let pg of pgfiltered" class="pg-card">
 
                 <div class="pg-image">
                     <img [src]="pg.imageUrl" [alt]="pg.name">
@@ -92,7 +94,7 @@
 
 
 
-                    <div class="features">
+                    <!-- <div class="features">
                         <ul>
 
 
@@ -129,7 +131,7 @@
 
 
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="footer">
                         <div class="Charges" style="  margin: 10px 0px;">
                             <span><span class="base-price">{{pg.price}}</span> Onwards</span>

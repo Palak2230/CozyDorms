@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Pg } from '../shared/models/pg';
 import { ToastrService } from 'ngx-toastr';
-import { PGS_URL, LOCALITIES_URL, PGS_BY_CITY_URL, LOCALITIES_BY_CITY_URL, PGS_BY_ID_URL, ADD_PG_URL } from '../shared/constants/urls';
+import { PGS_URL, PGS_BY_CITY_URL, PGS_BY_ID_URL, ADD_PG_URL, CITIES_URL } from '../shared/constants/urls';
 import { IPg } from '../shared/interfaces/IPg';
 
 @Injectable({
@@ -21,11 +21,13 @@ export class PgService {
     );
   }
 
-  getLocalities(): Observable<string[]> {
-    return this.http.get<string[]>(LOCALITIES_URL).pipe(
+  getCities(): Observable<string[]> {
+    console.log('');
+    return this.http.get<string[]>(CITIES_URL).pipe(
       catchError(this.handleError)
     );
   }
+
 
   getAllBySearch(searchTerm: string): Observable<Pg[]> {
     return this.http.get<Pg[]>(`${PGS_BY_CITY_URL}${searchTerm}`).pipe(
@@ -33,11 +35,11 @@ export class PgService {
     );
   }
 
-  getlocalitiesBySearch(searchTerm: string): Observable<string[]> {
-    return this.http.get<string[]>(`${LOCALITIES_BY_CITY_URL}${searchTerm}`).pipe(
-      catchError(this.handleError)
-    );
-  }
+  // getlocalitiesBySearch(searchTerm: string): Observable<string[]> {
+  //   return this.http.get<string[]>(`${LOCALITIES_BY_CITY_URL}${searchTerm}`).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
 
   getPgById(searchTerm: string): Observable<Pg> {
     return this.http.get<Pg>(`${PGS_BY_ID_URL}${searchTerm}`).pipe(
@@ -79,24 +81,25 @@ export class PgService {
 
 
 
-  filter(pgs: Pg[], selectedTenantsValues: any, selectedRoomsValues: any, selectedRatingsValues: any, selectedLocalities: any): Pg[] {
+  filter(pgs: Pg[], selectedTenantsValues: any, selectedRoomsValues: any, selectedRatingsValues: any): Pg[] {
 
     let pgsample = pgs;
-    if (selectedLocalities.length != 0) {
-      pgsample = pgsample.filter(function (item) {
-        for (let locality of selectedLocalities) {
-          if (item.locality === locality) {
-            return true;
-          }
-        }
-        return false;
-      });
-    }
+    // if (selectedLocalities.length != 0) {
+    //   pgsample = pgsample.filter(function (item) {
+    //     for (let locality of selectedLocalities) {
+    //       if (item.locality === locality) {
+    //         return true;
+    //       }
+    //     }
+    //     return false;
+    //   });
+    // }
     if (selectedTenantsValues.length != 0) {
       pgsample = pgsample.filter(function (item) {
 
         for (let tenant of selectedTenantsValues) {
-          if (item.tags?.tenantType.includes(tenant.type)) {
+
+          if (item.tenantgender && item.tenantgender.includes(tenant.type)) {
             return true;
           }
         }
@@ -106,10 +109,14 @@ export class PgService {
     if (selectedRoomsValues.length != 0) {
       pgsample = pgsample.filter(function (item) {
         for (let room of selectedRoomsValues) {
-          if (item.tags?.roomsOccupancy.includes(room.type)) {
-            return true;
+          for (let i of item.rooms) {
+            if (i.occupancy == room.value) {
+              return true;
+            }
+            if (room.value == 'others' && i.occupancy > 3) return true;
           }
         }
+
         return false;
       });
     }

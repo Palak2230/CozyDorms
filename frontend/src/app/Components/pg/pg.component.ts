@@ -13,38 +13,6 @@ import { Observable } from 'rxjs';
 import { Renderer2 } from '@angular/core';
 
 
-// const ELEMENT_DATA: RoomPrices[] = [
-//   {
-//     roomtype: 'Single Room AC',
-//     rooms: 3,
-//     vacancies: 4,
-//     rent: 5000,
-//     deposit: 5000
-//   },
-//   {
-//     roomtype: 'Single Room AC',
-//     rooms: 3,
-//     vacancies: 4,
-//     rent: 5000,
-//     deposit: 5000
-//   },
-//   {
-//     roomtype: 'Single Room AC',
-//     rooms: 3,
-//     vacancies: 4,
-//     rent: 5000,
-//     deposit: 5000
-//   },
-//   {
-//     roomtype: 'Single Room AC',
-//     rooms: 3,
-//     vacancies: 4,
-//     rent: 5000,
-//     deposit: 5000
-//   },
-
-
-// ];
 
 
 @Component({
@@ -79,7 +47,7 @@ export class PgComponent implements AfterViewInit, OnInit {
 
   pg!: Pg;
   //ROOM DETAILS
-  displayedColumns: string[] = ['roomtype', 'rooms', 'vacancies', 'rent', 'deposit'];
+  displayedColumns: string[] = ['occupancy', 'roomtype', 'rooms', 'vacancies', 'rent', 'deposit'];
   dataSource !: any;
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports

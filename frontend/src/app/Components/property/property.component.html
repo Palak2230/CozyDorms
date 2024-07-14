@@ -1,6 +1,12 @@
 <div class="property">
     <div class="container">
-        <div class="topic">New Property.</div>
+        <div class="headers">
+            <div class="topic">New Property.</div>
+            <button type="submit"
+                [disabled]="propertyForm.controls.addedAmenities.invalid || addedAmenities.length ==0 || addedRules.length==0 || uploadedFiles.length==0 "
+                (click)="formdetails()">SUBMIT</button>
+        </div>
+
         <div class="content">
             <input type="radio" name="slider" checked id="home" hidden>
             <input type="radio" name="slider" id="blog" hidden>
@@ -25,9 +31,10 @@
                 </label>
                 <div class="slider"></div>
             </div>
-            <form class="text-content" [formGroup]="propertyForm" (ngSubmit)="formdetails()">
+            <form class="text-content" [formGroup]="propertyForm">
                 <div class="home text">
                     <div class="wrapper">
+                        <div class="title">Property Details</div>
                         <div class="input-data">
                             <input type="text" required formControlName="title">
                             <div class="underline"></div>
@@ -44,9 +51,14 @@
                             <label>City</label>
                         </div>
                         <div class="input-data">
-                            <input type="text" required formControlName="pincode">
-                            <div class="underline"></div>
-                            <label>Pincode</label>
+                            <!-- <input type="text" required formControlName="tenantgender">
+                             <div class="underline"></div> -->
+                            <div style="color: var(--primary-color);margin-bottom: 10px;">Tenant Type</div>
+                            <mat-radio-group aria-label="Select an option" formControlName="tenantgender">
+                                <mat-radio-button value="1">Male</mat-radio-button>
+                                <mat-radio-button value="2">Female</mat-radio-button>
+                                <mat-radio-button value="2">Unisex</mat-radio-button>
+                            </mat-radio-group>
                         </div>
                         <div class="input-data" style="margin: 70px 0;">
                             <textarea placeholder="Tell us something about this property "
@@ -107,7 +119,8 @@
 
                 </div>
                 <div class="code text">
-                    <h2 class="text-2xl mt-4">Upload Photos</h2>
+                    <div class="title">Upload Photos</div>
+
                     <p class="text-gray-500 text-sm">More = better.</p>
                     <div class="input-bx">
                         <form [formGroup]="uploadForm" (ngSubmit)="uploadFiles()">
@@ -117,7 +130,6 @@
                                 <span><i class="fa fa-cloud-upload"></i></span>
                                 <p>Click to upload</p>
                             </label>
-                            <button type="submit" [disabled]="uploadedFiles.length === 0">Upload Files</button>
                         </form>
                         <div id="filewrapper">
                             <h3 class="uploaded">Uploaded documents</h3>
@@ -135,48 +147,55 @@
                 </div>
                 <div class="about text">
                     <div id="room-prices-tab">
-                        <h2>Room Prices</h2>
-                        <button (click)="addRoom()" class="add-room-btn">Add Room</button>
-                        <div class="room-tab">
-                            <div *ngFor="let room of rooms;let i=index" class="room">
+                        <div style="display: flex;align-items: center; flex-direction: row;gap: 300px;">
+                            <div class="title">Room Prices</div>
 
-                                <div class="form-group">
-                                    <label>Occupancy</label>
-                                    <input type="number" [(ngModel)]="room.occupancy">
-                                </div>
-                                <div class="form-group">
-                                    <label>Type</label>
-                                    <select [(ngModel)]="room.type">
-                                        <option value="AC"> AC</option>
-                                        <option value="Non-AC"> Non-AC</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Total Number of Rooms</label>
-                                    <input type="number" [(ngModel)]="room.totalRooms">
-                                </div>
-                                <div class="form-group">
-                                    <label>Vacancies</label>
-                                    <input type="number" [(ngModel)]="room.vacancies">
-                                </div>
-                                <div class="form-group">
-                                    <label>Rent per Month</label>
-                                    <input type="number" [(ngModel)]="room.rentPerMonth">
-                                </div>
-                                <div class="form-group">
-                                    <label>Deposit to be Paid</label>
-                                    <input type="number" [(ngModel)]="room.deposit">
-                                </div>
-                                <div class="form-group">
-                                    <button class="delete-room-btn" (click)="deleteRoom(i)">Delete Room</button>
+                            <button (click)="addRoom()" class="add-room-btn">Add Room</button>
+                        </div>
+
+                        <div class="room-tab" formArrayName="roomsgroup">
+                            <div *ngFor="let rooms of roomsgroup.controls;let i=index" style="margin-top: 20px;">
+                                <div [formGroupName]="i" class="room">
+                                    <div class="form-group">
+                                        <label>Occupancy</label>
+                                        <input type="number" formControlName="occupancy">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <select formControlName="type">
+                                            <option value="AC"> AC</option>
+                                            <option value="Non-AC"> Non-AC</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total Number of Rooms</label>
+                                        <input type="number" formControlName="rooms">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Vacancies</label>
+                                        <input type="number" formControlName="vacancies">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rent per Month</label>
+                                        <input type="number" formControlName="rent">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Deposit to be Paid</label>
+                                        <input type="number" formControlName="deposit">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="delete-room-btn" (click)="deleteRoom(i)">Delete Room</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+
+
                     </div>
 
                 </div>
-                <button type="submit">submit</button>
+
             </form>
         </div>
     </div>
