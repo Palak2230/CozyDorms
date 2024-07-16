@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './Components/home/home.component';
 import { SearchResultsComponent } from './Components/search-results/search-results.component';
-import { PgDetailedComponent } from './Components/pg-detailed/pg-detailed.component';
+
 import { LoginPageComponent } from './Components/login-page/login-page.component';
 import { PgComponent } from './Components/pg/pg.component';
 import { PropertyComponent } from './Components/property/property.component';
+import { YourpropertyComponent } from './Components/yourproperty/yourproperty.component';
+import { EditpropertyComponent } from './Components/editproperty/editproperty.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -15,8 +17,10 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'pg', component: PgComponent },
   { path: 'property', component: PropertyComponent },
+  { path: 'editpg/:searchTerm', component: EditpropertyComponent },
+  { path: 'yourproperty', component: YourpropertyComponent },
 
-  { path: '', redirectTo: '/property', pathMatch: 'full' }
+  { path: '', redirectTo: '/yourproperty', pathMatch: 'full' }
 
 ];
 

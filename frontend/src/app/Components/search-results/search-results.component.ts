@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { async, Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, min, startWith } from 'rxjs/operators';
 import { Pg } from 'src/app/shared/models/pg';
 import { PgService } from 'src/app/services/pg.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
+import { Rooms } from 'src/app/shared/models/rooms';
 
 @Component({
   selector: 'app-search-results',
@@ -32,7 +33,7 @@ export class SearchResultsComponent implements OnInit {
 
   }
 
-
+  pgrating: number = 0;
   ngOnInit(): void {
     let PgsObservable: Observable<Pg[]>;
     let LocalityObservable: Observable<string[]>;
@@ -48,6 +49,7 @@ export class SearchResultsComponent implements OnInit {
         this.pgs = serverpgs;
         this.pgsample = serverpgs;
         this.pgfiltered = serverpgs;
+
       });
       LocalityObservable.subscribe((serverlocalities) => {
         this.localities = serverlocalities;
@@ -60,8 +62,20 @@ export class SearchResultsComponent implements OnInit {
     );
     // this.pgsample = this.filterOptions;
     this.pgsample = this._filter(this.formControl.value || '');
+
     this.getPgs();
 
+  }
+  convert(rating: number) {
+    return Number(rating).toFixed(1);
+  }
+  price: number = 0;
+  findminprice(rooms: Rooms[]) {
+    this.price = 500000;
+    rooms.forEach((room) => {
+      this.price = Math.min(this.price, room.rent);
+    })
+    return this.price;
   }
   show() {
     this.pgsample = this._filter(this.formControl.value || '');
@@ -91,7 +105,21 @@ export class SearchResultsComponent implements OnInit {
   { id: 5, type: '5' },
   ];
 
+  foundfilters: any[] = [];
+  
+  findfilters(pg: Pg) {
+    this.foundfilters = [];
+    this.selectedRoomsValues.forEach((room) => {
+      for (let i of room.rooms) {
+        if (i.occupancy == room.value) {
+          this.foundfilters.push(room.type);
+          break;
+        }
+        if (room.type == 'others' && i.occupancy > 3) { this.foundfilters.push(room.type); break; }
+      }
+    })
 
+  }
 
   selectedTenants: any[] = [];
 
@@ -123,15 +151,15 @@ export class SearchResultsComponent implements OnInit {
     this.selectedFilters = this.selectedFilters.concat(this.selectedRoomsValues);
     this.selectedFilters = this.selectedFilters.concat(this.selectedTenantsValues);
     this.selectedFilters = this.selectedFilters.concat(this.selectedRatingsValues);
-    console.log(this.selectedFilters);
     this.pgfiltered = this.pgService.filter(this.pgsample, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues);
-    console.log(this.pgfiltered);
+
   }
 
   clearAll() {
     this.selectedRatings = [];
     this.selectedRooms = [];
     this.selectedTenants = [];
+
     this.getPgs();
 
   }

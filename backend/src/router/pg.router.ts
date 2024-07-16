@@ -2,6 +2,9 @@
 import { Router } from "express";
 import { sample_pgs } from "../data";
 import { Pg, PgModel } from "../models/pg.model";
+import { Review, ReviewModel } from "../models/reviews.model";
+import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
 const expressAsyncHandler = require("express-async-handler");
 const router = Router();
 
@@ -51,31 +54,80 @@ router.get('/cities', expressAsyncHandler(
         }
     })
 );
+router.post('/reviews', expressAsyncHandler(async (req: any, res: any) => {
+    console.log(req.body);
+    try {
+        const objId = new mongoose.Types.ObjectId(req.body.id);
+        const pg = await PgModel.findById(objId);
+
+        if (!pg) {
+            return res.status(404).send({ message: 'PG not found' });
+        }
+
+        const review = new ReviewModel({
+            user: req.body.user,
+            rating: req.body.rating,
+            comment: req.body.comment,
+        });
+
+        const dbReview = await review.save();
+        console.log(dbReview);
+
+        pg.stars = pg.stars * pg.ratingcnt + dbReview.rating;
+        pg.ratingcnt = pg.ratingcnt + 1;
+        pg.stars = pg.stars / pg.ratingcnt;
+        pg.reviews.push(dbReview);
+        await pg.save();
+        console.log(pg.reviews);
+
+        return res.status(201).send(pg.reviews);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: 'Internal Server Error' });
+    }
+}));
+router.post('/edit', expressAsyncHandler(
+    async (req: any, res: any) => {
+        // console.log(req.body);
+        try {
+            const objId = new mongoose.Types.ObjectId(req.body.id);
+            const pg = await PgModel.findById(objId);
+
+            if (!pg) {
+                return res.status(404).send({ message: 'PG not found' });
+            }
+            const obj = req.body.pgadd;
+            pg.name = obj.title,
+                pg.address = obj.address,
+                pg.city = obj.city,
+                pg.owner.contact = obj.ownercontact,
+                pg.about = obj.about,
+                pg.tenantgender = obj.tenantgender,
+                pg.imageUrl = obj.images,
+                pg.rooms = obj.addedRooms,
+                pg.amenities = obj.addedAmenities,
+                pg.rules = obj.addedRules
+            await pg.save();
+            console.log(pg);
+            res.send(pg);
+        }
+        catch (error) {
+            console.error(error);
+            return res.status(500).send({ message: 'Internal Server Error' });
+        }
+    }));
 
 router.post('/add', expressAsyncHandler(
     async (req: any, res: any) => {
-        // const user = await UserModel.findOne({ email });
-        // if (user) res.status(400).send("User already exists !");
-        // else {
-        //     const encryptedPassword = await bcrypt.hash(password, 10);
-        //     const newUser: User = {
-        //         id: '',
-        //         name: name,
-        //         email: email.toLowerCase(),
-        //         password: encryptedPassword,
-        //         isOwner: false,
-        //     }
-        //     const dbuser = await UserModel.create(newUser);
-        //     // res.json(generateTokenResponse(dbuser));
-        // }
 
-        console.log(req.body);
+        // console.log(req.body);
         const obj = req.body;
         const newPg: Pg = {
             id: '',
             name: obj.title,
             address: obj.address,
             city: obj.city,
+            owner: obj.owner,
             price: 33,
             about: obj.about,
             tenantgender: 'female',
@@ -90,16 +142,6 @@ router.post('/add', expressAsyncHandler(
         const dbpg = await PgModel.create(newPg);
         res.send(dbpg);
     }));
-// router.get('/reviews/search', expressAsyncHandler(
-//     async (req: any, res: any) => {
-//         try {
-//             // const searchRegex = new RegExp(req.query.q as string, 'i');
-//             const localities = await PgModel.distinct('locality', { city: { $regex: searchRegex } });
-//             res.json(localities);
-//         } catch (error) {
-//             console.error('Error searching localities:', error);
-//             res.status(500).json({ error: 'Internal Server Error' });
-//         }
-//     })
-// );
+
+
 export default router;

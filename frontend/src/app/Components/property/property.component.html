@@ -55,9 +55,9 @@
                              <div class="underline"></div> -->
                             <div style="color: var(--primary-color);margin-bottom: 10px;">Tenant Type</div>
                             <mat-radio-group aria-label="Select an option" formControlName="tenantgender">
-                                <mat-radio-button value="1">Male</mat-radio-button>
-                                <mat-radio-button value="2">Female</mat-radio-button>
-                                <mat-radio-button value="2">Unisex</mat-radio-button>
+                                <mat-radio-button value="male">Male</mat-radio-button>
+                                <mat-radio-button value="female">Female</mat-radio-button>
+                                <mat-radio-button value="unisex">Unisex</mat-radio-button>
                             </mat-radio-group>
                         </div>
                         <div class="input-data" style="margin: 70px 0;">
@@ -72,12 +72,12 @@
                     <div class="title">Your Details</div>
                     <div class="wrapper">
                         <div class="input-data">
-                            <input type="text" required formControlName="about">
+                            <input type="text" required [value]="user.name" readonly>
                             <div class="underline"></div>
                             <label> Owner Full Name</label>
                         </div>
                         <div class="input-data">
-                            <input type="email" required formControlName="owneremail">
+                            <input type="email" required [value]="user.email" readonly>
                             <div class="underline"></div>
                             <label>Email</label>
                         </div>
@@ -123,7 +123,7 @@
 
                     <p class="text-gray-500 text-sm">More = better.</p>
                     <div class="input-bx">
-                        <form [formGroup]="uploadForm" (ngSubmit)="uploadFiles()">
+                        <form>
                             <input type="file" id="upload" accept=".png,.jpg,.jpeg" (change)="onFileSelected($event)"
                                 multiple hidden />
                             <label for="upload" class="uploadlabel">

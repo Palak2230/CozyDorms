@@ -18,7 +18,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { SearchResultsComponent } from './Components/search-results/search-results.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
-import { PgDetailedComponent } from './Components/pg-detailed/pg-detailed.component';
+
 import { NgbCarousel, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
@@ -40,17 +40,21 @@ import { PropertyComponent } from './Components/property/property.component';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { envionment } from 'src/environments/environment';
+import { YourpropertyComponent } from './Components/yourproperty/yourproperty.component';
+import { EditpropertyComponent } from './Components/editproperty/editproperty.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SearchResultsComponent,
-    PgDetailedComponent,
+
     HeaderComponent,
     LoginPageComponent,
     PgComponent,
     PropertyComponent,
+    YourpropertyComponent,
+    EditpropertyComponent,
 
   ],
   imports: [
@@ -76,7 +80,7 @@ import { envionment } from 'src/environments/environment';
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-    ToastrModule.forRoot({ timeOut: 3000, positionClass: 'toast-bottom-right', newestOnTop: false })
+    ToastrModule.forRoot({ timeOut: 3000, positionClass: 'toast-top-right', newestOnTop: false })
     ,
     MatCardModule,
     MatButtonModule,

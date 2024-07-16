@@ -65,7 +65,6 @@
     </div>
 
 
-
     <div class="pg-section ">
         <!-- <div class="tags-section">
             <ul>
@@ -84,21 +83,26 @@
                     <span
                         style=" margin: 5px 0px; font-size: 16px; font-family: Inter,sans-serif; line-height: 25px; font-weight: 400;">{{pg.address}}
                     </span>
-                    <div>
-                        <button class="rating">{{pg.stars}}
+                    <div *ngIf="pg.ratingcnt!=0">
+                        <button class="rating">{{convert(pg.stars)}}
                             <span class="fas fa-star "></span>
                         </button>
-                        <span style="padding: 10px;">({{pg.ratingcnt}}) . Good</span>
+                        <span style="padding: 10px;">({{pg.ratingcnt}} ratings) . Good</span>
+                    </div>
+                    <div *ngIf="pg.ratingcnt==0">
+                        <button class="rating">NEW
+                        </button>
+
                     </div>
 
 
 
 
-                    <!-- <div class="features">
+                    <div class="features">
                         <ul>
 
 
-                            <li *ngFor="let tag of pg.tags?.roomsAC"><svg width="18" height="18" viewBox="0 0 60 61"
+                            <!-- <li *ngFor="let tag of foundfilters"><svg width="18" height="18" viewBox="0 0 60 61"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M30.0002 57.4601C44.9119 57.4601 57.0002 45.3718 57.0002 30.4601C57.0002 15.5485 44.9119 3.46014 30.0002 3.46014C15.0885 3.46014 3.00018 15.5485 3.00018 30.4601C3.00018 45.3718 15.0885 57.4601 30.0002 57.4601Z"
@@ -107,34 +111,25 @@
                                         d="M24.0051 42.4601L15.8817 34.7588C15.3173 34.2217 15.0002 33.4932 15.0002 32.7336C15.0002 31.974 15.3173 31.2455 15.8817 30.7084C16.4462 30.1713 17.2117 29.8696 18.01 29.8696C18.8082 29.8696 19.5738 30.1713 20.1383 30.7084L24.0051 34.4165L39.8621 19.299C40.4266 18.7619 41.1921 18.4601 41.9904 18.4601C42.7886 18.4601 43.5542 18.7619 44.1186 19.299C44.6831 19.8361 45.0002 20.5646 45.0002 21.3242C45.0002 22.0838 44.6831 22.8122 44.1186 23.3493L24.0051 42.4601Z"
                                         fill="white"></path>
                                 </svg>{{tag}}
-                            </li>
-                            <li *ngFor="let tag of pg.tags?.roomsOccupancy"><svg width="18" height="18"
-                                    viewBox="0 0 60 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            </li> -->
+                            <li><svg width="18" height="18" viewBox="0 0 60 61" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M30.0002 57.4601C44.9119 57.4601 57.0002 45.3718 57.0002 30.4601C57.0002 15.5485 44.9119 3.46014 30.0002 3.46014C15.0885 3.46014 3.00018 15.5485 3.00018 30.4601C3.00018 45.3718 15.0885 57.4601 30.0002 57.4601Z"
                                         fill="var(--primary-color)"></path>
                                     <path
                                         d="M24.0051 42.4601L15.8817 34.7588C15.3173 34.2217 15.0002 33.4932 15.0002 32.7336C15.0002 31.974 15.3173 31.2455 15.8817 30.7084C16.4462 30.1713 17.2117 29.8696 18.01 29.8696C18.8082 29.8696 19.5738 30.1713 20.1383 30.7084L24.0051 34.4165L39.8621 19.299C40.4266 18.7619 41.1921 18.4601 41.9904 18.4601C42.7886 18.4601 43.5542 18.7619 44.1186 19.299C44.6831 19.8361 45.0002 20.5646 45.0002 21.3242C45.0002 22.0838 44.6831 22.8122 44.1186 23.3493L24.0051 42.4601Z"
                                         fill="white"></path>
-                                </svg>{{tag}}
+                                </svg>{{pg.tenantgender}}
                             </li>
-                            <li *ngFor="let tag of pg.tags?.tenantType"><svg width="18" height="18" viewBox="0 0 60 61"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M30.0002 57.4601C44.9119 57.4601 57.0002 45.3718 57.0002 30.4601C57.0002 15.5485 44.9119 3.46014 30.0002 3.46014C15.0885 3.46014 3.00018 15.5485 3.00018 30.4601C3.00018 45.3718 15.0885 57.4601 30.0002 57.4601Z"
-                                        fill="var(--primary-color)"></path>
-                                    <path
-                                        d="M24.0051 42.4601L15.8817 34.7588C15.3173 34.2217 15.0002 33.4932 15.0002 32.7336C15.0002 31.974 15.3173 31.2455 15.8817 30.7084C16.4462 30.1713 17.2117 29.8696 18.01 29.8696C18.8082 29.8696 19.5738 30.1713 20.1383 30.7084L24.0051 34.4165L39.8621 19.299C40.4266 18.7619 41.1921 18.4601 41.9904 18.4601C42.7886 18.4601 43.5542 18.7619 44.1186 19.299C44.6831 19.8361 45.0002 20.5646 45.0002 21.3242C45.0002 22.0838 44.6831 22.8122 44.1186 23.3493L24.0051 42.4601Z"
-                                        fill="white"></path>
-                                </svg>{{tag}}
-                            </li>
+
 
 
                         </ul>
-                    </div> -->
+                    </div>
                     <div class="footer">
                         <div class="Charges" style="  margin: 10px 0px;">
-                            <span><span class="base-price">{{pg.price}}</span> Onwards</span>
+                            <span><span class="base-price">{{findminprice(pg.rooms)}}</span> Onwards</span>
                         </div>
                         <div class="owner-details-btn" [routerLink]="'/results/pg/'+pg.id"><button>View
                                 Details</button>

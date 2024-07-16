@@ -3,6 +3,7 @@ import { Router } from "express";
 import { sample_users } from "../data";
 import { User, UserModel } from "../models/user.model";
 import { ReviewModel } from "../models/reviews.model";
+import { PgModel } from "../models/pg.model";
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // import jwt from 'jsonwebtoken';
@@ -76,12 +77,14 @@ router.post('/register', expressAsyncHandler(
                 email: email.toLowerCase(),
                 password: encryptedPassword,
                 isOwner: false,
+                contact: ""
             }
             const dbuser = await UserModel.create(newUser);
             res.json(generateTokenResponse(dbuser));
         }
 
     }));
+
 router.post('/update-password', expressAsyncHandler(
     async (req: any, res: any) => {
         const { email, password } = req.body;
@@ -98,18 +101,12 @@ router.post('/update-password', expressAsyncHandler(
         res.json({ message: "Password updated successfully." });
     }
 ));
-// router.post('/review', expressAsyncHandler(
 
-//     async (req: any, res: any) => {
+router.post('/userproperty', expressAsyncHandler(
+    async (req: any, res: any) => {
+        console.log(req.body);
+        const pg = await PgModel.find({ owner: { email: req.body.email } });
+        res.json(pg);
+    }));
 
-
-
-//         const encryptedPassword = await bcrypt.hash(password, 10);
-//         user.password = encryptedPassword;
-//         await user.save();
-
-//         res.json({ message: "Password updated successfully." });
-//     }
-
-// ));
 export default router;

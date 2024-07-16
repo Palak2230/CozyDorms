@@ -4,11 +4,13 @@ import { Review, ReviewSchema } from "./reviews.model";
 
 import { Rooms, RoomSchema } from "./rooms.model";
 import { Amenity, AmenitySchema } from "./amenity.model";
+import { User, UserSchema } from "./user.model";
 export interface Pg {
     id: string;
     name: string;
     address: string;
     city: string;
+    owner: User;
     about: string;
     tenantgender: string;
     price: number;
@@ -25,9 +27,9 @@ export const PgSchema = new Schema<Pg>(
     {
         name: { type: String, required: true },
         address: { type: String, required: true },
-
+        owner: { type: UserSchema },
         tenantgender: { type: String, required: true },
-        about: { type: String, required: true },
+        about: { type: String },
         city: { type: String, required: true },
         price: { type: Number, required: true },
         stars: { type: Number, required: true },

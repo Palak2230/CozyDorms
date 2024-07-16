@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { User } from '../shared/models/User';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { USER_LOGIN_URL, USER_REGISTER_URL, USER_UPDATE_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 
 import { JsonPipe } from '@angular/common';
+import { Pg } from '../shared/models/pg';
+import { IUser } from '../shared/interfaces/IUser';
 const USER_KEY = 'User';
 @Injectable({
   providedIn: 'root'
@@ -37,6 +40,7 @@ export class UserService {
   logout() {
     this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
+
     window.location.reload();
   }
   register(userRegister: IUserRegister) {
@@ -72,8 +76,35 @@ export class UserService {
       }))
   }
 
+  getPgsOfUser(user: IUser): Observable<Pg[]> {
+    return this.http.post<Pg[]>(USER_UPDATE_URL, user).pipe(tap({
+      next: (user) => {
+        // this.setuserToLocalStorage(user);
+        // this.userSubject.next(user);
+        this.toastrService.success(`got pg successfully !`
 
+        )
+      },
+      error: (errorResponse) => {
+        this.toastrService.error(errorResponse.error,
+          "shit error !")
+      }
+    }))
+  }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+
+      console.error('An error occurred:', error.error.message);
+    } else {
+
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+
+    return throwError('Something bad happened; please try again later.');
+  }
 
   private setuserToLocalStorage(user: User) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));

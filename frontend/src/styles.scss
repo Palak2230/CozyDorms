@@ -213,12 +213,24 @@ input {
   // height: 20px !important;
 }
 .mat-mdc-form-field-infix {
+  // width: 100vh !important;
   color: black !important;
   background-color: white;
   padding: 0;
   min-height: 0px !important;
   // border-bottom: 1px solid black !important;
 }
+.review-modal {
+  .mat-mdc-form-field-infix {
+    width: 300px !important;
+    color: black !important;
+    background-color: white;
+    padding: 0;
+    min-height: 0px !important;
+    // border-bottom: 1px solid black !important;
+  }
+}
+
 // // /* Add more CSS as needed */
 ::placeholder {
   color: grey !important;
@@ -302,9 +314,33 @@ body {
 }
 .mat-mdc-radio-button .mdc-form-field {
   color: black;
-  
 }
 // mat-mdc-radio-button mat-warn mat-mdc-radio-checked cdk-focused cdk-program-focused {
 //   color: pink !important;
 //   background-color: pink !important;
 // }
+html::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #434343;
+  border-radius: 16px;
+  box-shadow:
+    inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.25);
+  height: 20px;
+}
+
+html::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #434343, #434343 1px, #111 0, #111);
+}
+.os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
+  min-height: 10px;
+  max-height: 10px;
+}
+.os-scrollbar-horizontal > .os-scrollbar-track > .os-scrollbar-handle {
+  min-width: 10px;
+  max-width: 10px;
+}

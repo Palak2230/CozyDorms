@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PgService } from 'src/app/services/pg.service';
 import { Rooms } from 'src/app/shared/models/rooms';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { User } from 'src/app/shared/models/User';
 interface Amenity {
   icon: string;
   title: string;
@@ -62,13 +63,13 @@ export class PropertyComponent implements OnInit {
   imageurls: any;
   uploadedFiles: File[] = [];
   imageUrls: any[] = [];
-  uploadForm: FormGroup;
+  // uploadForm: FormGroup;
   propertyForm !: FormGroup;
-
+  user!: User;
   constructor(private fb: FormBuilder, private http: HttpClient, private pgservice: PgService) {
-    this.uploadForm = this.fb.group({
-      files: ['']
-    });
+    // this.uploadForm = this.fb.group({
+    //   files: ['']
+    // });
 
     this.propertyForm = this.fb.group({
       title: ['', Validators.required],
@@ -87,6 +88,8 @@ export class PropertyComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.propertyForm.invalid);
+    const item = localStorage.getItem('User');
+    this.user = JSON.parse(item || '');
   }
 
   get roomsgroup(): FormArray {
@@ -120,6 +123,7 @@ export class PropertyComponent implements OnInit {
   formdetails() {
     const formData: FormData = new FormData();
     this.uploadedFiles.forEach(file => {
+      console.log(file);
       formData.append('files', file, file.name);
     });
 
@@ -147,14 +151,14 @@ export class PropertyComponent implements OnInit {
       address: address.value,
       city: city.value,
       about: about.value,
+      owner: this.user,
       tenantgender: tenantgender.value,
-      ownername: ownername.value,
       ownercontact: ownercontact.value,
-      owneremail: owneremail.value,
       addedAmenities,
       addedRooms,
       addedRules,
-      images
+      images,
+
     }).subscribe({
       next: (res) => {
         console.log('Property addition successful:', res);

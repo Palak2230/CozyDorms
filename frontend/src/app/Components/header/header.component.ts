@@ -8,6 +8,8 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PgService } from 'src/app/services/pg.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginPageComponent } from '../login-page/login-page.component';
 
 @Component({
   selector: 'app-header',
@@ -27,8 +29,15 @@ export class HeaderComponent {
     const searchvalue = value.toLocaleLowerCase();
     return this.options.filter(option => option.toLocaleLowerCase().includes(searchvalue));
   }
-  constructor(private renderer: Renderer2, private pgService: PgService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private renderer: Renderer2, private pgService: PgService, private activatedRoute: ActivatedRoute, private router: Router, private _dialog: MatDialog) {
 
+  }
+
+  gotoyours() {
+    this.router.navigate(['/yourproperty']);
+  }
+  gologin() {
+    this._dialog.open(LoginPageComponent);
   }
 
   searchpg(event: any): void {

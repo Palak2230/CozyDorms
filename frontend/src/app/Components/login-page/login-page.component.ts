@@ -219,7 +219,9 @@ export class LoginPageComponent implements OnInit {
       this.showOtpComponent = false;
       this.incorrectotp = false;
       this.userforsignup = false;
-      this.userforreset = false;
+      // this.userforreset = true;
+      // this.forgotpassword = false;
+      this.isLoggedIn = true;
     }
     else {
       this.incorrectotp = true;

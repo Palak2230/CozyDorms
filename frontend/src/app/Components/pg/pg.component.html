@@ -9,7 +9,7 @@
                         <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">
                             <img alt="image"
                                 src='{{pg.imageUrl[0] + "?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"}}'
-                                loading="lazy" class="sc-s1isp7-5 eQUAyn" style="max-height: 400px;">
+                                loading="lazy" class="sc-s1isp7-5 eQUAyn" style="max-height: 450px;">
                         </div>
                     </div>
                     <section class="image-2">
@@ -47,15 +47,28 @@
                     <div class="info-1">
                         <div class="pg-name">{{pg.name}}</div>
                         <div class="rating-type">
-                        </div>
-                        <div class="rating"><span class="fas fa-star "></span>
-                            <span class="fas fa-star "></span>
-                            <span class="fas fa-star "></span>
-                            <span class="fas fa-star"></span>
-                            <span class="fas fa-star-o"></span>
-                        </div>
 
+                            <!-- <div class="rating">
+                              
+                                <span class="fas fa-star" *ngFor="let n of numSequence(this.pgstars)"></span>
+                            </div> -->
+
+                            <div *ngIf="pg.ratingcnt!=0">
+                                <div class="rating-box">
+                                    <span class="rating-star"> {{convert(pg.stars)}}</span>
+                                    <span class="fas fa-star "></span>
+                                </div>
+
+                            </div>
+                            <div *ngIf="pg.ratingcnt==0">
+                                <div class="rating-box">NEW
+                                </div>
+                            </div>
+
+                            <div class="rating-cnt">{{pg.ratingcnt}} ratings</div>
+                        </div>
                     </div>
+
                     <div class="info-2">
                         <p class="address">{{pg.address}} </p>
                         <!-- <div></div>
@@ -94,6 +107,21 @@
                 <div class="main-section">
                     <div class="display">
 
+
+                        <div>
+                            <div class="heading">Common Amenities</div>
+                            <div class="amenities-list">
+                                <div class="Amenities" *ngFor="let amenities of pg.amenities">
+
+                                    <i class="material-icons">{{amenities.icon}}</i>
+                                    <span>{{amenities.title}}</span>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
                         <div>
                             <div class="heading">Room Details</div>
 
@@ -139,20 +167,6 @@
 
                         </div>
                         <div>
-                            <div class="heading">Common Amenities</div>
-                            <div class="amenities-list">
-                                <div class="Amenities" *ngFor="let amenities of pg.amenities">
-
-                                    <i class="material-icons">{{amenities.icon}}</i>
-                                    <span>{{amenities.title}}</span>
-
-
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div>
 
                             <div class="heading">PG Rules</div>
                             <div class="amenities-list">
@@ -164,26 +178,26 @@
                             </div>
                         </div>
                         <div class="reviews">
-                            <div class="heading">Reviews</div>
+                            <div class="review-header">
+                                <div class="heading">Reviews</div>
+                                <button (click)="openModal(modalRef)">Add Review</button>
+                                <!-- {{pg.reviews[0].rating}} -->
+                            </div>
                             <div class="reviews-main">
-                                <div class="user">
+
+                                <div class="user" *ngFor="let review of pg.reviews">
+
                                     <div class="review-heading">
                                         <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
-                                        <div class="name col-6">hey</div>
-                                        <div class="user-rating"><span class="fas fa-star "></span>
-                                            <span class="fas fa-star "></span>
-                                            <span class="fas fa-star "></span>
-                                            <span class="fas fa-star"></span>
-                                            <span class="fas fa-star-o"></span>
+                                        <div class="name col-6">{{review.user.name}}</div>
+                                        <div class="user-rating"><span class="fas fa-star"
+                                                *ngFor="let n of numSequence(review.rating)"></span>
+
                                         </div>
+
                                     </div>
                                     <div class="user-comment">
-                                        <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Molestias
-                                            debitis soluta vitae nemo tempora et magni laborum eveniet molestiae?
-                                            Voluptatum
-                                            cupiditate asperiores natus officia, veniam eveniet pariatur ullam saepe
-                                            qui.
+                                        <div class="text">{{review.comment}}
                                         </div>
                                         <!-- 
                                         <div class="images">
@@ -192,55 +206,38 @@
                                         </div> -->
                                     </div>
                                 </div>
-                                <div class="user">
-                                    <div class="review-heading">
-                                        <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
-                                        <div class="name col-6">hey</div>
 
-                                        <div class="user-rating"><span class="fas fa-star "></span>
-                                            <span class="fas fa-star "></span>
-                                            <span class="fas fa-star "></span>
-                                            <span class="fas fa-star"></span>
-                                            <span class="fas fa-star-o"></span>
-                                        </div>
-                                    </div>
-                                    <div class="user-comment">
-                                        <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Molestias
-                                            debitis soluta vitae nemo tempora et magni laborum eveniet molestiae?
-                                            Voluptatum
-                                            cupiditate asperiores natus officia, veniam eveniet pariatur ullam saepe
-                                            qui.
-                                        </div>
-                                        <!-- <div class="images">
-                                            <img src="../../../assets/room-1.jpg">
-                                            <img src="../../../assets/room-2.jpg">
-                                        </div> -->
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
-                        <!-- <div class="reporting">
 
-                        <div class="report-text"><img src="../../../assets/warning.png">
-                            <span style="font-size: 20px;">Report what was not correct in this
-                                property</span>
-                        </div>
-                        <div class="report-options">
-                            <button>Wrong info</button>
-                            <button>Listed by broker</button>
-                            <button>Rented Out</button>
-                        </div>
-                    </div> -->
                     </div>
                     <div class="side-section">
-                        <h1>About this property</h1>
-                        <p>{{pg.about}}
-                        </p>
-                        <div class="buttons">
-                            <button class="call">Call Owner</button>
-                            <button class="message">Message</button>
+                        <div class="about">
+                            <h1>About this property</h1>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo eum, sapiente expedita sunt
+                                praesentium rerum nobis iste maxime, exercitationem dignissimos illum qui delectus
+                                quisquam.
+                                Vel blanditiis, repellat, nesciunt odio vitae facere fugiat repudiandae in molestiae
+                                pariatur maxime. Reprehenderit ratione tenetur suscipit vero eaque, quae, fuga deleniti
+                                accusantium nesciunt non animi!
+                            </p>
+                            <div class="buttons">
+                                <a class="call" href="tel:+91-9179405920">Call Owner</a>
+                                <a class="message">Message</a>
+                            </div>
+                        </div>
+                        <div class="reporting">
+
+                            <div class="report-text"><img src="../../../assets/warning.png">
+                                <span style="font-size: 20px;">Report what was not correct in this
+                                    property</span>
+                            </div>
+                            <div class="report-options">
+                                <button>Wrong info</button>
+                                <button>Listed by broker</button>
+                                <button>Rented Out</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -255,3 +252,33 @@
         </div>
     </main>
 </div>
+<ng-template class="add-review" [formGroup]="reviewForm" #modalRef class="modal-dialog modal-dialog-centered">
+
+    <div class="review-modal">
+        <header>
+            How was your experience?
+        </header>
+        <div class="stars">
+            <i class="fa-solid fa-star" (click)="starvalue = 1"
+                [ngStyle]="{'color': (starvalue >= 1) ? '#ff9c1a' : '#e6e6e6'}"></i>
+            <i class="fa-solid fa-star" (click)="starvalue = 2"
+                [ngStyle]="{'color': (starvalue >= 2) ? '#ff9c1a' :'#e6e6e6'}"></i>
+            <i class="fa-solid fa-star" (click)="starvalue = 3"
+                [ngStyle]="{'color': (starvalue >= 3) ? '#ff9c1a' : '#e6e6e6'}"></i>
+            <i class="fa-solid fa-star" (click)="starvalue = 4"
+                [ngStyle]="{'color': (starvalue >= 4) ? '#ff9c1a' : '#e6e6e6'}"></i>
+            <i class="fa-solid fa-star" (click)="starvalue = 5"
+                [ngStyle]="{'color': (starvalue >= 5) ? '#ff9c1a' : '#e6e6e6'}"></i>
+        </div>
+        <mat-form-field>
+            <textarea type="text" matInput style="color: black;" placeholder="Share your thoughts...."
+                #text_modal></textarea>
+        </mat-form-field>
+        <button class="submit-btn"
+            style="background-color: var(--primary-color);color: white;  padding: 10px;font-size: 20px;"
+            (click)="submitreview(text_modal.value)">SUBMIT</button>
+
+
+
+    </div>
+</ng-template>

@@ -11,8 +11,11 @@ import { ActivatedRoute } from '@angular/router';
 import { PgService } from 'src/app/services/pg.service';
 import { Observable } from 'rxjs';
 import { Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Review } from 'src/app/shared/models/Review';
+import { User } from 'src/app/shared/models/User';
 
 
 @Component({
@@ -50,10 +53,6 @@ export class PgComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['occupancy', 'roomtype', 'rooms', 'vacancies', 'rent', 'deposit'];
   dataSource !: any;
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -77,16 +76,56 @@ export class PgComponent implements AfterViewInit, OnInit {
     `;
     document.querySelector('.place')!.innerHTML = embed;
   }
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _dialog: MatDialog, private activatedRoute: ActivatedRoute, private pgService: PgService, private renderer: Renderer2) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _dialog: MatDialog, private activatedRoute: ActivatedRoute, private pgService: PgService, private renderer: Renderer2, private _fb: FormBuilder, private modalService: NgbModal
+  ) {
+    this.reviewForm = this._fb.group({
+      stars: [0, Validators.required],
+      comment: ['']
+    })
+
+
 
   }
 
+  openModal(modalContent: any) {
+    this.modalService.open(modalContent, { centered: true });
+  }
+  user!: User;
+  submitreview(text: string) {
+    if (this.starvalue == 0) {
+      alert('Rating not valid !');
+      return;
+    }
 
+    const review = {
+      id: this.pg.id,
+      user: this.user,
+      rating: this.starvalue,
+      comment: text
+    };
+
+    this.pgService.addreview(review).subscribe({
+      next: (serverpgs) => {
+        console.log(serverpgs);
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      },
+      error: (error) => {
+        console.error('Error adding review:', error);
+      }
+    });
+
+
+  }
+  numSequence(n: number): Array<number> {
+    return Array(n);
+  }
   directionlink: string = '';
   tabs!: NodeListOf<HTMLElement>;
   all_content!: NodeListOf<HTMLElement>;
 
-
+  starvalue: number = 0;
+  pgstars: number = 0;
   ngOnInit(): void {
     // Initially hide all tab contents except the default one
 
@@ -103,56 +142,18 @@ export class PgComponent implements AfterViewInit, OnInit {
       PgsObservable.subscribe((serverpgs) => {
         this.pg = serverpgs;
         this.dataSource = this.pg.rooms;
-        // console.log(this.dataSource);
-        console.log(this.pg);
-        // this.address = serverpgs.address;
+        this.pgstars = Math.round(this.pg.stars);
       });
 
     });
-
-
-    const tabContents = document.querySelectorAll('.content');
-    tabContents.forEach(content => {
-      (content as HTMLElement).style.display = 'none';
-    });
-    // Show the default tab content
-    const defaultTab = document.getElementById('Overview');
-    if (defaultTab) {
-      (defaultTab as HTMLElement).style.display = 'block';
-    }
+    const item = localStorage.getItem('User');
+    this.user = JSON.parse(item || '');
+  }
+  convert(rating: number) {
+    return Number(rating).toFixed(1);
   }
 
-  openPage(pageName: string, event: Event): void {
-    // Ensure event.target is an HTMLElement
-    const target = event.target as HTMLElement;
-    if (!target) return;
+  reviewForm!: FormGroup;
+  closed: boolean = false;
 
-    // Hide all tab contents
-    const tabContents = document.querySelectorAll('.content');
-    tabContents.forEach(content => {
-      (content as HTMLElement).style.display = 'none';
-    });
-
-    // Remove the active class from all tab buttons
-    const tabLinks = document.querySelectorAll('.tab_btn');
-    tabLinks.forEach(link => {
-      link.classList.remove('active');
-    });
-
-    // Show the specific tab content
-    const selectedTab = document.getElementById(pageName);
-    if (selectedTab) {
-      (selectedTab as HTMLElement).style.display = 'block';
-    }
-
-    // Add the active class to the clicked tab button
-    target.classList.add('active');
-
-    // Update line position
-    const line = document.querySelector('.line') as HTMLElement;
-    if (line) {
-      line.style.width = target.offsetWidth + 'px';
-      line.style.left = target.offsetLeft + 'px';
-    }
-  }
 }

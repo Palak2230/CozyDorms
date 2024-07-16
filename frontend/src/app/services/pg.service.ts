@@ -5,8 +5,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Pg } from '../shared/models/pg';
 import { ToastrService } from 'ngx-toastr';
-import { PGS_URL, PGS_BY_CITY_URL, PGS_BY_ID_URL, ADD_PG_URL, CITIES_URL } from '../shared/constants/urls';
+import { PGS_URL, PGS_BY_CITY_URL, PGS_BY_ID_URL, ADD_PG_URL, CITIES_URL, ADD_REVIEW_URL, EDIT_PG_URL } from '../shared/constants/urls';
 import { IPg } from '../shared/interfaces/IPg';
+import { Review } from '../shared/models/Review';
+import { IReview } from '../shared/interfaces/IReview';
+import { User } from '../shared/models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +68,40 @@ export class PgService {
         }
       }))
   }
+  editpg(pgadd: IPg, id: string) {
+    // console.log('hey');
+    return this.http.post<Pg>(EDIT_PG_URL, { pgadd, id }).pipe
+      (tap({
+        next: (pg) => {
+          // this.setuserToLocalStorage(user);
+          // this.userSubject.next(user);
+          console.log(pg);
+          this.toastrService.success(`Updating successful`,
+            "Registration successful !"
+          )
+          // console.log('hey');
+        },
+        error: (errorResponse) => {
+          this.toastrService.error(errorResponse.error,
+            "PG could not be updated !"); console.log('hey');
+        }
+      }))
+  }
+
+  addreview(review: Review): Observable<Review> {
+    return this.http.post<Review>(ADD_REVIEW_URL, review).pipe(tap({
+      next: (review) => {
+        console.log(review);
+        this.toastrService.success('Review added successfully!', 'Success');
+      },
+      error: (errorResponse) => {
+        this.toastrService.error(errorResponse.error.message, 'Error');
+        console.log(errorResponse.error);
+      }
+    }));
+  }
+
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
 
@@ -84,16 +121,7 @@ export class PgService {
   filter(pgs: Pg[], selectedTenantsValues: any, selectedRoomsValues: any, selectedRatingsValues: any): Pg[] {
 
     let pgsample = pgs;
-    // if (selectedLocalities.length != 0) {
-    //   pgsample = pgsample.filter(function (item) {
-    //     for (let locality of selectedLocalities) {
-    //       if (item.locality === locality) {
-    //         return true;
-    //       }
-    //     }
-    //     return false;
-    //   });
-    // }
+
     if (selectedTenantsValues.length != 0) {
       pgsample = pgsample.filter(function (item) {
 
