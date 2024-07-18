@@ -13,7 +13,7 @@
 
   // --primary-color: #e82574;
 
-  --primary-color-dark: #bc1c5c;
+  --primary-color-dark: rgb(204, 77, 77);
   // --primary-color-light: rgba(204, 77, 77, 0.452);
   // --primary-color-light: rgba(204, 77, 77, 0.612);
   --primary-color-light: rgba(204, 77, 77, 0.285);
@@ -343,4 +343,7 @@ html::-webkit-scrollbar-track {
 .os-scrollbar-horizontal > .os-scrollbar-track > .os-scrollbar-handle {
   min-width: 10px;
   max-width: 10px;
+}
+.mdc-dialog__surface {
+  background-color: transparent !important;
 }

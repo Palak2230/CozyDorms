@@ -18,7 +18,34 @@
             </div>
         </div>
         <button class="property" (click)="gotoyours()">Your Property</button>
-        <div class="login" (click)="gologin()">Login/Signup</div>
+        <!-- <div class="login" (click)="gologin()" *ngIf="!isAuth">Login/Signup</div>
+        <div class="login" (click)="logout()" *ngIf="isAuth">Logout</div>
+       <div class="user" *ngIf="user">
+            <div class="user-img"><img [src]="user.img"></div>
+            <div class="name">{{user.name}}</div>
+        </div> 
+        <ul>
+            <li class="menu-container"></li>
+        </ul> -->
 
+        <nav>
+
+            <div *ngIf="!this.user.name" class="login">
+                <a (click)="gologin()">Login/Signup </a>
+
+
+            </div>
+            <div *ngIf="this.user.name" class="user">
+                <div class="user-img"><img [src]="user"></div>
+                <li class="menu-container">
+                    <a routerLink="/dashboard">{{user.name}}</a>
+                    <div class="menu">
+                        <a routerLink="/profile">Profile</a>
+                        <a routerLink="/yourproperty">Orders</a>
+                        <a (click)="logout()">Logout</a>
+                    </div>
+
+            </div>
+        </nav>
     </div>
 </div>

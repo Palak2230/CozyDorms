@@ -8,6 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
 import { Rooms } from 'src/app/shared/models/rooms';
+import { User } from 'src/app/shared/models/User';
+import { LoginPageComponent } from '../login-page/login-page.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-search-results',
@@ -21,14 +24,15 @@ export class SearchResultsComponent implements OnInit {
   pgs: Pg[] = [];
   pgsample: Pg[] = [];
   localities: string[] = [];
-
+  wishlist: Pg[] = [];
   filterOptions!: Observable<Pg[]>;
   formControl = new FormControl('');
+
 
   constructor(
     private pgService: PgService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router, private _dialog: MatDialog
   ) {
 
   }
@@ -51,9 +55,9 @@ export class SearchResultsComponent implements OnInit {
         this.pgfiltered = serverpgs;
 
       });
-      LocalityObservable.subscribe((serverlocalities) => {
-        this.localities = serverlocalities;
-      });
+      // LocalityObservable.subscribe((serverlocalities) => {
+      //   this.localities = serverlocalities;
+      // });
     });
 
     this.filterOptions = this.formControl.valueChanges.pipe(
@@ -62,7 +66,11 @@ export class SearchResultsComponent implements OnInit {
     );
     // this.pgsample = this.filterOptions;
     this.pgsample = this._filter(this.formControl.value || '');
+    const item = localStorage.getItem('User');
+    if (item) this.user = JSON.parse(item);
+    // localStorage.setItem('Wishlist', JSON.stringify([]));
 
+    // this.wishlist = JSON.parse(localStorage.getItem('Wishlist') || '');
     this.getPgs();
 
   }
@@ -88,9 +96,9 @@ export class SearchResultsComponent implements OnInit {
     return this.pgsample;
   }
 
-  tenant_type: any[] = [{ id: 1, type: 'Female' },
-  { id: 2, type: 'Male' },
-  { id: 3, type: 'Unisex' }];
+  tenant_type: any[] = [{ id: 1, type: 'female' },
+  { id: 2, type: 'male' },
+  { id: 3, type: 'unisex' }];
 
   room_type: any[] = [{ id: 1, type: 'Single Room', value: '1' },
   { id: 2, type: 'Double Room', value: '2' },
@@ -106,7 +114,7 @@ export class SearchResultsComponent implements OnInit {
   ];
 
   foundfilters: any[] = [];
-  
+
   findfilters(pg: Pg) {
     this.foundfilters = [];
     this.selectedRoomsValues.forEach((room) => {
@@ -161,7 +169,35 @@ export class SearchResultsComponent implements OnInit {
     this.selectedTenants = [];
 
     this.getPgs();
+  }
+  user!: User;
+  // if(this.user) { wishlist = JSON.parse(localStorage.getItem()) }
+  IsInWishlist(pg: Pg) {
+    console.log(this.wishlist);
+    console.log(this.user);
 
+    const item = localStorage.getItem('Wishlist');
+    this.wishlist = item ? JSON.parse(item) : [];
+
+    if (!this.user) {
+      this._dialog.open(LoginPageComponent, {
+        panelClass: 'bg-color',
+      });
+    } else {
+      const pgIndex = this.wishlist.findIndex((pgs) => pgs.id === pg.id);
+      if (pgIndex !== -1) {
+        this.wishlist.splice(pgIndex, 1);
+        console.log('Removed from wishlist');
+      } else {
+        this.wishlist.push(pg);
+        console.log('Added to wishlist');
+      }
+      localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
+      console.log(this.wishlist);
+    }
   }
 
+  isPgInWishlist(pg: Pg): boolean {
+    return this.wishlist.some((pgs) => pgs.id === pg.id);
+  }
 }

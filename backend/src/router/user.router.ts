@@ -32,6 +32,7 @@ router.get('/', expressAsyncHandler(
 router.post('/login', expressAsyncHandler(
     async (req: any, res: any) => {
         const { email, password } = req.body;
+        console.log('hey');
         // const encryptedPassword = await bcrypt.hash(password, 10);
         // console.log(encryptedPassword);
         // const user = await UserModel.findOne({ email, password });
@@ -45,9 +46,9 @@ router.post('/login', expressAsyncHandler(
 
                         if (err) res.status(400).send("Incorrect email or password !");
                         if (data) {
-                            res.json(generateTokenResponse(user));
+                            res.json(user);
                         } else {
-                            return res.status(401).json({ msg: "Invalid credencial" })
+                            return res.status(401).json({ msg: "Invalid credential" })
                         }
 
                     })
@@ -59,9 +60,10 @@ router.post('/login', expressAsyncHandler(
 
 const generateTokenResponse = (user: any) => {
     const token = jwt.sign({
-        email: user.email, isAdmin: user.isAdmin,
+        email: user.email
     }, "someRandomText")
     user.token = user;
+    console.log(user);
     return user;
 }
 router.post('/register', expressAsyncHandler(
@@ -76,7 +78,6 @@ router.post('/register', expressAsyncHandler(
                 name: name,
                 email: email.toLowerCase(),
                 password: encryptedPassword,
-                isOwner: false,
                 contact: ""
             }
             const dbuser = await UserModel.create(newUser);

@@ -1,0 +1,220 @@
+<div class="property">
+    <div class="container">
+        <div class="headers">
+            <div class="topic">New Property.</div>
+            <button type="submit" (click)="formdetails()"
+                [disabled]="propertyForm.controls.addedAmenities.invalid || addedAmenities.length ==0 || addedRules.length==0 || (this.pg.imageUrl.length==0 && uploadedFiles.length==0) ">SUBMIT</button>
+        </div>
+
+        <div class="content">
+            <input type="radio" name="slider" checked id="home" hidden>
+            <input type="radio" name="slider" id="blog" hidden>
+            <input type="radio" name="slider" id="help" hidden>
+            <input type="radio" name="slider" id="code" hidden>
+            <input type="radio" name="slider" id="about" hidden>
+            <div class="list">
+                <label for="home" class="home">
+                    <span class="title">Property Information</span>
+                </label>
+                <label for="blog" class="blog">
+                    <span class="title">Owner Details</span>
+                </label>
+                <label for="help" class="help">
+                    <span class="title">Room Amenities</span>
+                </label>
+                <label for="code" class="code">
+                    <span class="title">Upload photos</span>
+                </label>
+                <label for="about" class="about">
+                    <span class="title">Room Prices</span>
+                </label>
+                <div class="slider"></div>
+            </div>
+            <form class="text-content" [formGroup]="propertyForm">
+                <div class="home text">
+                    <div class="wrapper">
+                        <div class="title">Property Details</div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="title">
+                            <div class="underline"></div>
+                            <label> Title</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="address">
+                            <div class="underline"></div>
+                            <label>Address</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="city">
+                            <div class="underline"></div>
+                            <label>City</label>
+                        </div>
+                        <div class="input-data">
+                            <!-- <input type="text" required formControlName="tenantgender">
+                             <div class="underline"></div> -->
+                            <div style="color: var(--primary-color);margin-bottom: 10px;">Tenant Type</div>
+                            <mat-radio-group aria-label="Select an option" formControlName="tenantgender">
+                                <mat-radio-button value="male">Male</mat-radio-button>
+                                <mat-radio-button value="female">Female</mat-radio-button>
+                                <mat-radio-button value="unisex">Unisex</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div class="input-data" style="margin: 70px 0;">
+                            <textarea placeholder="Tell us something about this property "
+                                formControlName="about"></textarea>
+                            <div class="underline"></div>
+                            <label class="textarea-label">About</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog text">
+                    <div class="title">Your Details</div>
+                    <div class="wrapper">
+                        <div class="input-data">
+                            <input type="text" required [value]="user.name" readonly>
+                            <div class="underline"></div>
+                            <label> Owner Full Name</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="email" required [value]="user.email" readonly>
+                            <div class="underline"></div>
+                            <label>Email</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" required formControlName="ownercontact">
+                            <div class="underline"></div>
+                            <label>Contact</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="help text">
+                    <div class="perks">
+                        <div class="title">Perks</div>
+                        <p>Select all the facilities you provide.</p>
+                        <div class="amenities-container">
+                            <div *ngFor="let item of amenitieslist">
+                                <button class="amenity" (click)="toggleAmenity(item)">
+                                    <i class="material-icons">{{item.icon}}</i>
+                                    <span>{{item.title}}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="perks">
+                        <div class="title">Rules</div>
+                        <p>Select all the rules you have.</p>
+
+
+                        <div class="amenities-container">
+                            <div *ngFor="let item of ruleslist">
+                                <button class="amenity" (click)="toggleRule(item)">
+                                    <i class="material-icons">{{item.icon}}</i>
+                                    <span>{{item.title}}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="code text">
+                    <div class="title">Upload Photos</div>
+
+                    <p class="text-gray-500 text-sm">More = better.</p>
+                    <div class="input-bx">
+                        <form>
+
+                            <input type="file" id="upload" accept=".png,.jpg,.jpeg" (change)="onFileSelected($event)"
+                                multiple hidden />
+                            <label for="upload" class="uploadlabel">
+                                <span><i class="fa fa-cloud-upload"></i></span>
+                                <p>Click to upload</p>
+                            </label>
+                            <!-- <img id="pic" [src]="window.URL.createObjectURL(file)" style="height: 100px;width: 100px;"> -->
+
+                        </form>
+                        <div class="filewrapper">
+                            <h3 class="uploaded">Uploaded documents</h3>
+                            <div class="file-box">
+                                <div *ngFor="let file of pg.imageUrl" class="showfilebox">
+                                    <div class="top">
+                                        <!-- <span class="filetype">{{ getFileType(file.name) }}</span> -->
+                                        <img [src]="file" style="max-height: 120px;max-width: 200px;">
+
+                                    </div>
+                                    <div class="bottom">
+                                        <h3>{{ file }}</h3>
+                                        <button (click)="removealreadyfile(file)"><i
+                                                class="material-icons">delete</i></button>
+                                    </div>
+                                </div>
+                                <div *ngFor="let file of uploadedFiles;let i = index" class="showfilebox">
+                                    <div class="top">
+                                        <!-- <span class="filetype">{{ getFileType(file.name) }}</span> -->
+                                        <img [src]="fileUrls[i]" style="max-height: 120px;max-width: 200px;">
+
+                                    </div>
+                                    <div class="bottom">
+                                        <h3>{{ file.name }}</h3>
+                                        <button (click)="removeFile(file)"><i class="material-icons">delete</i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about text">
+                    <div id="room-prices-tab">
+                        <div style="display: flex;align-items: center; flex-direction: row;gap: 300px;">
+                            <div class="title">Room Prices</div>
+
+                            <button (click)="addRoom()" class="add-room-btn">Add Room</button>
+                        </div>
+
+                        <div class="room-tab" formArrayName="roomsgroup">
+                            <div *ngFor="let rooms of roomsgroup.controls;let i=index" style="margin-top: 20px;">
+                                <div [formGroupName]="i" class="room">
+                                    <div class="form-group">
+                                        <label>Occupancy</label>
+                                        <input type="number" formControlName="occupancy">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <select formControlName="type">
+                                            <option value="AC"> AC</option>
+                                            <option value="Non-AC"> Non-AC</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total Number of Rooms</label>
+                                        <input type="number" formControlName="rooms">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Vacancies</label>
+                                        <input type="number" formControlName="vacancies">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rent per Month</label>
+                                        <input type="number" formControlName="rent">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Deposit to be Paid</label>
+                                        <input type="number" formControlName="deposit">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="delete-room-btn" (click)="deleteRoom(i)">Delete Room</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

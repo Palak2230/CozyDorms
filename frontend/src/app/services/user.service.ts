@@ -17,19 +17,22 @@ const USER_KEY = 'User';
 })
 export class UserService {
   private userSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
-  public userObservable?: Observable<User>;
+  public userObservable: Observable<User>;
 
   constructor(private http: HttpClient, private toastrService: ToastrService) {
     this.userObservable = this.userSubject.asObservable();
   }
-  login(userLogin: IUserLogin) {
+  login(userLogin: IUserLogin): Observable<User> {
     return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(tap({
       next: (user) => {
+        console.log(user);
         this.setuserToLocalStorage(user);
         this.userSubject.next(user);
+
         this.toastrService.success(`Welcome back to CozyDorms ${user.name}`,
           "Login successful !"
         )
+        window.location.reload();
       },
       error: (errorResponse) => {
         this.toastrService.error(errorResponse.error,
@@ -38,7 +41,7 @@ export class UserService {
     }))
   }
   logout() {
-    this.userSubject.next(new User());
+    // this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
 
     window.location.reload();
@@ -108,6 +111,7 @@ export class UserService {
 
   private setuserToLocalStorage(user: User) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
+    localStorage.setItem('Wishlist', JSON.stringify([]));
   }
   private getUserFromLocalStorage(): User {
     const userJson = localStorage.getItem(USER_KEY);

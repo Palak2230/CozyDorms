@@ -3,6 +3,6 @@ export class User {
     name!: string;
     email!: string;
     password !: string;
-    contact ?: string;
-
+    contact?: string;
+    token!: string;
 }

@@ -5,34 +5,34 @@
         <div class="main">
             <section>
                 <div class="images-section">
-                    <div width="62.4%" class="sc-bXVTRF eXVggh">
-                        <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">
-                            <img alt="image"
-                                src='{{pg.imageUrl[0] + "?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"}}'
-                                loading="lazy" class="sc-s1isp7-5 eQUAyn" style="max-height: 450px;">
-                        </div>
+                    <div class="image-1">
+
+                        <img alt="image" src='{{pg.imageUrl[0]}}' loading="lazy" class="sc-s1isp7-5 eQUAyn">
+
                     </div>
-                    <section class="image-2">
-                        <div width="100%" class="sc-bXVTRF gZZPsX">
-                            <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">
-                                <div alt="image" class="sc-s1isp7-0 tzISf"></div><img alt="image"
-                                    src='{{pg.imageUrl[1]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
-                                    class="sc-s1isp7-5 eQUAyn" style="min-height: 190px;">
-                            </div>
+                    <div class="image-2">
+                        <!-- <div width="100%" class="sc-bXVTRF gZZPsX">
+                            <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq"> -->
+                        <div alt="image" class="image-3"><img alt="image"
+                                src='{{pg.imageUrl[1]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
+                                style="min-height: 190px;">
+                            <!-- </div>
+                            </div> -->
                         </div>
-                        <div width="100%" class="sc-bXVTRF kcjoIk">
-                            <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">
-                                <div alt="image" class="sc-s1isp7-0 hOjqjD"></div><img alt="image"
-                                    src='{{pg.imageUrl[1]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
-                                    class="sc-s1isp7-5 eQUAyn" style="min-height: 190px;">
-                            </div>
+                        <!-- <div width="100%" class="sc-bXVTRF kcjoIk"> -->
+                        <!-- <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">-->
+                        <div alt="image" class=" image-3">
+                            <img alt="image" src='{{pg.imageUrl[2]}}+?fit=around|300:273&amp;crop=300:273;*,*'
+                                loading="lazy" style="min-height: 190px;">
                         </div>
-                    </section>
+
+
+                    </div>
                     <section class="image-2">
                         <div width="100%" class="sc-bXVTRF gZZPsX">
                             <div height="100%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC cewBIx">
                                 <div alt="image" class="sc-s1isp7-0 jSGWGb"></div><img alt="image"
-                                    src='{{pg.imageUrl[1]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
+                                    src='{{pg.imageUrl[3]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
                                     class="sc-s1isp7-5 eQUAyn" style="min-height: 190px;">
                             </div>
                             <p class="sc-1hez2tp-0 sc-eylKsO jCGTUE">View Gallery</p>
@@ -91,12 +91,23 @@
                                 <span>Direction</span>
                             </div>
                         </a>
-                        <div class="btn"><mat-icon>favorite</mat-icon><span>Favorite</span>
+                        <button (click)="IsInWishlist(pg)" class="btn">
+                            <mat-icon *ngIf="!isPgInWishlist(pg)">favorite_border</mat-icon>
+                            <mat-icon *ngIf="isPgInWishlist(pg)"
+                                style="color: var(--primary-color);">favorite</mat-icon>
+                            <span>Shortlist</span>
+                        </button>
+                        <div class="btn">
+                            <mat-icon>share</mat-icon>
+                            <span>
+                                <a [href]="'whatsapp://send?text=Check out this page: ' + url"
+                                    data-action="share/whatsapp/share">
+                                    Share
+                                </a>
+                            </span>
                         </div>
-                        <div class="btn"><mat-icon>share</mat-icon><span>Share</span></div>
-
                     </div>
-                    <!-- </div> -->
+
                 </div>
             </section>
             <hr>
@@ -223,7 +234,7 @@
                                 accusantium nesciunt non animi!
                             </p>
                             <div class="buttons">
-                                <a class="call" href="tel:+91-9179405920">Call Owner</a>
+                                <a class="call" [href]="'tel:'+pg.owner.contact">Call Owner</a>
                                 <a class="message">Message</a>
                             </div>
                         </div>

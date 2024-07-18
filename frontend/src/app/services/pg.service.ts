@@ -127,7 +127,7 @@ export class PgService {
 
         for (let tenant of selectedTenantsValues) {
 
-          if (item.tenantgender && item.tenantgender.includes(tenant.type)) {
+          if (item.tenantgender && item.tenantgender == tenant.type) {
             return true;
           }
         }

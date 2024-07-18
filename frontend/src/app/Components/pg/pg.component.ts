@@ -26,6 +26,7 @@ import { User } from 'src/app/shared/models/User';
 
 export class PgComponent implements AfterViewInit, OnInit {
 
+
   public slides = [
     { src: "../../../assets/room-1.jpg" },
     { src: "../../../assets/room-2.jpg" },
@@ -34,6 +35,8 @@ export class PgComponent implements AfterViewInit, OnInit {
   currentSlide = 0;
 
 
+  wishlist: Pg[] = [];
+  user: any; // replace with appropriate user type
 
 
   onPreviousClick() {
@@ -49,6 +52,7 @@ export class PgComponent implements AfterViewInit, OnInit {
   }
 
   pg!: Pg;
+  url!: string;
   //ROOM DETAILS
   displayedColumns: string[] = ['occupancy', 'roomtype', 'rooms', 'vacancies', 'rent', 'deposit'];
   dataSource !: any;
@@ -82,7 +86,7 @@ export class PgComponent implements AfterViewInit, OnInit {
       stars: [0, Validators.required],
       comment: ['']
     })
-
+    this.url = window.location.href;
 
 
   }
@@ -90,7 +94,7 @@ export class PgComponent implements AfterViewInit, OnInit {
   openModal(modalContent: any) {
     this.modalService.open(modalContent, { centered: true });
   }
-  user!: User;
+
   submitreview(text: string) {
     if (this.starvalue == 0) {
       alert('Rating not valid !');
@@ -117,6 +121,7 @@ export class PgComponent implements AfterViewInit, OnInit {
 
 
   }
+
   numSequence(n: number): Array<number> {
     return Array(n);
   }
@@ -137,7 +142,7 @@ export class PgComponent implements AfterViewInit, OnInit {
     let PgsObservable: Observable<Pg>;
 
     this.activatedRoute.params.subscribe((params) => {
-
+      console.log(this.activatedRoute);
       PgsObservable = this.pgService.getPgById(params['searchTerm']);
       PgsObservable.subscribe((serverpgs) => {
         this.pg = serverpgs;
@@ -146,8 +151,11 @@ export class PgComponent implements AfterViewInit, OnInit {
       });
 
     });
-    const item = localStorage.getItem('User');
-    this.user = JSON.parse(item || '');
+
+    const item = localStorage.getItem('Wishlist');
+    this.wishlist = JSON.parse(item || '[]');
+    // Assume user information is stored in local storage or retrieved from a service
+    this.user = JSON.parse(localStorage.getItem('User') || '{}');
   }
   convert(rating: number) {
     return Number(rating).toFixed(1);
@@ -155,5 +163,26 @@ export class PgComponent implements AfterViewInit, OnInit {
 
   reviewForm!: FormGroup;
   closed: boolean = false;
+
+  IsInWishlist(pg: Pg) {
+    const item = localStorage.getItem('Wishlist');
+    this.wishlist = JSON.parse(item || '[]');
+    if (!this.user) {
+      this._dialog.open(LoginPageComponent, {
+        panelClass: 'bg-color',
+      });
+    } else {
+      if (this.wishlist.some((pgs) => pgs.id === pg.id)) {
+        this.wishlist = this.wishlist.filter((item) => item.id !== pg.id);
+      } else {
+        this.wishlist.push(pg);
+      }
+    }
+    localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
+  }
+
+  isPgInWishlist(pg: Pg): boolean {
+    return this.wishlist.some((pgs) => pgs.id === pg.id);
+  }
 
 }

@@ -39,19 +39,14 @@ export class YourpropertyComponent {
     const user = JSON.parse(item || '')
     // if(! user){}
     // console.log(user);
-    let PgsObservable: Observable<Pg[]>;
-    console.log(user);
-    PgsObservable = this.pgService.getAll();
+    let PgsObservable: Observable<Pg[]> = this.pgService.getAll();
     PgsObservable.subscribe((serverpgs) => {
       this.pgs = serverpgs;
-      // this.pgs = this.pgs.filter((pg) => {
-      //   console.log(pg.owner);
-
-      //   // pg.owner && pg.owner.email && pg.owner.email == user.email;
-      // })
-
-    }
-    );
+      this.pgs = this.pgs.filter(pg => pg.owner.email === user.email);
+      console.log(this.pgs);
+    }, (error) => {
+      console.error('Error fetching PGs:', error);
+    });
   }
 
   convert(rating: number) {
