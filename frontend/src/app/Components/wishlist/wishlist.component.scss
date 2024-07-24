@@ -1,6 +1,43 @@
 .wrap-div {
-    margin: 20px 20px;
+    margin: 10px 180px;
     display: flex;
+    flex-direction: column;
+    // padding: 100px;
+    // margin: 10px;
+    // padding: 100px;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    // padding: 0px 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    div {
+        font-size: 32px;
+        font-family: var(--my-font);
+        // font-family: Poppins;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--primary-color);
+    }
+    button {
+        // margin-right: 30px;
+        // padding: 10px 30px;
+        // font-size: 20px;
+        margin: 0 10px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 100px;
+        padding-bottom: 10px;
+        span {
+            text-align: center;
+            font-size: 40px;
+            color: var(--primary-color);
+        }
+    }
 }
 .filter-section {
     // position: fixed;
@@ -85,7 +122,6 @@
     // margin-left: 20px;
     height: 100vh;
     overflow: auto;
-    padding-right: 50px;
 
     ul {
         display: flex;
@@ -130,6 +166,25 @@
     justify-content: flex-start;
     margin: 20px 0;
 
+    .first {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            // justify-content: s;
+            gap: 16px;
+            button {
+             
+                background-color: transparent;
+                span{
+                    font-size: 36px;
+                   
+                }
+            }
+        }
+    }
     // padding: 20px;
 }
 h3 {

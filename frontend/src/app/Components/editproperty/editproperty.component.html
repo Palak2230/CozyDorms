@@ -70,13 +70,13 @@
                 <div class="blog text">
                     <div class="title">Your Details</div>
                     <div class="wrapper">
-                        <div class="input-data">
-                            <input type="text" required [value]="user.name" readonly>
+                        <div class="already-input">
+                            <input type="text" required [value]="user.name" readonly style="border: none;">
                             <div class="underline"></div>
                             <label> Owner Full Name</label>
                         </div>
-                        <div class="input-data">
-                            <input type="email" required [value]="user.email" readonly>
+                        <div class="already-input">
+                            <input type="email" required [value]="user.email" readonly style="border: none;">
                             <div class="underline"></div>
                             <label>Email</label>
                         </div>
@@ -93,7 +93,10 @@
                         <p>Select all the facilities you provide.</p>
                         <div class="amenities-container">
                             <div *ngFor="let item of amenitieslist">
-                                <button class="amenity" (click)="toggleAmenity(item)">
+                                <button class="amenity" (click)="toggleAmenity(item)" [ngStyle]="ifinamenity(item) ? {
+                                    background: 'var(--primary-color)',
+                                    color:'white'
+                                  }: null">
                                     <i class="material-icons">{{item.icon}}</i>
                                     <span>{{item.title}}</span>
                                 </button>
@@ -108,7 +111,10 @@
 
                         <div class="amenities-container">
                             <div *ngFor="let item of ruleslist">
-                                <button class="amenity" (click)="toggleRule(item)">
+                                <button class="amenity" (click)="toggleRule(item)" [ngStyle]="ifinrules(item) ? {
+                                    background: 'var(--primary-color)',
+                                    color:'white'
+                                  }: null">
                                     <i class="material-icons">{{item.icon}}</i>
                                     <span>{{item.title}}</span>
                                 </button>

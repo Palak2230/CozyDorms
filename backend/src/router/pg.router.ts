@@ -116,6 +116,24 @@ router.post('/edit', expressAsyncHandler(
             return res.status(500).send({ message: 'Internal Server Error' });
         }
     }));
+router.post('/delete', expressAsyncHandler(async (req: any, res: any) => {
+    try {
+        const objId = new mongoose.Types.ObjectId(req.body.id);
+        console.log('Received ID:', req.body.id);
+
+        const result = await PgModel.deleteOne({ _id: objId });
+        console.log(result);
+        if (result.deletedCount === 1) {
+            res.send('ok');
+        } else {
+            res.status(404).send({ message: 'PG not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Internal Server Error' });
+    }
+}));
+
 
 router.post('/add', expressAsyncHandler(
     async (req: any, res: any) => {

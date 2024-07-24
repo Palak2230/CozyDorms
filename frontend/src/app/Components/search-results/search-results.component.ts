@@ -38,7 +38,13 @@ export class SearchResultsComponent implements OnInit {
   }
 
   pgrating: number = 0;
+  minvalue: number = 0;
+  maxvalue: number = 100000;
   ngOnInit(): void {
+    this.minvalue = history.state.data.minvalue;
+    this.maxvalue = history.state.data.maxvalue;
+    console.log(this.minvalue);
+    console.log(this.maxvalue);
     let PgsObservable: Observable<Pg[]>;
     let LocalityObservable: Observable<string[]>;
     this.activatedRoute.params.subscribe((params) => {
@@ -200,4 +206,19 @@ export class SearchResultsComponent implements OnInit {
   isPgInWishlist(pg: Pg): boolean {
     return this.wishlist.some((pgs) => pgs.id === pg.id);
   }
+
+  calleventmin(event: any) {
+    this.minvalue = event.target.value;
+  }
+  calleventmax(event: any) {
+    this.maxvalue = event.target.value;
+  }
+  formatLabel(value: number): string {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return `${value}`;
+  }
+
 }

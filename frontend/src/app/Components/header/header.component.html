@@ -17,7 +17,9 @@
                     </mat-autocomplete></mat-form-field>
             </div>
         </div>
-        <button class="property" (click)="gotoyours()">Your Property</button>
+
+        <button class="property" (click)="gotoyours()">Post Your Property</button>
+        <button class="wishlist-btn" (click)="gotowishlist()"> <i class="material-icons">favorite</i></button>
         <!-- <div class="login" (click)="gologin()" *ngIf="!isAuth">Login/Signup</div>
         <div class="login" (click)="logout()" *ngIf="isAuth">Logout</div>
        <div class="user" *ngIf="user">
@@ -33,18 +35,27 @@
             <div *ngIf="!this.user.name" class="login">
                 <a (click)="gologin()">Login/Signup </a>
 
-
             </div>
             <div *ngIf="this.user.name" class="user">
-                <div class="user-img"><img [src]="user"></div>
-                <li class="menu-container">
-                    <a routerLink="/dashboard">{{user.name}}</a>
+                <!-- <div class="user-img"><img [src]="user"></div> -->
+                <div class="menu-container">
+                    <!-- <a routerLink="/dashboard">{{user.name}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Profile</a>
                         <a routerLink="/yourproperty">Orders</a>
                         <a (click)="logout()">Logout</a>
+                    </div> -->
+                    <button>
+                        <i class="material-icons">menu</i>
+                        <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg">
+                    </button>
+                    <div class="menu">
+                        <a routerLink="/profile">Profile</a>
+                        <a routerLink="/yourproperty">Your Properties</a>
+                        <a (click)="logout()">Logout</a>
                     </div>
 
+                </div>
             </div>
         </nav>
     </div>

@@ -1,86 +1,12 @@
-<div class="wrap-div ">
-
-
-    <div class="filter-section">
-        <div class="filter-header">
-            <span class="heading">
-                Filters
-            </span>
-            <a class="clearall" (click)="clearAll()">Clear All</a>
-
-        </div>
-        <div class="filters__item">
-            <span>Add popular locations</span>
-            <!-- <mat-form-field>
-                <input type="text">
-            </mat-form-field> -->
-            <mat-form-field appearance="fill">
-                <input type="text" matInput [formControl]="formControl" [matAutocomplete]="auto" style="color: black;">
-
-                <mat-autocomplete #auto="matAutocomplete" disableRipple="true">
-                    <mat-option *ngFor="let option of filterOptions | async" [value]="option.address">
-                        {{ option.address}}
-                    </mat-option>
-                </mat-autocomplete>
-
-
-            </mat-form-field>
-            <button (click)="show()" class="search-btn">SEARCH</button>
-
-
-        </div>
-
-        <div class="filters__wrapper">
-            <div class="filters__item">
-                <span>Budget</span>
-                <div class="budget">
-                    <!-- <label for="check-out">CHECK-OUT</label> -->
-                    <!-- <label for="guest">BUDGET</label> -->
-                    <mat-slider min="0" max="100000" step="1000" discrete [displayWith]="formatLabel">
-                        <input matSliderStartThumb (change)="calleventmin($event)" [value]="this.minvalue">
-                        <input matSliderEndThumb (change)="calleventmax($event)" [value]="this.maxvalue">
-                    </mat-slider>
-
-
-                </div>
-            </div>
-            <!-- <hr> -->
-            <div class="filters__item">
-                <span>Occupancy</span>
-                <ul>
-                    <li *ngFor="let tenant of tenant_type;let i=index">
-                        <input type="checkbox" [(ngModel)]="selectedTenants[i]" (change)="getPgs()">
-                        <label>{{tenant.type}}</label>
-                    </li>
-                </ul>
-            </div>
-            <!-- <div class="line">--</div> -->
-
-            <div class="filters__item">
-                <span>Room Type</span>
-                <ul>
-                    <li *ngFor="let room of room_type;let i=index">
-                        <input type="checkbox" [(ngModel)]="selectedRooms[i]" (change)="getPgs()">
-                        <label>{{room.type}}</label>
-                    </li>
-                </ul>
-            </div>
-            <!-- <hr> -->
-            <div class="filters__item">
-                <span>Ratings</span>
-                <ul>
-                    <li *ngFor="let rating of rating_type;let i=index">
-                        <input type="checkbox" [(ngModel)]="selectedRatings[i]" (change)="getPgs()">
-                        <label>{{rating.type}}</label>
-                    </li>
-                </ul>
-            </div>
-            <!-- <hr> -->
-
-        </div>
+<div class="wrap-div">
+    <div class="header">
+        <div>Shortlisted Properties</div>
+        <!-- <button routerLink="/add">Add Property</button> -->
+        <!-- <button><i class="fa-solid fa-circle-plus"></i></button> -->
+        <!-- <button routerLink="/add"><span class=" material-symbols-outlined">
+                add_location_alt
+            </span></button> -->
     </div>
-
-
     <div class="pg-section ">
         <!-- <div class="tags-section">
             <ul>
@@ -88,14 +14,24 @@
             </ul>
         </div> -->
         <ul>
-            <li *ngFor="let pg of pgfiltered">
-                <div class="pg-card" *ngIf="findminprice(pg.rooms)>=minvalue &&findminprice(pg.rooms)<=maxvalue ">
+            <li *ngFor="let pg of wishlist">
+                <div class="pg-card">
                     <div class="pg-image">
                         <img [src]="pg.imageUrl" [alt]="pg.name">
                     </div>
                     <div class="pg-info">
-                        <h3>{{pg.name}}</h3>
-
+                        <div class="first">
+                            <h3>{{pg.name}}</h3>
+                            <div class="buttons">
+                                <button [routerLink]="'/editpg/'+pg.id"><span class="material-symbols-outlined">
+                                        edit
+                                    </span></button>
+                                <button (click)="deletepg(pg.id)"><span class="material-symbols-outlined"
+                                        style=" color: var(--primary-color);">
+                                        delete
+                                    </span></button>
+                            </div>
+                        </div>
                         <span
                             style=" margin: 5px 0px; font-size: 16px; font-family: Inter,sans-serif; line-height: 25px; font-weight: 400;">{{pg.address}}
                         </span>
@@ -172,6 +108,6 @@
         </ul>
 
     </div>
-</div>
 
-<!-- </div> -->
+
+</div>

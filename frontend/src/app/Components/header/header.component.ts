@@ -46,7 +46,10 @@ export class HeaderComponent implements OnInit {
   }
 
   gotoyours() {
-    this.router.navigate(['/yourproperty']);
+    this.router.navigate(['/add']);
+  }
+  gotowishlist() {
+    this.router.navigate(['/wishlist']);
   }
 
   gologin() {
@@ -63,8 +66,8 @@ export class HeaderComponent implements OnInit {
     if (event.target.value)
       this.router.navigate(['/results', event.target.value]);
   }
- get isAuth(){
-  return this.user.name;
- }
- 
+  get isAuth() {
+    return this.user.name;
+  }
+
 }

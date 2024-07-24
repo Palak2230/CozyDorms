@@ -9,7 +9,7 @@ import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { Observable } from 'rxjs';
 import { Pg } from 'src/app/shared/models/pg';
 import { User } from 'src/app/shared/models/User';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Amenity {
     icon: string;
@@ -73,7 +73,7 @@ export class EditpropertyComponent {
     rooms: any;
     pg!: Pg;
     user!: User;
-    constructor(private fb: FormBuilder, private http: HttpClient, private pgservice: PgService, private activatedRoute: ActivatedRoute) {
+    constructor(private fb: FormBuilder, private http: HttpClient, private pgservice: PgService, private activatedRoute: ActivatedRoute, private router: Router) {
 
         const item = localStorage.getItem('User');
         this.user = JSON.parse(item || '');
@@ -95,7 +95,10 @@ export class EditpropertyComponent {
             PgsObservable = this.pgservice.getPgById(params['searchTerm']);
             PgsObservable.subscribe((serverpgs) => {
                 this.pg = serverpgs;
+                if (!this.pg.owner || this.pg.owner.email != this.user.email) {
+                    this.router.navigateByUrl("http://localhost:4200/home")
 
+                }
                 this.addedAmenities = this.pg.amenities;
                 this.addedRules = this.pg.rules;
 
@@ -107,7 +110,7 @@ export class EditpropertyComponent {
                     tenantgender: [this.pg.tenantgender, Validators.required],
                     about: [this.pg.about, Validators.required],
 
-                    ownercontact: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+                    ownercontact: [this.pg.owner.contact, [Validators.required, Validators.pattern('^[0-9]+$')]],
                     addedAmenities: [this.addedAmenities],
                     addedRules: [this.addedRules],
                     roomsgroup: this.fb.array([]) // Initialize FormArray for rooms
@@ -279,7 +282,12 @@ export class EditpropertyComponent {
             this.addedRules.push(rule);
         }
     }
-
+    ifinamenity(amenity: Amenity) {
+        return this.addedAmenities.findIndex(item => item.title === amenity.title) > -1;
+    }
+    ifinrules(amenity: Amenity) {
+        return this.addedRules.findIndex(item => item.title === amenity.title) > -1;
+    }
     getErrorMessage(controlName: string): string {
         const control = this.propertyForm.get(controlName);
         if (control && control.touched && control.invalid) {

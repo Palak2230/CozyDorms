@@ -1,5 +1,5 @@
 .property {
-    font-family: "Poppins", sans-serif;
+    font-family: var(--my-font);
     display: flex;
     height: 100vh;
     padding: 100px;
@@ -333,7 +333,7 @@ li {
         color: var(--primary-color);
         font-size: 20px;
         // font-weight: 800;
-        font-family: Okra;
+        font-family: var(--my-font);
     }
 }
 .uploaded {
@@ -432,7 +432,7 @@ li {
             align-items: center;
             gap: 10px;
             span {
-                font-size: 14px;
+                font-size: 16px;
             }
             // justify-content: center;
         }
@@ -535,3 +535,42 @@ input::-webkit-inner-spin-button {
     color: pink !important;
 }
 //For inner circle
+.already-input {
+    height: 40px;
+    width: 100%;
+    position: relative;
+    margin: 40px 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 17px;
+    border-bottom: 2px solid silver;
+    outline: none;
+}
+
+.already-input label {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    outline: none;
+    transform: translateY(-30px);
+    font-size: 15px;
+    color: var(--primary-color);
+    border: none;
+}
+
+.already-input .underline::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    background-color: rgba(119, 255, 0, 0.169);
+    height: 100%;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.already-input input:focus {
+    outline: none;
+}

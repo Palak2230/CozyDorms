@@ -173,8 +173,10 @@ export class PropertyComponent implements OnInit {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       this.uploadedFiles.push(files[i]);
+      this.fileUrls.push(URL.createObjectURL(files[i]));
     }
     console.log(this.uploadedFiles);
+
   }
 
   getFileType(fileName: string): string {
@@ -184,14 +186,22 @@ export class PropertyComponent implements OnInit {
     }
     return 'UNKNOWN';
   }
-
+  geturl(file: File) {
+    return window.URL.createObjectURL(file);
+  }
   removeFile(file: File): void {
     this.uploadedFiles = this.uploadedFiles.filter(f => f !== file);
-  }
+    this.fileUrls = this.fileUrls.filter(f => f != URL.createObjectURL(file));
 
+  }
+  // removealreadyfile(file: string) {
+  //   this.pg.imageUrl = this.pg.imageUrl.filter(f => f != file);
+  // }
   uploadFiles(): void {
     // Implement upload logic here
   }
+  fileUrls: string[] = [];
+
 
   toggleAmenity(amenity: Amenity): void {
     const index = this.addedAmenities.findIndex(item => item.title === amenity.title);
@@ -201,7 +211,12 @@ export class PropertyComponent implements OnInit {
       this.addedAmenities.push(amenity);
     }
   }
-
+  ifinamenity(amenity: Amenity) {
+    return this.addedAmenities.findIndex(item => item.title === amenity.title) > -1;
+  }
+  ifinrules(amenity: Amenity) {
+    return this.addedRules.findIndex(item => item.title === amenity.title) > -1;
+  }
   toggleRule(rule: Rule): void {
     const index = this.addedRules.findIndex(item => item.title === rule.title);
     if (index > -1) {

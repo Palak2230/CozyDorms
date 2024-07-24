@@ -1,5 +1,5 @@
 .property {
-    font-family: "Poppins", sans-serif;
+    font-family: var(--my-font);
     display: flex;
     height: 100vh;
     padding: 100px;
@@ -333,7 +333,7 @@ li {
         color: var(--primary-color);
         font-size: 20px;
         // font-weight: 800;
-        font-family: Okra;
+        font-family: var(--my-font);
     }
 }
 .uploaded {
@@ -341,39 +341,75 @@ li {
     font-size: 16px;
     font-weight: 700;
 }
+.file-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
 .showfilebox {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    // justify-content: space-between;
     margin: 10px 0;
-    padding: 10px 15px;
+    // padding: 10px 15px;
     box-shadow: #0000000d 0 0 0 1px;
-    width: 250px;
-    .left {
+    width: 200px;
+    height: 200px;
+    gap: 10x;
+    .top {
         display: flex;
-        align-items: center;
+        // align-items: center;
         flex-wrap: wrap;
-        gap: 35px;
-        justify-content: center;
-        .filetype {
-            border-bottom: 1px solid var(--primary-color);
-            font-size: 20px;
-        }
+        // gap: 35px;
+        // justify-content: center;
+        // .filetype {
+        //     border-bottom: 1px solid var(--primary-color);
+        //     font-size: 20px;
+        //     flex-wrap: wrap;
+        // }
+
+        padding-bottom: 40px;
+    }
+    .bottom {
+        background-color: rgba(128, 128, 128, 0.099);
+        display: flex;
+        flex-direction: row;
+        border-top: 1px solid black;
+        // flex-wrap: wrap;
+        // overflow: hidden;
+        // max-width: 200px;
+        // overflow-wrap: break-word;
+        overflow: scroll;
+        gap: 10px;
+        width: 100%;
+        height: 100%;
         h3 {
+            padding-left: 10px;
             font-weight: 500;
             font-size: 16px;
             margin: 0;
             color: black;
+            max-width: 150px;
+            // flex-wrap: wrap;
+            overflow: scroll;
+            // word-break: break-all;
         }
-    }
-    .right {
-        span {
+        button {
+            background-color: transparent;
             width: 25px;
             height: 25px;
-            font-size: 25px;
+            font-size: 12px;
             line-height: 25px;
             display: inline-block;
             text-align: center;
+            flex-wrap: wrap;
+            // overflow: scroll;
+            i {
+                color: red;
+            }
         }
     }
 }
@@ -396,7 +432,7 @@ li {
             align-items: center;
             gap: 10px;
             span {
-                font-size: 14px;
+                font-size: 16px;
             }
             // justify-content: center;
         }
@@ -499,3 +535,42 @@ input::-webkit-inner-spin-button {
     color: pink !important;
 }
 //For inner circle
+.already-input {
+    height: 40px;
+    width: 100%;
+    position: relative;
+    margin: 40px 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 17px;
+    border-bottom: 2px solid silver;
+    outline: none;
+}
+
+.already-input label {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    outline: none;
+    transform: translateY(-30px);
+    font-size: 15px;
+    color: var(--primary-color);
+    border: none;
+}
+
+.already-input .underline::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    background-color: rgba(119, 255, 0, 0.169);
+    height: 100%;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.already-input input:focus {
+    outline: none;
+}

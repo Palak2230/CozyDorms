@@ -53,7 +53,7 @@
 .login {
   font-size: 18px;
   color: rgba(12, 10, 9, 0.6470588235);
-  font-family: Okra, Helvetica, sans-serif;
+  font-family: var(--my-font);
 }
 .btn {
   padding: 0.75rem 1.5rem;
@@ -130,7 +130,7 @@ nav {
     padding: 10px;
 
     font-size: 16px;
-    font-family: Okra, Helvetica, sans-serif;
+    font-family: var(--my-font);
   }
   button:hover {
     background-color: var(--primary-color);

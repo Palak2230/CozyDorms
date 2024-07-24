@@ -152,9 +152,20 @@ export class HomeComponent implements OnInit {
 
   searchpg(term: string): void {
     if (term) {
-      this.router.navigateByUrl('/results/' + term);
+      this.router.navigateByUrl('/results/' + term, {
+        state: {
+          data: { minvalue: this.minvalue, maxvalue: this.maxvalue },
+        }
+      });
     }
   }
-
+  minvalue: number = 0;
+  calleventmin(event: any) {
+    this.minvalue = event.target.value;
+  }
+  calleventmax(event: any) {
+    this.maxvalue = event.target.value;
+  }
+  maxvalue: number = 100000;
 
 }

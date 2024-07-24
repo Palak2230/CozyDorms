@@ -2,6 +2,7 @@
 /* Importing Bootstrap SCSS file. */
 @import "bootstrap/scss/bootstrap";
 
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 /* Importing Bootstrap SCSS file. */
 @import "./node_modules/bootstrap/scss/bootstrap";
 
@@ -22,6 +23,7 @@
   --text-light: #78716c;
   --white: #ffffff;
   --max-width: 1200px;
+  --my-font: "Nunito", sans-serif;
 }
 
 * {
@@ -347,3 +349,14 @@ html::-webkit-scrollbar-track {
 .mdc-dialog__surface {
   background-color: transparent !important;
 }
+.nunito-myfont {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.mat-mdc-slider.mat-warn {
+  --mdc-slider-active-track-color: grey;
+  --mdc-slider-inactive-track-color: darkgrey;
+}
+.mat-mdc-slider.mat-warn { --mdc-slider-handle-color: green !important; --mdc-slider-focus-handle-color: green !important; }

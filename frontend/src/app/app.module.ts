@@ -42,6 +42,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { envionment } from 'src/environments/environment';
 import { YourpropertyComponent } from './Components/yourproperty/yourproperty.component';
 import { EditpropertyComponent } from './Components/editproperty/editproperty.component';
+import { WishlistComponent } from './Components/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { EditpropertyComponent } from './Components/editproperty/editproperty.co
     PropertyComponent,
     YourpropertyComponent,
     EditpropertyComponent,
+    WishlistComponent,
 
   ],
   imports: [

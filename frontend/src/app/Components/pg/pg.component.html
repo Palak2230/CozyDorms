@@ -10,39 +10,65 @@
                         <img alt="image" src='{{pg.imageUrl[0]}}' loading="lazy" class="sc-s1isp7-5 eQUAyn">
 
                     </div>
-                    <div class="image-2">
-                        <!-- <div width="100%" class="sc-bXVTRF gZZPsX">
+                    <div class="small-imgs">
+                        <div class="image-2">
+                            <!-- <div width="100%" class="sc-bXVTRF gZZPsX">
                             <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq"> -->
+                            <div alt="image" class="image-3"><img alt="image"
+                                    src='{{pg.imageUrl[1]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
+                                    style="min-height: 190px;">
+                                <!-- </div>
+                            </div> -->
+                            </div>
+                            <!-- <div width="100%" class="sc-bXVTRF kcjoIk"> -->
+                            <!-- <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">-->
+                            <div alt="image" class=" image-3">
+                                <img alt="image" src='{{pg.imageUrl[2]}}+?fit=around|300:273&amp;crop=300:273;*,*'
+                                    loading="lazy" style="min-height: 190px;">
+                            </div>
+
+
+                        </div>
+                        <div class="image-2">
+                            <!-- <div width="100%" class="sc-bXVTRF gZZPsX">
+                            <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq"> -->
+                            <div alt="image" class="image-3" style="border-top-right-radius: 20px;"><img alt="image"
+                                    src='{{pg.imageUrl[0]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
+                                    style="min-height: 190px;border-top-right-radius: 20px;">
+                                <!-- </div>
+                            </div> -->
+                            </div>
+                            <!-- <div width="100%" class="sc-bXVTRF kcjoIk"> -->
+                            <!-- <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">-->
+                            <div alt="image" class=" image-3" style="border-bottom-right-radius: 20px;">
+                                <img alt="image" src='{{pg.imageUrl[0]}}+?fit=around|300:273&amp;crop=300:273;*,*'
+                                    loading="lazy" style="min-height: 190px;border-bottom-right-radius: 20px;">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- <section class="image-2">
                         <div alt="image" class="image-3"><img alt="image"
                                 src='{{pg.imageUrl[1]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
                                 style="min-height: 190px;">
-                            <!-- </div>
-                            </div> -->
+                            </div>
                         </div>
-                        <!-- <div width="100%" class="sc-bXVTRF kcjoIk"> -->
-                        <!-- <div height="40%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC kGlYQq">-->
-                        <div alt="image" class=" image-3">
-                            <img alt="image" src='{{pg.imageUrl[2]}}+?fit=around|300:273&amp;crop=300:273;*,*'
-                                loading="lazy" style="min-height: 190px;">
                         </div>
-
-
-                    </div>
-                    <section class="image-2">
-                        <div width="100%" class="sc-bXVTRF gZZPsX">
+                       <div width="100%" class="sc-bXVTRF gZZPsX">
                             <div height="100%" width="100%" class="sc-s1isp7-1 gMhjmN sc-hWWTYC cewBIx">
                                 <div alt="image" class="sc-s1isp7-0 jSGWGb"></div><img alt="image"
                                     src='{{pg.imageUrl[3]}}+?fit=around|300:273&amp;crop=300:273;*,*' loading="lazy"
                                     class="sc-s1isp7-5 eQUAyn" style="min-height: 190px;">
                             </div>
                             <p class="sc-1hez2tp-0 sc-eylKsO jCGTUE">View Gallery</p>
-                        </div>
-                    </section>
+                        </div> 
+                    </section> -->
                 </div>
 
             </section>
 
-            <section>
+            <section class="info-section">
                 <div class="info-summary">
                     <div class="info-1">
                         <div class="pg-name">{{pg.name}}</div>
@@ -107,156 +133,167 @@
                             </span>
                         </div>
                     </div>
+                    <div class="main-section">
+                        <div class="display">
 
+
+                            <div style="margin-top:20px">
+                                <div class="heading">Common Amenities</div>
+                                <div class="amenities-list">
+                                    <div class="Amenities" *ngFor="let amenities of pg.amenities">
+
+                                        <i class="material-icons">{{amenities.icon}}</i>
+                                        <span>{{amenities.title}}</span>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div>
+                                <div class="heading">Room Details</div>
+
+                                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+                                    (matSortChange)="announceSortChange($event)">
+
+                                    <ng-container matColumnDef="occupancy">
+                                        <th mat-header-cell *matHeaderCellDef>Occupancy</th>
+                                        <td mat-cell *matCellDef="let room"> {{room.occupancy}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="roomtype">
+                                        <th mat-header-cell *matHeaderCellDef>Room Type</th>
+                                        <td mat-cell *matCellDef="let room"> {{room.type}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="rooms">
+                                        <th mat-header-cell *matHeaderCellDef>Rooms</th>
+                                        <td mat-cell *matCellDef="let room"> {{room.rooms}} </td>
+                                    </ng-container>
+
+
+                                    <ng-container matColumnDef="vacancies">
+                                        <th mat-header-cell *matHeaderCellDef>Vacancies</th>
+                                        <td mat-cell *matCellDef="let room"> {{room.vacancies}} </td>
+                                    </ng-container>
+
+                                    <!-- Weight Column -->
+                                    <ng-container matColumnDef="rent">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rent / M </th>
+                                        <td mat-cell *matCellDef="let room"> {{room.rent}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="deposit">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Deposit </th>
+                                        <td mat-cell *matCellDef="let room"> {{room.deposit}} </td>
+                                    </ng-container>
+
+
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+
+                            </div>
+                            <div>
+
+                                <div class="heading">PG Rules</div>
+                                <div class="amenities-list">
+                                    <div class="Amenities" *ngFor="let rules of pg.rules">
+                                        <i class="material-icons">{{rules.icon}}</i>
+                                        <span>{{rules.title}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="side-section">
+                    <div class="about">
+                        <h1>About this property</h1>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo eum, sapiente expedita sunt
+                            praesentium rerum nobis iste maxime, exercitationem dignissimos illum qui delectus
+                            quisquam.
+                            Vel blanditiis, repellat, nesciunt odio vitae facere fugiat repudiandae in molestiae
+                            pariatur maxime. Reprehenderit ratione tenetur suscipit vero eaque, quae, fuga deleniti
+                            accusantium nesciunt non animi!
+                        </p>
+                        <div class="buttons">
+                            <a class="call" [href]="'tel:'+pg.owner.contact">Call Owner</a>
+                            <a class="message">Message</a>
+                        </div>
+                    </div>
+                    <div class="reporting">
+
+                        <div class="report-text"><img src="../../../assets/warning.png">
+                            <span style="font-size: 15px;">Report what was not correct in this
+                                property</span>
+                        </div>
+                        <div class="report-options">
+                            <button>Wrong info</button>
+                            <!-- <button>Listed by broker</button> -->
+                            <button>Rented Out</button>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <hr>
-
-
-
+            <!-- <hr> -->
             <section>
-                <div class="main-section">
-                    <div class="display">
-
-
-                        <div>
-                            <div class="heading">Common Amenities</div>
-                            <div class="amenities-list">
-                                <div class="Amenities" *ngFor="let amenities of pg.amenities">
-
-                                    <i class="material-icons">{{amenities.icon}}</i>
-                                    <span>{{amenities.title}}</span>
-
-
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div>
-                            <div class="heading">Room Details</div>
-
-                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-                                (matSortChange)="announceSortChange($event)">
-
-                                <ng-container matColumnDef="occupancy">
-                                    <th mat-header-cell *matHeaderCellDef>Occupancy</th>
-                                    <td mat-cell *matCellDef="let room"> {{room.occupancy}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="roomtype">
-                                    <th mat-header-cell *matHeaderCellDef>Room Type</th>
-                                    <td mat-cell *matCellDef="let room"> {{room.type}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="rooms">
-                                    <th mat-header-cell *matHeaderCellDef>Rooms</th>
-                                    <td mat-cell *matCellDef="let room"> {{room.rooms}} </td>
-                                </ng-container>
-
-
-                                <ng-container matColumnDef="vacancies">
-                                    <th mat-header-cell *matHeaderCellDef>Vacancies</th>
-                                    <td mat-cell *matCellDef="let room"> {{room.vacancies}} </td>
-                                </ng-container>
-
-                                <!-- Weight Column -->
-                                <ng-container matColumnDef="rent">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Rent / M </th>
-                                    <td mat-cell *matCellDef="let room"> {{room.rent}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="deposit">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Deposit </th>
-                                    <td mat-cell *matCellDef="let room"> {{room.deposit}} </td>
-                                </ng-container>
-
-
-
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                            </table>
-
-                        </div>
-                        <div>
-
-                            <div class="heading">PG Rules</div>
-                            <div class="amenities-list">
-                                <div class="Amenities" *ngFor="let rules of pg.rules">
-                                    <i class="material-icons">{{rules.icon}}</i>
-                                    <span>{{rules.title}}</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="reviews">
-                            <div class="review-header">
-                                <div class="heading">Reviews</div>
-                                <button (click)="openModal(modalRef)">Add Review</button>
-                                <!-- {{pg.reviews[0].rating}} -->
-                            </div>
-                            <div class="reviews-main">
-
-                                <div class="user" *ngFor="let review of pg.reviews">
-
-                                    <div class="review-heading">
-                                        <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
-                                        <div class="name col-6">{{review.user.name}}</div>
-                                        <div class="user-rating"><span class="fas fa-star"
-                                                *ngFor="let n of numSequence(review.rating)"></span>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="user-comment">
-                                        <div class="text">{{review.comment}}
-                                        </div>
-                                        <!-- 
-                                        <div class="images">
-                                            <img src="../../../assets/room-1.jpg">
-                                            <img src="../../../assets/room-2.jpg">
-                                        </div> -->
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
+                <div class="reviews">
+                    <div class="review-header">
+                        <div class="heading">Reviews</div>
+                        <!-- <button (click)="openModal(modalRef)">Add Review</button> -->
+                        <!-- {{pg.reviews[0].rating}} -->
                     </div>
-                    <div class="side-section">
-                        <div class="about">
-                            <h1>About this property</h1>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo eum, sapiente expedita sunt
-                                praesentium rerum nobis iste maxime, exercitationem dignissimos illum qui delectus
-                                quisquam.
-                                Vel blanditiis, repellat, nesciunt odio vitae facere fugiat repudiandae in molestiae
-                                pariatur maxime. Reprehenderit ratione tenetur suscipit vero eaque, quae, fuga deleniti
-                                accusantium nesciunt non animi!
-                            </p>
-                            <div class="buttons">
-                                <a class="call" [href]="'tel:'+pg.owner.contact">Call Owner</a>
-                                <a class="message">Message</a>
-                            </div>
-                        </div>
-                        <div class="reporting">
+                    <div class="reviews-main">
 
-                            <div class="report-text"><img src="../../../assets/warning.png">
-                                <span style="font-size: 20px;">Report what was not correct in this
-                                    property</span>
+                        <div class="user" *ngFor="let review of pg.reviews">
+
+                            <div class="review-heading">
+                                <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
+                                <div style="display: flex;
+                                flex-direction: column;">
+                                    <div class="name col-2">{{review.user.name}}</div>
+                                    <!-- <div class="name col-2">{{review.user.name}}</div> -->
+
+
+                                    <div class="user-rating"><span class="fas fa-star"
+                                            *ngFor="let n of numSequence(review.rating)"></span>
+
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="report-options">
-                                <button>Wrong info</button>
-                                <button>Listed by broker</button>
-                                <button>Rented Out</button>
+                            <div class="user-comment">
+                                <div class="text">{{review.comment}}
+                                </div>
+                                <!-- 
+                                <div class="images">
+                                    <img src="../../../assets/room-1.jpg">
+                                    <img src="../../../assets/room-2.jpg">
+                                </div> -->
                             </div>
                         </div>
+
                     </div>
                 </div>
-                <div class="footer-section">
+
+                <div class="map">
                     <div class="heading">Neighbourhood</div>
                     <div class="place"></div>
                 </div>
+
+                <div class="footer-section">
+                </div>
+
             </section>
+
 
 
 

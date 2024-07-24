@@ -8,6 +8,7 @@ import { PgComponent } from './Components/pg/pg.component';
 import { PropertyComponent } from './Components/property/property.component';
 import { YourpropertyComponent } from './Components/yourproperty/yourproperty.component';
 import { EditpropertyComponent } from './Components/editproperty/editproperty.component';
+import { WishlistComponent } from './Components/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -16,9 +17,10 @@ const routes: Routes = [
   { path: 'results/pg/:searchTerm', component: PgComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'pg', component: PgComponent },
-  { path: 'property', component: PropertyComponent },
+  { path: 'add', component: PropertyComponent },
   { path: 'editpg/:searchTerm', component: EditpropertyComponent },
   { path: 'yourproperty', component: YourpropertyComponent },
+  { path: 'wishlist', component: WishlistComponent },
 
   { path: '', redirectTo: '/yourproperty', pathMatch: 'full' }
 

@@ -60,37 +60,57 @@
             }
         }
     }
-    button {
-        background-color: transparent;
-        border: 1px solid rgba(12, 10, 9, 0.6470588235);
-        color: rgba(12, 10, 9, 0.6470588235);
+    // button {
 
-        padding: 10px;
-
-        font-size: 16px;
-        font-family: Okra, Helvetica, sans-serif;
-    }
+    // }
     .property {
         border: 1px solid var(--primary-color);
         color: var(--primary-color);
         margin-left: 200px;
+        background-color: transparent;
+
+        padding: 10px;
+
+        font-size: 16px;
+        font-family: var(--my-font);
     }
-    button:hover {
+    .property:hover {
         background-color: var(--primary-color);
         color: white;
     }
     .login {
         font-size: 18px;
         color: rgba(12, 10, 9, 0.6470588235);
-        font-family: Okra, Helvetica, sans-serif;
+        font-family: var(--my-font);
     }
     .user {
         font-size: 18px;
         color: rgba(12, 10, 9, 0.6470588235);
-        font-family: Okra, Helvetica, sans-serif;
+        font-family: var(--my-font);
         display: flex;
         flex-direction: row;
         align-items: center;
+    
+        button {
+            border-radius: 24px;
+            border: 1px solid #dddddd;
+            background-color: transparent;
+            width: 90px;
+            height: 48px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            img {
+                border-radius: 20px;
+                height: 32px;
+                width: 32px;
+                // border: 1px solid black;
+            }
+        }
+        button:hover{
+            box-shadow: 0 2px 10px rgb(0 0 0 / 11%);
+        }
     }
 }
 .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
@@ -120,9 +140,9 @@ a {
 }
 
 a:hover {
-    background: #e72929;
-    color: white;
+    color: var(--primary-color);
     cursor: pointer;
+    background: #dddddd6a;
 }
 
 .container {
@@ -137,8 +157,8 @@ a {
 }
 
 a span {
-    background: #ff4d4d;
-    color: white;
+    color: var(--primary-color);
+    // color: white;
     padding: 0.1rem 0.45rem;
     border-radius: 100rem;
     font-size: 0.9rem;
@@ -151,12 +171,18 @@ a span {
 .menu {
     position: absolute;
     z-index: 1;
-    background: whitesmoke;
+    // background: whitesmoke;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
     display: none;
+    border-radius: 20px;
+    margin-top: 1px;
 }
 
 .menu-container:hover .menu {
     display: block;
+    width: 200px;
 }
 
 a {
@@ -164,3 +190,10 @@ a {
     min-width: 8rem;
     text-decoration: none;
 }
+.wishlist-btn {
+    background-color: transparent;
+    i {
+        font-size: 32px;
+    }
+}
+

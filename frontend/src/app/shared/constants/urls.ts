@@ -6,6 +6,7 @@ export const PGS_BY_CITY_URL = PGS_URL + '/search?q=';
 export const PGS_BY_ID_URL = PGS_URL + '/search/id?q=';
 export const ADD_PG_URL = PGS_URL + '/add';
 export const EDIT_PG_URL = PGS_URL + '/edit?q=';
+export const DELETE_PG_URL = PGS_URL + '/delete';
 export const ADD_REVIEW_URL = PGS_URL + '/reviews';
 export const USER_LOGIN_URL = BASE_URL + '/api/users/login';
 export const USER_REGISTER_URL = BASE_URL + '/api/users/register';

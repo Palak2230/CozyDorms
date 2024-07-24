@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Pg } from '../shared/models/pg';
 import { ToastrService } from 'ngx-toastr';
-import { PGS_URL, PGS_BY_CITY_URL, PGS_BY_ID_URL, ADD_PG_URL, CITIES_URL, ADD_REVIEW_URL, EDIT_PG_URL } from '../shared/constants/urls';
+import { PGS_URL, PGS_BY_CITY_URL, PGS_BY_ID_URL, ADD_PG_URL, CITIES_URL, ADD_REVIEW_URL, EDIT_PG_URL, DELETE_PG_URL } from '../shared/constants/urls';
 import { IPg } from '../shared/interfaces/IPg';
 import { Review } from '../shared/models/Review';
 import { IReview } from '../shared/interfaces/IReview';
@@ -86,6 +86,10 @@ export class PgService {
             "PG could not be updated !"); console.log('hey');
         }
       }))
+  }
+  deletepg(id: string) {
+    return this.http.post<string>(DELETE_PG_URL, { id }).pipe(
+    )
   }
 
   addreview(review: Review): Observable<Review> {

@@ -45,10 +45,10 @@
                 <!-- <label for="check-out">CHECK-OUT</label> -->
                 <label for="guest">BUDGET</label>
                 <mat-slider min="0" max="100000" step="1000" discrete [displayWith]="formatLabel">
-                    <input matSliderStartThumb>
-                    <input matSliderEndThumb>
+                    <input matSliderStartThumb (change)="calleventmin($event)">
+                    <input matSliderEndThumb (change)="calleventmax($event)">
                 </mat-slider>
-
+               
 
             </div>
         </div>
@@ -63,7 +63,7 @@
             <button class="btn" routerLink="results" (click)="searchpg(cityinput.value)">SEARCH</button>
         </div>
     </form>
-    
+
 </section>
 
 <section class="section__container about__container" id="about">

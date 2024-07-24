@@ -71,13 +71,13 @@
                 <div class="blog text">
                     <div class="title">Your Details</div>
                     <div class="wrapper">
-                        <div class="input-data">
-                            <input type="text" required [value]="user.name" readonly>
+                        <div class="already-input">
+                            <input type="text" required [value]="user.name" readonly style="border:none">
                             <div class="underline"></div>
                             <label> Owner Full Name</label>
                         </div>
-                        <div class="input-data">
-                            <input type="email" required [value]="user.email" readonly>
+                        <div class="already-input">
+                            <input type="email" required [value]="user.email" readonly style="border:none">
                             <div class="underline"></div>
                             <label>Email</label>
                         </div>
@@ -94,7 +94,10 @@
                         <p>Select all the facilities you provide.</p>
                         <div class="amenities-container">
                             <div *ngFor="let item of amenitieslist">
-                                <button class="amenity" (click)="toggleAmenity(item)">
+                                <button class="amenity" (click)="toggleAmenity(item)" [ngStyle]="ifinamenity(item) ? {
+                                    background: 'var(--primary-color)',
+                                    color:'white'
+                                  }: null">
                                     <i class="material-icons">{{item.icon}}</i>
                                     <span>{{item.title}}</span>
                                 </button>
@@ -109,7 +112,10 @@
 
                         <div class="amenities-container">
                             <div *ngFor="let item of ruleslist">
-                                <button class="amenity" (click)="toggleRule(item)">
+                                <button class="amenity" (click)="toggleRule(item)"[ngStyle]="ifinrules(item) ? {
+                                    background: 'var(--primary-color)',
+                                    color:'white'
+                                  }: null">
                                     <i class="material-icons">{{item.icon}}</i>
                                     <span>{{item.title}}</span>
                                 </button>
@@ -124,22 +130,41 @@
                     <p class="text-gray-500 text-sm">More = better.</p>
                     <div class="input-bx">
                         <form>
+
                             <input type="file" id="upload" accept=".png,.jpg,.jpeg" (change)="onFileSelected($event)"
                                 multiple hidden />
                             <label for="upload" class="uploadlabel">
                                 <span><i class="fa fa-cloud-upload"></i></span>
                                 <p>Click to upload</p>
                             </label>
+                            <!-- <img id="pic" [src]="window.URL.createObjectURL(file)" style="height: 100px;width: 100px;"> -->
+
                         </form>
-                        <div id="filewrapper">
+                        <div class="filewrapper">
                             <h3 class="uploaded">Uploaded documents</h3>
-                            <div *ngFor="let file of uploadedFiles" class="showfilebox">
-                                <div class="left">
-                                    <span class="filetype">{{ getFileType(file.name) }}</span>
-                                    <h3>{{ file.name }}</h3>
-                                </div>
-                                <div class="right">
-                                    <button (click)="removeFile(file)">Remove</button>
+                            <div class="file-box">
+                                <!-- <div *ngFor="let file of pg.imageUrl" class="showfilebox">
+                                    <div class="top">
+                                        <span class="filetype">{{ getFileType(file.name) }}</span>
+                                        <img [src]="file" style="max-height: 120px;max-width: 200px;">
+
+                                    </div>
+                                    <div class="bottom">
+                                        <h3>{{ file }}</h3>
+                                        <button (click)="removealreadyfile(file)"><i
+                                                class="material-icons">delete</i></button>
+                                    </div>
+                                </div> -->
+                                <div *ngFor="let file of uploadedFiles;let i = index" class="showfilebox">
+                                    <div class="top">
+                                        <!-- <span class="filetype">{{ getFileType(file.name) }}</span> -->
+                                        <img [src]="fileUrls[i]" style="max-height: 120px;max-width: 200px;">
+
+                                    </div>
+                                    <div class="bottom">
+                                        <h3>{{ file.name }}</h3>
+                                        <button (click)="removeFile(file)"><i class="material-icons">delete</i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

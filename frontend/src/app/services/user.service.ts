@@ -43,7 +43,6 @@ export class UserService {
   logout() {
     // this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
-
     window.location.reload();
   }
   register(userRegister: IUserRegister) {
@@ -111,7 +110,7 @@ export class UserService {
 
   private setuserToLocalStorage(user: User) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
-    localStorage.setItem('Wishlist', JSON.stringify([]));
+    // localStorage.setItem('Wishlist', JSON.stringify([]));
   }
   private getUserFromLocalStorage(): User {
     const userJson = localStorage.getItem(USER_KEY);
