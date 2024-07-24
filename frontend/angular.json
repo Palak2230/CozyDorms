@@ -47,7 +47,11 @@
             },
             "development": {
               "buildOptimizer": false,
-              "optimization": false,
+              "optimization": {
+                "scripts": true,
+                "fonts": { "inline": true },
+                "styles": { "minify": true, "inlineCritical": false }
+              },
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
