@@ -41,6 +41,7 @@ export class SearchResultsComponent implements OnInit {
   minvalue: number = 0;
   maxvalue: number = 100000;
   ngOnInit(): void {
+    console.log(history);
     this.minvalue = history.state.data.minvalue;
     this.maxvalue = history.state.data.maxvalue;
     console.log(this.minvalue);
@@ -59,7 +60,8 @@ export class SearchResultsComponent implements OnInit {
         this.pgs = serverpgs;
         this.pgsample = serverpgs;
         this.pgfiltered = serverpgs;
-
+        console.log(this.pgfiltered);
+        this.changePage(1);
       });
       // LocalityObservable.subscribe((serverlocalities) => {
       //   this.localities = serverlocalities;
@@ -220,5 +222,29 @@ export class SearchResultsComponent implements OnInit {
 
     return `${value}`;
   }
+  currentPage = 1;
+  itemsPerPage = 4;
+  // items: any[] = []; // Replace with your data type
+  paginatedItems: any[] = this.pgfiltered; // Store items for the current page
+
+
+  changePage(page: number): void {
+    // if (page < 1 || page > this.totalPages) {
+    //   return; // Exit if page is out of bounds
+    // }
+    this.currentPage = page;
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedItems = this.pgfiltered.slice(start, end);
+    console.log(this.paginatedItems);
+  }
+
+  get totalPages(): number {
+    console.log(Math.ceil(this.pgfiltered.length / this.itemsPerPage));
+    return Math.ceil(this.pgfiltered.length / this.itemsPerPage);
+  }
+
+
+
 
 }

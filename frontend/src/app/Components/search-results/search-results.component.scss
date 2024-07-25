@@ -86,7 +86,9 @@
     height: 100vh;
     overflow: auto;
     padding-right: 50px;
-
+    display: flex;
+    align-items: center;
+flex-direction: column;
     ul {
         display: flex;
         flex-direction: column;

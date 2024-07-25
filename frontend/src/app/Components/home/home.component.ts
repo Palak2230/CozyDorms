@@ -81,5 +81,5 @@ export class HomeComponent implements OnInit {
     this.maxvalue = event.target.value;
   }
   maxvalue: number = 100000;
-
+ 
 }

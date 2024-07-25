@@ -28,6 +28,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { LoginPageComponent } from './Components/login-page/login-page.component';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from './Components/header/header.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -43,6 +44,8 @@ import { envionment } from 'src/environments/environment';
 import { YourpropertyComponent } from './Components/yourproperty/yourproperty.component';
 import { EditpropertyComponent } from './Components/editproperty/editproperty.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
+import { PaginationComponent } from './Components/pagination/pagination.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,7 @@ import { WishlistComponent } from './Components/wishlist/wishlist.component';
     YourpropertyComponent,
     EditpropertyComponent,
     WishlistComponent,
+    PaginationComponent,
 
   ],
   imports: [
@@ -90,7 +94,10 @@ import { WishlistComponent } from './Components/wishlist/wishlist.component';
     MatToolbarModule,
     MatStepperModule,
     MatProgressBarModule,
-    MatRadioModule
+    MatRadioModule,
+    RouterModule,
+    NgxPaginationModule,
+    MatPaginatorModule
 
 
 
@@ -100,9 +107,12 @@ import { WishlistComponent } from './Components/wishlist/wishlist.component';
 
 
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 // { provide: LocationStrategy, useClass: HashLocationStrategy }
 export class AppModule {
+
+
+
 }

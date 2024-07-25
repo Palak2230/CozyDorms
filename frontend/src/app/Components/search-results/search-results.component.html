@@ -88,8 +88,11 @@
             </ul>
         </div> -->
         <ul>
-            <li *ngFor="let pg of pgfiltered">
-                <div class="pg-card" *ngIf="findminprice(pg.rooms)>=minvalue &&findminprice(pg.rooms)<=maxvalue ">
+            <li *ngFor="let pg of paginatedItems ">
+                <!-- {{pgfiltered.length}} -->
+                <div class="pg-card" *ngIf="findminprice(pg.rooms)>=minvalue &&findminprice(pg.rooms)<=500000000 ">
+                    <!-- hey -->
+                    <!-- {{pg.name}} -->
                     <div class="pg-image">
                         <img [src]="pg.imageUrl" [alt]="pg.name">
                     </div>
@@ -167,10 +170,13 @@
 
 
 
+
             </li>
 
         </ul>
-
+        <app-pagination [currentPage]="currentPage" [limit]="itemsPerPage" [total]="8"
+            (changePage)="changePage($event)">
+        </app-pagination>
     </div>
 </div>
 

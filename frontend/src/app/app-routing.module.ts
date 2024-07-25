@@ -9,7 +9,7 @@ import { PropertyComponent } from './Components/property/property.component';
 import { YourpropertyComponent } from './Components/yourproperty/yourproperty.component';
 import { EditpropertyComponent } from './Components/editproperty/editproperty.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'results/:searchTerm', component: SearchResultsComponent },
@@ -22,12 +22,12 @@ const routes: Routes = [
   { path: 'yourproperty', component: YourpropertyComponent },
   { path: 'wishlist', component: WishlistComponent },
 
-  { path: '', redirectTo: '/yourproperty', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
