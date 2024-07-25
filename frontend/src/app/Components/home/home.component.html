@@ -9,8 +9,28 @@
             <div class="nav__menu__btn" id="menu-btn">
                 <i class="ri-menu-line"></i>
             </div>
-            <button class="property">Post Your Property</button>
-            <div class="login">Login/Signup</div>
+            <button class="property"  (click)="add()">Post Your Property</button>
+            <button class="wishlist-btn" (click)="gotowishlist()"> <i class="material-icons">favorite</i></button>
+            <div *ngIf="!this.user.name" class="login">
+                <a (click)="gologin()">Login/Signup </a>
+
+            </div>
+            <div *ngIf="this.user.name" class="user">
+                <!-- <div class="user-img"><img [src]="user"></div> -->
+                <div class="menu-container">
+                  
+                    <button>
+                        <i class="material-icons">menu</i>
+                        <img [src]="this.user.image">
+                    </button>
+                    <div class="menu">
+                        <a (click)="openprofile()">Profile</a>
+                        <a routerLink="/yourproperty">Your Properties</a>
+                        <a (click)="logout()">Logout</a>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
 
@@ -48,7 +68,7 @@
                     <input matSliderStartThumb (change)="calleventmin($event)">
                     <input matSliderEndThumb (change)="calleventmax($event)">
                 </mat-slider>
-               
+
 
             </div>
         </div>

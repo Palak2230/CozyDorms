@@ -137,7 +137,7 @@
                         <div class="display">
 
 
-                            <div style="margin-top:20px">
+                            <div style="margin-top:20px" style="   border-bottom: 1px solid #dddddd;">
                                 <div class="heading">Common Amenities</div>
                                 <div class="amenities-list">
                                     <div class="Amenities" *ngFor="let amenities of pg.amenities">
@@ -151,7 +151,7 @@
 
                                 </div>
                             </div>
-                            <div>
+                            <div style="border-bottom: 1px solid #dddddd;">
                                 <div class="heading">Room Details</div>
 
                                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
@@ -216,7 +216,8 @@
 
                 <div class="side-section">
                     <div class="about">
-                        <h1>About this property</h1>
+                        <div class="heading">About this property</div>
+
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo eum, sapiente expedita sunt
                             praesentium rerum nobis iste maxime, exercitationem dignissimos illum qui delectus
                             quisquam.
@@ -249,14 +250,14 @@
                     <div class="review-header">
                         <div class="heading">Reviews</div>
                         <!-- <button (click)="openModal(modalRef)">Add Review</button> -->
-                        <!-- {{pg.reviews[0].rating}} -->
+                        <!-- {{pg.reviews[0].rating}}-->
                     </div>
                     <div class="reviews-main">
 
                         <div class="user" *ngFor="let review of pg.reviews">
 
                             <div class="review-heading">
-                                <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" class="col-3">
+                                <img [src]="review.user.image" class="col-3">
                                 <div style="display: flex;
                                 flex-direction: column;">
                                     <div class="name col-2">{{review.user.name}}</div>

@@ -16,7 +16,7 @@ export class AppComponent {
       console.log(this.router.url); // Check the URL after navigation
     });
   }
-  isHomePage(): boolean {
+  get isHomePage(): boolean {
     return this.router.url === '/home';
   }
 }

@@ -576,16 +576,13 @@ main {
     flex-direction: column;
     gap: 20px;
     .heading {
-        // border-bottom: 2px solid var(--primary-color);
-        // border-bottom: 2px solid #fd3752;
         display: inline-block;
-        margin: 10px;
-        // color: #464646;
+        margin: 10px 0px;
         color: rgb(34, 34, 34);
-        padding: 0 5px;
+        padding: 12px 5px;
         font-size: 22px;
 
-        font-weight: 500;
+        font-weight: 700;
         // font-family: Poppins;
         font-family: var(--my-font);
     }
@@ -646,7 +643,7 @@ table[_ngcontent-ng-c3103786414] {
     padding: 20px 16px;
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    // gap: 20px;
     flex-wrap: wrap;
     // border-bottom: 1px solid #dddddd;
 }
@@ -658,18 +655,11 @@ table[_ngcontent-ng-c3103786414] {
     // gap: 10px;
     // gap: 10px;
     align-items: center;
-    width: 300px;
-    // background-color: white;
-    // border: 1px solid rgba(0, 0, 0, 0.181);
-    // width: fit-content;
-    // border-radius: 16px;
-    // // padding: 10px 16px;
-    // display: flex;
-    // flex-direction: row;
-    // align-items: center;
-    // gap: 10px;
+    width: 320px;
+    color: grey;
     font-family: Inter, sans-serif;
     gap: 10px;
+    font-weight: 300;
     i {
         font-size: 24px;
         // height: 50px;
@@ -820,20 +810,16 @@ html {
     align-items: center;
     margin-bottom: 20px;
     justify-content: center;
-    div {
+    .heading {
         display: inline-block;
-        margin: 10px;
-        // color: #464646;
-        padding: 10px 0;
-        border-bottom: 2px solid black;
-        color: black;
-        // padding: 0 5px;
+        margin: 10px 10px;
+        color: rgb(34, 34, 34);
+        padding: 12px 5px;
         font-size: 30px;
-        text-align: center;
-        font-weight: 500;
+
+        font-weight: 700;
         // font-family: Poppins;
         font-family: var(--my-font);
-        // font-family: "Nunito", sans-serif;
     }
     button {
         font-size: 20px;
@@ -847,20 +833,21 @@ html {
     border-bottom: 1px solid #dddddd;
 }
 .reviews-main {
-    padding-left: 30px;
+    padding-left: 40px;
     max-height: 500px;
     margin-bottom: 30px;
     overflow: scroll;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-direction: row;
     // gap: 60px;
     flex-wrap: wrap;
+    padding: 0 70px;
     .user {
-        min-width: 500px;
+        // min-width: 400px;
         max-height: 300px;
-        width: 500px;
+        width: 480px;
         margin: 10px 0;
         // height: 100px;
         left: 0;
@@ -876,6 +863,7 @@ html {
                 height: 44px;
                 border-radius: 44px;
                 overflow: hidden;
+                border: 2px solid var(--primary-color);
             }
             img:hover {
                 transform: scale(1.5);
@@ -891,17 +879,17 @@ html {
                 font-weight: bold;
                 // margin-left: 10px;
                 span {
-                    // color: rgb(255, 170, 0);
-                    color: var(--primary-color);
-                    // color: #355562;
-                    font-size: 16px;
+                    color: rgb(255, 170, 0);
+                    // color: var(--primary-color);
+                    // color: yellow;
+                    font-size: 10px;
                 }
             }
         }
         .user-comment {
             margin: 0px 20px;
             padding-bottom: 20px;
-            padding-left: 0px;
+            // padding-left: 50px;
             padding-right: 40px;
             // border-bottom: 1px solid #0000002e;
             .text {
@@ -909,7 +897,10 @@ html {
                 font-size: 16px;
                 color: rgb(34, 34, 34);
                 font-weight: 400;
-                text-align: justify;
+                // text-align: justify;
+                line-height: 1.5 rem;
+                text-size-adjust: 100%;
+                line-break: strict;
             }
             .images {
                 margin: 10px 0px;
@@ -940,17 +931,16 @@ html {
 .map {
     padding-bottom: 50px;
     border-bottom: 1px solid #dddddd;
+    justify-content: center;
+    text-align: center;
     .heading {
-        // margin-top: 60px;
-        // border-bottom: 2px solid var(--primary-color);
-        // border-bottom: 2px solid #fd3752;
         display: inline-block;
-        margin: 10px 40px;
+        margin: 10px 10px;
         color: rgb(34, 34, 34);
         padding: 12px 5px;
-        font-size: 26px;
+        font-size: 30px;
 
-        font-weight: 500;
+        font-weight: 700;
         // font-family: Poppins;
         font-family: var(--my-font);
     }
@@ -961,7 +951,7 @@ html {
 
         margin-left: 60px;
         width: 1000px;
-        height: 400px;
+        height: 450px;
         overflow: hidden;
     }
 }
@@ -1031,7 +1021,7 @@ html {
                 font-size: 28px;
                 font-family: var(--my-font);
                 // font-family: Poppins;
-                font-weight: 500;
+                font-weight: 700;
             }
             .rating-type {
                 display: flex;
@@ -1162,25 +1152,31 @@ html {
             background: rgb(255, 255, 255);
             border: 1px solid rgb(248, 248, 248);
             margin-top: 10px;
-            h1 {
-                text-align: center;
+
+            .heading {
+                // text-align: center;
                 font-family: var(--my-font);
-                // border-bottom: 2px solid var(--primary-color);
+                padding: 5px 50px;
+                border-bottom: 2px solid var(--primary-color);
+                font-weight: 500;
+                // border-bottom: 1px solid black;
+                // text-decoration: underline;
             }
             p {
-                padding: 5px;
+                padding: 0 5px;
+                padding-top: 10px;
                 font-size: 16px;
                 font-family: var(--my-font);
                 text-align: justify;
             }
             .buttons {
                 display: flex;
-                margin-left: -15px;
-                margin-right: -15px;
+                // margin-left: -10px;
+                // margin-right: -10px;
                 // gap: 20px;
 
                 a {
-                    margin: 10px 10px;
+                    margin: 10px 2px;
                     align-items: center;
                     text-align: center;
                     text-decoration: none;

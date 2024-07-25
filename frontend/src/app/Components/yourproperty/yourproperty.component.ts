@@ -73,22 +73,18 @@ export class YourpropertyComponent {
     const item = localStorage.getItem('Wishlist');
     this.wishlist = item ? JSON.parse(item) : [];
 
-    if (!this.user) {
-      this._dialog.open(LoginPageComponent, {
-        panelClass: 'bg-color',
-      });
+
+    const pgIndex = this.wishlist.findIndex((pgs) => pgs.id === pg.id);
+    if (pgIndex !== -1) {
+      this.wishlist.splice(pgIndex, 1);
+      console.log('Removed from wishlist');
     } else {
-      const pgIndex = this.wishlist.findIndex((pgs) => pgs.id === pg.id);
-      if (pgIndex !== -1) {
-        this.wishlist.splice(pgIndex, 1);
-        console.log('Removed from wishlist');
-      } else {
-        this.wishlist.push(pg);
-        console.log('Added to wishlist');
-      }
-      localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
-      console.log(this.wishlist);
+      this.wishlist.push(pg);
+      console.log('Added to wishlist');
     }
+    localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
+    console.log(this.wishlist);
+
   }
   isPgInWishlist(pg: Pg): boolean {
     return this.wishlist.some((pgs: Pg) => pgs.id === pg.id);

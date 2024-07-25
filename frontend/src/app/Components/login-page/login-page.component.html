@@ -73,8 +73,8 @@
                         </mat-error>
                     </mat-form-field>
                     <button mat-raised-button color="primary" style="width: 100%; height: 50px;"
-                        (click)="userforsignup=true; sendotp(signUpForm.controls.email.value)"
-                        [disabled]="signUpForm.invalid">
+                        (click)="userforsignup=true; sendotp(signUpForm.controls.email.value)" [disabled]="(fcsignup.email.hasError('email')  )|| (fcsignup.name.hasError('required')
+                        ) ">
                         NEXT &rarr;
                     </button>
                 </div>

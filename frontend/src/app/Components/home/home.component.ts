@@ -9,6 +9,11 @@ import { Observable } from 'rxjs';
 import { PgService } from 'src/app/services/pg.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pg } from 'src/app/shared/models/pg';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/User';
+import { ProfileComponent } from '../profile/profile.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginPageComponent } from '../login-page/login-page.component';
 
 
 
@@ -28,6 +33,7 @@ export class HomeComponent implements OnInit {
   filteroptions !: Observable<string[]>;
   formcontrol = new FormControl('');
   cities: string[] = [];
+  user!: User;
   ngOnInit(): void {
 
     // let PgsObservable: Observable<Pg[]>;
@@ -47,6 +53,11 @@ export class HomeComponent implements OnInit {
     this.filteroptions = this.formcontrol.valueChanges.pipe(
       startWith(''), map(value => this._FILTER(value || ''))
     );
+    this.userService.userObservable.subscribe(user => {
+      this.user = user;
+      console.log(this.user);
+    });
+  
   }
   private _FILTER(value: string) {
     const searchvalue = value.toLocaleLowerCase();
@@ -60,7 +71,7 @@ export class HomeComponent implements OnInit {
     return `${value}`;
   }
 
-  constructor(private renderer: Renderer2, private pgService: PgService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private renderer: Renderer2, private pgService: PgService, private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService, private _dialog: MatDialog) {
 
   }
 
@@ -81,5 +92,42 @@ export class HomeComponent implements OnInit {
     this.maxvalue = event.target.value;
   }
   maxvalue: number = 100000;
- 
+  add() {
+    if (!this.user.name) {
+      this._dialog.open(LoginPageComponent, {
+        panelClass: 'bg-color',
+      });
+    }
+    else { this.router.navigate(['/add']); }
+
+  }
+  gotowishlist() {
+    if (!this.user.name) {
+      this._dialog.open(LoginPageComponent, {
+        panelClass: 'bg-color',
+      });
+    } else {
+      this.router.navigate(['/wishlist']);
+    }
+
+  }
+
+  gologin() {
+    this._dialog.open(LoginPageComponent, {
+      panelClass: 'bg-color',
+    });
+  }
+
+  logout() {
+    this.userService.logout();
+  }
+
+  get isAuth() {
+    return this.user.name;
+  }
+  openprofile() {
+    this._dialog.open(ProfileComponent, {
+      panelClass: 'bg-color',
+    });
+  }
 }

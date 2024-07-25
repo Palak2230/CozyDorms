@@ -194,12 +194,7 @@ export class PropertyComponent implements OnInit {
     this.fileUrls = this.fileUrls.filter(f => f != URL.createObjectURL(file));
 
   }
-  // removealreadyfile(file: string) {
-  //   this.pg.imageUrl = this.pg.imageUrl.filter(f => f != file);
-  // }
-  uploadFiles(): void {
-    // Implement upload logic here
-  }
+ 
   fileUrls: string[] = [];
 
 

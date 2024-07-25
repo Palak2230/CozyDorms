@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginPageComponent } from '../login-page/login-page.component';
 import { User } from 'src/app/shared/models/User';
 import { UserService } from 'src/app/services/user.service';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-header',
@@ -38,6 +39,7 @@ export class HeaderComponent implements OnInit {
       this.user = user;
       console.log(this.user);
     });
+
   }
 
   private _FILTER(value: string) {
@@ -46,10 +48,25 @@ export class HeaderComponent implements OnInit {
   }
 
   gotoyours() {
-    this.router.navigate(['/add']);
+    if (!this.user.name) {
+      this._dialog.open(LoginPageComponent, {
+        panelClass: 'bg-color',
+      });
+    } else {
+      this.router.navigate(['/add']);
+    }
+
   }
+
   gotowishlist() {
-    this.router.navigate(['/wishlist']);
+    console.log(this.user);
+    if (!this.user.name) {
+      this._dialog.open(LoginPageComponent, {
+        panelClass: 'bg-color',
+      });
+    } else {
+      this.router.navigate(['/wishlist']);
+    }
   }
 
   gologin() {
@@ -69,5 +86,9 @@ export class HeaderComponent implements OnInit {
   get isAuth() {
     return this.user.name;
   }
-
+  openprofile() {
+    this._dialog.open(ProfileComponent, {
+      panelClass: 'bg-color',
+    });
+  }
 }

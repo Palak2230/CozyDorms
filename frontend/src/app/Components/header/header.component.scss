@@ -22,7 +22,10 @@
 }
 .header {
     z-index: 100;
-    max-width: 140rem;
+    // max-width: 140rem;
+    width: 100%;
+    padding: 0px 140px;
+  
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -90,7 +93,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-    
+
         button {
             border-radius: 24px;
             border: 1px solid #dddddd;
@@ -108,7 +111,7 @@
                 // border: 1px solid black;
             }
         }
-        button:hover{
+        button:hover {
             box-shadow: 0 2px 10px rgb(0 0 0 / 11%);
         }
     }
@@ -128,7 +131,7 @@
     border-bottom: 0.5px solid black !important;
 }
 .section {
-    padding: 0px 140px;
+    // padding: 0px 140px;
     // border-bottom: 1px solid var(--text-light);
     box-shadow: 0 2px 10px rgb(0 0 0 / 11%);
 }
@@ -192,8 +195,8 @@ a {
 }
 .wishlist-btn {
     background-color: transparent;
+    margin-top: 10px;
     i {
         font-size: 32px;
     }
 }
-

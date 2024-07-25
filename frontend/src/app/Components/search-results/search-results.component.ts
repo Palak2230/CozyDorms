@@ -42,8 +42,8 @@ export class SearchResultsComponent implements OnInit {
   maxvalue: number = 100000;
   ngOnInit(): void {
     console.log(history);
-    this.minvalue = history.state.data.minvalue;
-    this.maxvalue = history.state.data.maxvalue;
+    if (history.state.data) this.minvalue = history.state.data.minvalue;
+    if (history.state.data) this.maxvalue = history.state.data.maxvalue;
     console.log(this.minvalue);
     console.log(this.maxvalue);
     let PgsObservable: Observable<Pg[]>;
@@ -78,7 +78,7 @@ export class SearchResultsComponent implements OnInit {
     if (item) this.user = JSON.parse(item);
     // localStorage.setItem('Wishlist', JSON.stringify([]));
 
-    // this.wishlist = JSON.parse(localStorage.getItem('Wishlist') || '');
+    this.wishlist = JSON.parse(localStorage.getItem('Wishlist') || '');
     this.getPgs();
 
   }
@@ -239,10 +239,10 @@ export class SearchResultsComponent implements OnInit {
     console.log(this.paginatedItems);
   }
 
-  get totalPages(): number {
-    console.log(Math.ceil(this.pgfiltered.length / this.itemsPerPage));
-    return Math.ceil(this.pgfiltered.length / this.itemsPerPage);
-  }
+  // get totalItems(): number {
+
+  //   return Math.ceil(this.pgfiltered.length);
+  // }
 
 
 

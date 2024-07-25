@@ -1,6 +1,5 @@
 <div class="section">
-    <div class="header">
-
+    <div class="header" >
         <div class="logo">
             <img src="../../../assets/address.png" alt="logo" (click)="searchpg('Delhi')" />
             <p>CozyDorms</p>
@@ -47,10 +46,10 @@
                     </div> -->
                     <button>
                         <i class="material-icons">menu</i>
-                        <img src="../../../assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg">
+                        <img [src]="this.user.image">
                     </button>
                     <div class="menu">
-                        <a routerLink="/profile">Profile</a>
+                        <a (click)="openprofile()">Profile</a>
                         <a routerLink="/yourproperty">Your Properties</a>
                         <a (click)="logout()">Logout</a>
                     </div>

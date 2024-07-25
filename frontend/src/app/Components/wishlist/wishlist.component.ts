@@ -44,6 +44,7 @@ export class WishlistComponent {
     const user = JSON.parse(item || '');
     const item2 = localStorage.getItem('Wishlist');
     this.wishlist = item ? JSON.parse(item2 || '') : [];
+    this.user = user;
     console.log(this.wishlist);
     // if(! user){}
     // console.log(user);
@@ -77,22 +78,14 @@ export class WishlistComponent {
     const item = localStorage.getItem('Wishlist');
     this.wishlist = item ? JSON.parse(item) : [];
 
-    if (!this.user) {
-      this._dialog.open(LoginPageComponent, {
-        panelClass: 'bg-color',
-      });
-    } else {
-      const pgIndex = this.wishlist.findIndex((pgs) => pgs.id === pg.id);
-      if (pgIndex !== -1) {
-        this.wishlist.splice(pgIndex, 1);
-        console.log('Removed from wishlist');
-      } else {
-        this.wishlist.push(pg);
-        console.log('Added to wishlist');
-      }
-      localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
-      console.log(this.wishlist);
-    }
+
+    const pgIndex = this.wishlist.findIndex((pgs) => pgs.id === pg.id);
+    console.log(pgIndex);
+    this.wishlist.splice(pgIndex, 1);
+    console.log('Removed from wishlist');
+    localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
+    console.log(this.wishlist);
+
   }
   isPgInWishlist(pg: Pg): boolean {
     return this.wishlist.some((pgs: Pg) => pgs.id === pg.id);

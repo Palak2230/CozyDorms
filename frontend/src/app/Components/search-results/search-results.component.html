@@ -150,18 +150,19 @@
                             <div class="Charges" style="  margin: 10px 0px;">
                                 <span><span class="base-price">{{findminprice(pg.rooms)}}</span> Onwards</span>
                             </div>
-                            <div class="owner-details-btn" [routerLink]="'/results/pg/'+pg.id"><button>View
-                                    Details</button>
+                            <div class="footer-btns">
+                                <div class="owner-details-btn" [routerLink]="'/results/pg/'+pg.id"><button>View
+                                        Details</button>
+                                </div>
+                                <button (click)="IsInWishlist(pg)" class="like-btn">
+                                    <mat-icon *ngIf="!isPgInWishlist(pg)" style="color: var(--primary-color);">
+                                        favorite_border
+                                    </mat-icon>
+                                    <mat-icon *ngIf="isPgInWishlist(pg)" style="color: var(--primary-color);">
+                                        favorite
+                                    </mat-icon>
+                                </button>
                             </div>
-                            <button (click)="IsInWishlist(pg)" class="like-btn">
-                                <mat-icon *ngIf="!isPgInWishlist(pg)" style="color: var(--primary-color);">
-                                    favorite_border
-                                </mat-icon>
-                                <mat-icon *ngIf="isPgInWishlist(pg)" style="color: var(--primary-color);">
-                                    favorite
-                                </mat-icon>
-                            </button>
-
                         </div>
                     </div>
 
@@ -174,7 +175,7 @@
             </li>
 
         </ul>
-        <app-pagination [currentPage]="currentPage" [limit]="itemsPerPage" [total]="8"
+        <app-pagination [currentPage]="currentPage" [limit]="itemsPerPage" [total]="20"
             (changePage)="changePage($event)">
         </app-pagination>
     </div>

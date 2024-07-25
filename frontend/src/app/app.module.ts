@@ -46,6 +46,7 @@ import { EditpropertyComponent } from './Components/editproperty/editproperty.co
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
 import { PaginationComponent } from './Components/pagination/pagination.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProfileComponent } from './Components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     EditpropertyComponent,
     WishlistComponent,
     PaginationComponent,
+    ProfileComponent,
 
   ],
   imports: [

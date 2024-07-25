@@ -1,5 +1,5 @@
 .wrap-div {
-    margin: 10px 180px;
+    margin: 0px 180px;
     display: flex;
     flex-direction: column;
     // padding: 100px;
@@ -8,111 +8,13 @@
 }
 .header {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     // padding: 0px 50px;
     justify-content: center;
-    align-items: center;
-    margin: 40px 0;
-    div {
-        font-size: 32px;
-        font-family: var(--my-font);
-        // font-family: Poppins;
-        padding-bottom: 10px;
-        border-bottom: 2px solid var(--primary-color);
-    }
-    button {
-        // margin-right: 30px;
-        // padding: 10px 30px;
-        // font-size: 20px;
-        margin: 0 10px;
-        background-color: transparent;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 60px;
-        height: 100px;
-        padding-bottom: 10px;
-        span {
-            text-align: center;
-            font-size: 40px;
-            color: var(--primary-color);
-        }
-    }
-}
-.filter-section {
-    // position: fixed;
-    margin-left: 10px;
-    padding: 20px;
-    // .filter-section::-webkit-scrollbar-thumb:20px;
-    // overflow-y: scroll;
-    // top: 0;
-    // bottom: 0;
-    // margin-left: 150px;
-    // margin-top: 50px;
-    height: 100vh;
-    overflow: auto;
-    position: sticky;
-    width: 300px;
-    border-right: 1px solid #e3e3e3;
-    scrollbar-color: #e3e3e3;
+    // align-items: center;
+    margin-top: 60px;
 
-    .filter-header {
-        display: flex;
-        // justify-content: space-between;
-        // max-height: 70px;
-        align-items: center;
-        gap: 100px;
-        flex-direction: row;
-        margin-bottom: 24px;
-        // padding: 20px 0;
-        .heading {
-            font-size: 30px;
-            font-weight: 500;
-            // font-stretch: normal;
-            // line-height: 1.23;
-            color: #333;
-        }
-        .clearall {
-            font-size: 16px;
-            font-weight: 500;
-            // color: #ee2a24;
-            color: var(--primary-color);
-            // text-align: right;
-            cursor: pointer;
-        }
-    }
-    .filters__wrapper {
-        margin-top: 50px;
-    }
-    .filters__item {
-        display: flex;
-        flex-direction: column;
-
-        span {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            // margin-top: 40px;
-        }
-        ul {
-            display: flex;
-            flex-direction: column;
-            padding-left: 10px;
-            li {
-                display: flex;
-                flex-direction: row;
-                margin-bottom: 10px;
-                align-items: center;
-                input {
-                    width: 16px;
-                    height: 16px;
-                }
-                label {
-                    padding-left: 10px;
-                }
-            }
-        }
-    }
+    margin-left: 20px;
 }
 
 .pg-section {
@@ -176,11 +78,9 @@
             // justify-content: s;
             gap: 16px;
             button {
-             
                 background-color: transparent;
-                span{
+                span {
                     font-size: 36px;
-                   
                 }
             }
         }
@@ -239,7 +139,7 @@ span {
 }
 
 .like-btn {
-    // color: rgba(214,74,74,1);
+    // color: rgba(214,fwrap74,74,1);
     padding: 0px 12px;
     //  border: none;
     //   color: rgba(157, 141, 141, 0.953);
@@ -321,4 +221,150 @@ mat-slider {
 .mat-slider {
     border-color: red;
     background-color: green;
+}
+.room__grid {
+    margin-top: 1rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.room__card {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    height: 420px;
+}
+
+.room__card__image {
+    position: relative;
+    isolation: isolate;
+    // height: 200px;
+    img {
+        height: 240px;
+    }
+}
+
+.room__card__icons {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    z-index: 1;
+}
+
+.room__card__icons span {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 1.5rem;
+    background-color: var(--white);
+    border-radius: 100%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.room__card__icons span:nth-child(1) {
+    color: #f472b6;
+}
+
+.room__card__icons span:nth-child(2) {
+    color: #c084fc;
+}
+
+.room__card__icons span:nth-child(3) {
+    color: #60a5fa;
+}
+
+.room__card__details {
+    padding: 1rem;
+}
+
+.room__card h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.room__card p {
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.room__card h5 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+.room__card h5 span {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+.section__container {
+    max-width: var(--max-width);
+    margin: auto;
+    padding: 0rem 1rem;
+    // padding-bottom: 1rem;
+}
+
+.section__subheader {
+    margin-bottom: 0.5rem;
+    position: relative;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--text-dark);
+    align-items: flex-start;
+}
+
+.section__subheader::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    transform: translate(1rem, -50%);
+    height: 2px;
+    width: 4rem;
+    background-color: var(--primary-color);
+}
+
+.section__header {
+    max-width: 600px;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 3rem;
+    color: var(--text-dark);
+}
+
+.section__description {
+    max-width: 600px;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+.room__grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+.btn {
+    padding: 0.75rem 1.5rem;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    transition: 0.3s;
+}
+.wishlist-btn {
+    background-color: transparent;
+    i {
+        font-size: 32px;
+    }
 }

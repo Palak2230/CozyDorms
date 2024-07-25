@@ -1,0 +1,28 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header></mat-card-header>
+        <form class="example-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <mat-card-content class="mat-card-content">
+                <div class="img-section">
+                    <label for="input-file">
+                        <img [src]="url" class="user-img">
+                    </label>
+                    <input type="file" accept="image/jpeg,image/png,image/jpg" id="input-file" hidden
+                        (change)="onfilechange($event)">
+                </div>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="name" type="text" placeholder="Name">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="email" type="email" placeholder="Email" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="contact" type="text" placeholder="Contact">
+                </mat-form-field>
+                <button mat-raised-button type="submit" style="margin:20px 0">
+                    UPDATE
+                </button>
+            </mat-card-content>
+        </form>
+    </mat-card>
+</div>

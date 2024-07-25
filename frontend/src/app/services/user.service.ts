@@ -5,7 +5,7 @@ import { User } from '../shared/models/User';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { USER_LOGIN_URL, USER_REGISTER_URL, USER_UPDATE_URL } from '../shared/constants/urls';
+import { USER_LOGIN_URL, USER_PROFILE_URL, USER_REGISTER_URL, USER_UPDATE_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 
 import { JsonPipe } from '@angular/common';
@@ -93,6 +93,23 @@ export class UserService {
       }
     }))
   }
+  updateUser(image: string, name: string, email: string, contact: string,): Observable<User> {
+    return this.http.post<User>(USER_PROFILE_URL, { image, name, email, contact }).pipe(tap({
+      next: (user) => {
+        // this.setuserToLocalStorage(user);
+        // this.userSubject.next(user);
+        console.log(user);
+        this.setuserToLocalStorage(user);
+        this.toastrService.success(`got updated successfully !`
+
+        )
+      },
+      error: (errorResponse) => {
+        this.toastrService.error(errorResponse.error,
+          "shit error !")
+      }
+    }))
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -109,8 +126,11 @@ export class UserService {
   }
 
   private setuserToLocalStorage(user: User) {
+    console.log(user);
     localStorage.setItem(USER_KEY, JSON.stringify(user));
     // localStorage.setItem('Wishlist', JSON.stringify([]));
+    console.log(localStorage.getItem(USER_KEY));
+    window.location.reload();
   }
   private getUserFromLocalStorage(): User {
     const userJson = localStorage.getItem(USER_KEY);

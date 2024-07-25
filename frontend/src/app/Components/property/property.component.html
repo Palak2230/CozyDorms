@@ -143,21 +143,10 @@
                         <div class="filewrapper">
                             <h3 class="uploaded">Uploaded documents</h3>
                             <div class="file-box">
-                                <!-- <div *ngFor="let file of pg.imageUrl" class="showfilebox">
-                                    <div class="top">
-                                        <span class="filetype">{{ getFileType(file.name) }}</span>
-                                        <img [src]="file" style="max-height: 120px;max-width: 200px;">
-
-                                    </div>
-                                    <div class="bottom">
-                                        <h3>{{ file }}</h3>
-                                        <button (click)="removealreadyfile(file)"><i
-                                                class="material-icons">delete</i></button>
-                                    </div>
-                                </div> -->
+                              
                                 <div *ngFor="let file of uploadedFiles;let i = index" class="showfilebox">
                                     <div class="top">
-                                        <!-- <span class="filetype">{{ getFileType(file.name) }}</span> -->
+                                      
                                         <img [src]="fileUrls[i]" style="max-height: 120px;max-width: 200px;">
 
                                     </div>

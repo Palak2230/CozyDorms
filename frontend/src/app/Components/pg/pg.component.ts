@@ -74,7 +74,7 @@ export class PgComponent implements AfterViewInit, OnInit {
     this.directionlink = 'https://www.google.com/maps/dir//' + encodedAddress;
     console.log(encodedAddress);
     const embed = `
-      <iframe width='1000' height='400' frameborder='0' loading='lazy'
+      <iframe width='1000' height='450' frameborder='0' loading='lazy'
       scrolling='no' marginheight='0' marginwidth='0'  
       src='https://maps.google.com/maps?&amp;q=${encodedAddress}&amp;output=embed'></iframe>
     `;

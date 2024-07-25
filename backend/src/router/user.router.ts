@@ -76,6 +76,7 @@ router.post('/register', expressAsyncHandler(
             const newUser: User = {
                 id: '',
                 name: name,
+                image: 'https://firebasestorage.googleapis.com/v0/b/cozydorms-f4167.appspot.com/o/files%2Fprofile.png?alt=media&token=30b73a16-90c9-4fca-b4b1-bc480ee82d57',
                 email: email.toLowerCase(),
                 password: encryptedPassword,
                 contact: ""
@@ -109,5 +110,24 @@ router.post('/userproperty', expressAsyncHandler(
         const pg = await PgModel.find({ owner: { email: req.body.email } });
         res.json(pg);
     }));
+
+router.post('/update-profile', expressAsyncHandler(
+    async (req: any, res: any) => {
+        const { image, name, email, contact } = req.body;
+
+        const user = await UserModel.findOne({ email: email.toLowerCase() });
+        if (!user) {
+            return res.status(404).send("User not found.");
+        }
+
+        user.image = image;
+        user.contact = contact;
+        user.name = name;
+        console.log(user);
+        await user.save();
+
+        res.json({ message: "Profile updated successfully." });
+    }
+));
 
 export default router;
