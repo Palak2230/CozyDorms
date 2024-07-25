@@ -19,7 +19,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors({
     credentials: true,
-    origin: ["http://localhost:4200"],
+    origin: ["https://localhost:4200"],
 
 }))
 app.use(bodyParser.urlencoded({
