@@ -46,7 +46,7 @@
     <form action="/" class="booking__form">
         <div class="input__group">
             <span><i class="ri-map-pin-2-fill"></i></span>
-            <div>
+            <div style="display: flex;flex-direction: column;">
                 <label for="check-in">CITY</label>
 
                 <mat-form-field>
@@ -72,13 +72,13 @@
 
             </div>
         </div>
-        <div class="input__group">
+        <!-- <div class="input__group">
             <span><i class="ri-user-fill"></i></span>
             <div>
                 <label for="guest">GUEST</label>
                 <input type="text" placeholder="Guest" />
             </div>
-        </div>
+        </div> -->
         <div class="input__group input__btn">
             <button class="btn" routerLink="results" (click)="searchpg(cityinput.value)">SEARCH</button>
         </div>

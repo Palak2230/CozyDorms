@@ -6,7 +6,7 @@
 
 .section__container {
   max-width: var(--max-width);
-  margin: auto;
+  margin:0 200px;
   padding: 5rem 1rem;
 }
 
@@ -179,7 +179,7 @@ nav {
 
 .header__container {
   padding-block: 12rem 15rem;
-  padding-top: 120px;
+  padding-top: 100px;
   padding-bottom: 300px;
 }
 
@@ -211,6 +211,7 @@ nav {
 }
 
 .booking__form {
+  width: 1000px;
   padding: 2rem;
   display: flex;
   gap: 1rem;
@@ -637,7 +638,7 @@ nav {
 }
 .user {
   font-size: 18px;
-  color: rgba(12, 10, 9, 0.6470588235);
+  color: rgba(12, 10, 9, 0.266);
   font-family: var(--my-font);
   display: flex;
   flex-direction: row;
@@ -645,7 +646,7 @@ nav {
 
   button {
     border-radius: 24px;
-    border: 1px solid #dddddd;
+    border: 1px solid #79787867;
     background-color: transparent;
     width: 90px;
     height: 48px;

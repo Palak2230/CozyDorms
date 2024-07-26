@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://localhost:10000";
 
 export const PGS_URL = BASE_URL + '/api/pgs';
 export const CITIES_URL = PGS_URL + '/cities';
