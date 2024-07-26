@@ -221,7 +221,7 @@ export class LoginPageComponent implements OnInit {
       this.userforsignup = false;
       // this.userforreset = true;
       // this.forgotpassword = false;
-      this.isLoggedIn = true;
+      // this.isLoggedIn = false;
     }
     else {
       this.incorrectotp = true;

@@ -130,7 +130,7 @@ export class PropertyComponent implements OnInit {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    this.http.post('http://localhost:5000/upload/multiple', formData, { headers })
+    this.http.post('http://localhost:10000/upload/multiple', formData, { headers })
       .subscribe((response: any) => {
         this.imageurls = response.files.map((file: any) => file.downloadURL);
         this.nowsubmit();

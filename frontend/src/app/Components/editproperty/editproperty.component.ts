@@ -182,7 +182,7 @@ export class EditpropertyComponent {
         const headers = new HttpHeaders();
         headers.append('Content-Type', 'multipart/form-data');
 
-        this.http.post('http://localhost:5000/upload/multiple', formData, { headers })
+        this.http.post('http://localhost:10000/upload/multiple', formData, { headers })
             .subscribe((response: any) => {
                 response.files.forEach((file: any) => {
                     this.imageurls.push(file.downloadURL);

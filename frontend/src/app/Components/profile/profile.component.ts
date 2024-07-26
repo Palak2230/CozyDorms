@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
       const headers = new HttpHeaders();
       headers.append('Accept', 'application/json');
 
-      this.http.post('http://localhost:5000/upload/multiple', formData, { headers })
+      this.http.post('http://localhost:10000/upload/multiple', formData, { headers })
         .subscribe((response: any) => {
           this.imageurl = response.files.map((file: any) => file.downloadURL);
           this.updateUserProfile();
