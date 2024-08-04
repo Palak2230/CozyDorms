@@ -87,10 +87,11 @@ export class LoginPageComponent implements OnInit {
     else {
       this.userService.login({ email: this.fclogin.email.value, password: this.fclogin.password.value }).subscribe((res) => {
         this.dialogRef.close();
+        this.loginForm.reset();
       });
 
     }
-    this.loginForm.reset();
+
 
   }
 

@@ -2,9 +2,11 @@
     font-family: var(--my-font);
     display: flex;
     height: 100vh;
+    // width: 100rem;
     padding: 100px;
     justify-content: center;
     background: var(--primary-color-light);
+    // align-items: center;
 }
 
 ::selection {
@@ -57,6 +59,9 @@
     position: sticky;
     top: 20px; /* Keep the list sticky at the top */
     align-self: flex-start; /* Align the list to start */
+    overflow-y: auto; /* Enable vertical scroll */
+    height: 100%; /* Ensure full height */
+    padding-bottom: 40px;
 }
 
 .content .list label {
@@ -573,4 +578,12 @@ input::-webkit-inner-spin-button {
 
 .already-input input:focus {
     outline: none;
+}
+@media (width < 576px) {
+    .property{
+        width: 100rem;
+        height: 100rem;
+        
+     
+    }
 }

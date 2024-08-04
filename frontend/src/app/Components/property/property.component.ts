@@ -7,6 +7,7 @@ import { PgService } from 'src/app/services/pg.service';
 import { Rooms } from 'src/app/shared/models/rooms';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { User } from 'src/app/shared/models/User';
+import { Router } from '@angular/router';
 interface Amenity {
   icon: string;
   title: string;
@@ -66,7 +67,7 @@ export class PropertyComponent implements OnInit {
   // uploadForm: FormGroup;
   propertyForm !: FormGroup;
   user!: User;
-  constructor(private fb: FormBuilder, private http: HttpClient, private pgservice: PgService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private pgservice: PgService, private router: Router) {
     // this.uploadForm = this.fb.group({
     //   files: ['']
     // });
@@ -162,6 +163,7 @@ export class PropertyComponent implements OnInit {
     }).subscribe({
       next: (res) => {
         console.log('Property addition successful:', res);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Error adding property:', err);
@@ -194,7 +196,7 @@ export class PropertyComponent implements OnInit {
     this.fileUrls = this.fileUrls.filter(f => f != URL.createObjectURL(file));
 
   }
- 
+
   fileUrls: string[] = [];
 
 

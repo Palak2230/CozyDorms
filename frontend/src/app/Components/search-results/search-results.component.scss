@@ -6,16 +6,11 @@
     // position: fixed;
     margin-left: 10px;
     padding: 20px;
-    // .filter-section::-webkit-scrollbar-thumb:20px;
-    // overflow-y: scroll;
-    // top: 0;
-    // bottom: 0;
-    // margin-left: 150px;
-    // margin-top: 50px;
+
     height: 100vh;
     overflow: auto;
     position: sticky;
-    width: 300px;
+    width: 20rem;
     border-right: 1px solid #e3e3e3;
     scrollbar-color: #e3e3e3;
 
@@ -85,6 +80,7 @@
     // margin-left: 20px;
     height: 100vh;
     overflow: auto;
+    // width: 70rem;
     padding-right: 50px;
     display: flex;
     align-items: center;
@@ -177,7 +173,7 @@ span {
     // justify-content: space-around;
     justify-content: space-between;
     justify-self: flex-end;
- 
+
     .base-price {
         font-size: 30px;
     }
@@ -258,6 +254,7 @@ input[type="checkbox"] {
     height: 40px;
     background-color: black;
     color: white;
+    width: 16rem;
 }
 mat-slider {
     width: 200px;
@@ -275,4 +272,23 @@ mat-slider {
     display: flex;
     flex-direction: row;
     gap: 10px;
+}
+.no-results {
+    // align-content: center;
+    // justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 50px;
+    img {
+        width: 200px;
+        height: 200px;
+        align-self: center;
+        
+    }
+    span{
+        font-size: 24px;
+        color: #222222b5;
+    }
+
 }

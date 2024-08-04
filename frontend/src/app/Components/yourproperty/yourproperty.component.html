@@ -17,7 +17,7 @@
         <div class="room__grid">
             <div class="room__card" *ngFor="let pg of pgs">
                 <div class="room__card__image">
-                    <img src="assets/room-1.jpg" alt="room" />
+                    <img [src]="pg.imageUrl[0]" alt="room" />
                     <div class="room__card__icons">
                         <span *ngIf="isPgInWishlist(pg)"><button class="wishlist-btn" (click)="IsInWishlist(pg)">
                                 <i class="material-icons" style="color: var(--primary-color);">favorite</i>

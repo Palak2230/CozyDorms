@@ -5,7 +5,7 @@ import { User } from '../shared/models/User';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { USER_LOGIN_URL, USER_PROFILE_URL, USER_REGISTER_URL, USER_UPDATE_URL } from '../shared/constants/urls';
+import { USER__URL, USER_LOGIN_URL, USER_PROFILE_URL, USER_REGISTER_URL, USER_UPDATE_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 
 import { JsonPipe } from '@angular/common';
@@ -77,7 +77,7 @@ export class UserService {
         }
       }))
   }
-
+ 
   getPgsOfUser(user: IUser): Observable<Pg[]> {
     return this.http.post<Pg[]>(USER_UPDATE_URL, user).pipe(tap({
       next: (user) => {
@@ -137,4 +137,10 @@ export class UserService {
     if (userJson) return JSON.parse(userJson) as User;
     return new User();
   }
+  getAll(): Observable<User[]> {
+    return this.http.get<User[]>(USER__URL).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 }

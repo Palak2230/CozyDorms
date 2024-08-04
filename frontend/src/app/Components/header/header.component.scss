@@ -23,8 +23,8 @@
 .header {
     z-index: 100;
     // max-width: 140rem;
-    width: 100%;
-    padding: 0px 140px;
+    width: 100rem;
+    padding: 0px 10rem;
   
     align-items: center;
     display: flex;
@@ -35,7 +35,7 @@
     height: fit-content;
     // border-bottom: 1px solid black;
     gap: 50px;
-
+  
     .input-form {
         // width: 1000px;
         // height: 54px;

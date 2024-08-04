@@ -96,7 +96,7 @@ export class EditpropertyComponent {
             PgsObservable.subscribe((serverpgs) => {
                 this.pg = serverpgs;
                 if (!this.pg.owner || this.pg.owner.email != this.user.email) {
-                    this.router.navigateByUrl("http://localhost:4200/home")
+                    this.router.navigate(['/home']);
 
                 }
                 this.addedAmenities = this.pg.amenities;
@@ -222,6 +222,7 @@ export class EditpropertyComponent {
         }, this.pg.id).subscribe({
             next: (res) => {
                 console.log('Property addition successful:', res);
+                this.router.navigate(['/home']);
             },
             error: (err) => {
                 console.error('Error adding property:', err);

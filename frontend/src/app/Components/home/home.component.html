@@ -9,7 +9,7 @@
             <div class="nav__menu__btn" id="menu-btn">
                 <i class="ri-menu-line"></i>
             </div>
-            <button class="property"  (click)="add()">Post Your Property</button>
+            <button class="property" (click)="add()">Post Your Property</button>
             <button class="wishlist-btn" (click)="gotowishlist()"> <i class="material-icons">favorite</i></button>
             <div *ngIf="!this.user.name" class="login">
                 <a (click)="gologin()">Login/Signup </a>
@@ -18,7 +18,7 @@
             <div *ngIf="this.user.name" class="user">
                 <!-- <div class="user-img"><img [src]="user"></div> -->
                 <div class="menu-container">
-                  
+
                     <button>
                         <i class="material-icons">menu</i>
                         <img [src]="this.user.image">
@@ -94,20 +94,25 @@
         <p class="section__subheader">ABOUT US</p>
         <h2 class="section__header">The Best Holidays Start Here!</h2>
         <p class="section__description">
-            With a focus on quality accommodations, personalized experiences, and
-            seamless booking, our platform is dedicated to ensuring that every
-            traveler embarks on their dream holiday with confidence and
-            excitement.
+            At CozyDorms, we are dedicated to simplifying your search for the perfect Paying Guest
+            accommodation. Our platform connects you with a diverse range of high-quality, verified listings tailored to
+            your needs and budget. <span id="dots">...</span><span id="more" style="display:none;">
+                We prioritize providing a seamless experience with personalized recommendations, extensive property
+                options, and user reviews to help you
+                make informed decisions. With our easy-to-use app, secure booking process, and dedicated customer
+                support, we ensure that finding and securing your next PG is both efficient and enjoyable. Whether
+                you're a student, professional, or anyone in between, [Your App Name] is here to make your accommodation
+                search as smooth and satisfying as possible. Discover your ideal PG with us and embark on a new chapter
+                with confidence.
+            </span>
         </p>
-        <div class="about__btn">
-            <button class="btn">Read More</button>
-        </div>
+        <button id="myBtn" (click)="myFunction()" class="about-btn btn">Read more</button>
     </div>
 </section>
 
 <section class="section__container room__container">
-    <p class="section__subheader">OUR LIVING ROOM</p>
-    <h2 class="section__header">The Most Memorable Rest Time Starts Here.</h2>
+    <p class="section__subheader">OUR FAVOURITES</p>
+    <h2 class="section__header">Your Most Memorable Rest Time Starts Here.</h2>
     <div class="room__grid">
         <div class="room__card">
             <div class="room__card__image">
@@ -169,7 +174,7 @@
     </div>
 </section>
 
-<section class="service" id="service">
+<section class="service service__container" id="service">
     <div class="section__container service__container">
         <div class="service__content">
             <p class="section__subheader">SERVICES</p>
@@ -181,15 +186,15 @@
                 </li>
                 <li>
                     <span><i class="ri-24-hours-line"></i></span>
-                    24 Hours Room Service
+                    Verified PG Listings
                 </li>
                 <li>
                     <span><i class="ri-headphone-line"></i></span>
-                    Conference Room
+                    Detailed Property Reviews
                 </li>
                 <li>
                     <span><i class="ri-map-2-line"></i></span>
-                    Tourist Guide Support
+                    Personalized Recommendations
                 </li>
             </ul>
         </div>
@@ -199,7 +204,7 @@
 <section class="section__container banner__container">
     <div class="banner__content">
         <div class="banner__card">
-            <h4>25+</h4>
+            <h4>{{totalpgs}}</h4>
             <p>Properties Available</p>
         </div>
         <div class="banner__card">
@@ -207,23 +212,14 @@
             <p>Bookings Completed</p>
         </div>
         <div class="banner__card">
-            <h4>600+</h4>
+            <h4>{{totalusers}}</h4>
             <p>Happy Customers</p>
         </div>
     </div>
+    <!-- <div *ngFor="let pg of users">{{pg.name}} {{pg.email}}</div> -->
 </section>
 
-<section class="explore" id="explore">
-    <p class="section__subheader">EXPLORE</p>
-    <h2 class="section__header">What's New Today.</h2>
-    <div class="explore__bg">
-        <div class="explore__content">
-            <p class="section__description">10th MAR 2023</p>
-            <h4>A New Menu Is Available In Our Hotel.</h4>
-            <button class="btn">Continue</button>
-        </div>
-    </div>
-</section>
+
 
 <footer class="footer" id="contact">
     <div class="section__container footer__container">

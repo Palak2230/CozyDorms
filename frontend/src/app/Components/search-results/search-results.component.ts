@@ -60,6 +60,7 @@ export class SearchResultsComponent implements OnInit {
         this.pgs = serverpgs;
         this.pgsample = serverpgs;
         this.pgfiltered = serverpgs;
+        this.size = this.pgfiltered.length;
         console.log(this.pgfiltered);
         this.changePage(1);
       });
@@ -168,17 +169,20 @@ export class SearchResultsComponent implements OnInit {
     this.selectedFilters = this.selectedFilters.concat(this.selectedTenantsValues);
     this.selectedFilters = this.selectedFilters.concat(this.selectedRatingsValues);
     this.pgfiltered = this.pgService.filter(this.pgsample, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues);
-
+    this.size = this.pgfiltered.length;
+    this.changePage(this.currentPage);
   }
 
   clearAll() {
     this.selectedRatings = [];
     this.selectedRooms = [];
     this.selectedTenants = [];
-
+    this.minvalue = 0;
+    this.maxvalue = 100000;
     this.getPgs();
   }
   user!: User;
+
   // if(this.user) { wishlist = JSON.parse(localStorage.getItem()) }
   IsInWishlist(pg: Pg) {
     console.log(this.wishlist);
@@ -222,6 +226,7 @@ export class SearchResultsComponent implements OnInit {
 
     return `${value}`;
   }
+  size = 0;
   currentPage = 1;
   itemsPerPage = 4;
   // items: any[] = []; // Replace with your data type
@@ -233,6 +238,8 @@ export class SearchResultsComponent implements OnInit {
     //   return; // Exit if page is out of bounds
     // }
     this.currentPage = page;
+    this.size = this.pgfiltered.length;
+    console.log(this.size);
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.paginatedItems = this.pgfiltered.slice(start, end);

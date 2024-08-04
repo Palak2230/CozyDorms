@@ -1,5 +1,5 @@
 const BASE_URL = "https://cozydorms.onrender.com";
-
+const WEBSITE_URL = "https://cozydorms.netlify.app/";
 export const PGS_URL = BASE_URL + '/api/pgs';
 export const CITIES_URL = PGS_URL + '/cities';
 export const PGS_BY_CITY_URL = PGS_URL + '/search?q=';
@@ -9,6 +9,7 @@ export const EDIT_PG_URL = PGS_URL + '/edit?q=';
 export const DELETE_PG_URL = PGS_URL + '/delete';
 export const ADD_REVIEW_URL = PGS_URL + '/reviews';
 export const USER_LOGIN_URL = BASE_URL + '/api/users/login';
+export const USER__URL = BASE_URL + '/api/users';
 export const USER_REGISTER_URL = BASE_URL + '/api/users/register';
 export const USER_UPDATE_URL = BASE_URL + '/api/users/update-password';
 export const USER_PROFILE_URL = BASE_URL + '/api/users//update-profile';

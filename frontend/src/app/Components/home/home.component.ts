@@ -34,20 +34,38 @@ export class HomeComponent implements OnInit {
   formcontrol = new FormControl('');
   cities: string[] = [];
   user!: User;
+  totalpgs: number = 0;
+  pgs !: Pg[];
+  totalusers: number = 0;
+  users !: User[];
   ngOnInit(): void {
 
     // let PgsObservable: Observable<Pg[]>;
     let CityObservable: Observable<string[]>;
+    let PgsObservable: Observable<Pg[]>;
+    let UsersObservable: Observable<User[]>;
     this.activatedRoute.params.subscribe((params) => {
 
 
       CityObservable = this.pgService.getCities();
-
+      PgsObservable = this.pgService.getAll();
+      UsersObservable = this.userService.getAll();
 
       CityObservable.subscribe((serverlocalities) => {
         this.cities = serverlocalities;
         console.log(serverlocalities);
       });
+      PgsObservable.subscribe((serverpgs) => {
+        this.totalpgs = serverpgs.length;
+        this.pgs = serverpgs;
+
+      });
+
+      UsersObservable.subscribe((serverusers) => {
+        this.totalusers = serverusers.length;
+        this.users = serverusers;
+      });
+
     });
 
     this.filteroptions = this.formcontrol.valueChanges.pipe(
@@ -57,7 +75,7 @@ export class HomeComponent implements OnInit {
       this.user = user;
       console.log(this.user);
     });
-  
+
   }
   private _FILTER(value: string) {
     const searchvalue = value.toLocaleLowerCase();
@@ -129,5 +147,23 @@ export class HomeComponent implements OnInit {
     this._dialog.open(ProfileComponent, {
       panelClass: 'bg-color',
     });
+  }
+
+  myFunction(): void {
+    const dots = document.getElementById('dots');
+    const moreText = document.getElementById('more');
+    const btnText = document.getElementById('myBtn');
+
+    if (dots && moreText && btnText) {
+      if (dots.style.display === 'none') {
+        dots.style.display = 'inline';
+        btnText.innerHTML = 'Read more';
+        moreText.style.display = 'none';
+      } else {
+        dots.style.display = 'none';
+        btnText.innerHTML = 'Read less';
+        moreText.style.display = 'inline';
+      }
+    }
   }
 }
