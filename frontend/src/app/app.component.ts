@@ -13,7 +13,7 @@ export class AppComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      console.log(this.router.url); // Check the URL after navigation
+     
     });
   }
   get isHomePage(): boolean {

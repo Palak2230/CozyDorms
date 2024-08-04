@@ -13,7 +13,6 @@ export class Pg {
     tenantgender!: string;
     city!: string;
     owner !: User;
-    price!: number;
     stars!: number;
     ratingcnt!: number;
     imageUrl!: string[];

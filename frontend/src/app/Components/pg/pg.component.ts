@@ -39,17 +39,6 @@ export class PgComponent implements AfterViewInit, OnInit {
   user: any; // replace with appropriate user type
 
 
-  onPreviousClick() {
-    const previous = this.currentSlide - 1;
-    this.currentSlide = previous < 0 ? this.slides.length - 1 : previous;
-    console.log("previous clicked, new current slide is: ", this.currentSlide);
-  }
-
-  onNextClick() {
-    const next = this.currentSlide + 1;
-    this.currentSlide = next === this.slides.length ? 0 : next;
-    console.log("next clicked, new current slide is: ", this.currentSlide);
-  }
 
   pg!: Pg;
   url!: string;
@@ -69,10 +58,10 @@ export class PgComponent implements AfterViewInit, OnInit {
   }
   // address: string = this.pg.address;
   embedMap(): void {
-    console.log(this.pg.address);
+  
     const encodedAddress = encodeURIComponent(this.pg.address);
     this.directionlink = 'https://www.google.com/maps/dir//' + encodedAddress;
-    console.log(encodedAddress);
+    
     const embed = `
       <iframe width='1000' height='450' frameborder='0' loading='lazy'
       scrolling='no' marginheight='0' marginwidth='0'  
@@ -110,7 +99,7 @@ export class PgComponent implements AfterViewInit, OnInit {
 
     this.pgService.addreview(review).subscribe({
       next: (serverpgs) => {
-        console.log(serverpgs);
+
         this.ngOnInit();
         this.modalService.dismissAll();
       },
@@ -142,7 +131,7 @@ export class PgComponent implements AfterViewInit, OnInit {
     let PgsObservable: Observable<Pg>;
 
     this.activatedRoute.params.subscribe((params) => {
-      console.log(this.activatedRoute);
+     
       PgsObservable = this.pgService.getPgById(params['searchTerm']);
       PgsObservable.subscribe((serverpgs) => {
         this.pg = serverpgs;

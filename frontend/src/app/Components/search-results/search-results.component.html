@@ -54,6 +54,15 @@
                     </li>
                 </ul>
             </div>
+            <div class="filters__item">
+                <span>Type</span>
+                <ul>
+                    <li *ngFor="let type of AC;let i=index">
+                        <input type="checkbox" [(ngModel)]="selectedAC[i]" (change)="getPgs()">
+                        <label>{{type.type}}</label>
+                    </li>
+                </ul>
+            </div>
             <!-- <div class="line">--</div> -->
 
             <div class="filters__item">
@@ -80,8 +89,8 @@
         </div>
     </div>
 
-
     <div class="pg-section" *ngIf="size">
+
 
         <!-- <div class="tags-section">
             <ul>
@@ -91,7 +100,7 @@
         <ul>
             <li *ngFor="let pg of paginatedItems ">
                 <!-- {{pgfiltered.length}} -->
-                <div class="pg-card" *ngIf="findminprice(pg.rooms)>=minvalue &&findminprice(pg.rooms)<=maxvalue">
+                <div class="pg-card">
                     <!-- hey -->
                     <!-- {{pg.name}} -->
                     <div class="pg-image">
@@ -183,7 +192,7 @@
     </div>
     <div class="no-results" *ngIf="!size">
         <img src="../../../assets/cancel.png">
-       <span>Sorry , we couldn't find any results !</span>
+        <span>Sorry , we couldn't find any results !</span>
     </div>
 
 </div>

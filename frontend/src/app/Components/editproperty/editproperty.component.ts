@@ -86,9 +86,9 @@ export class EditpropertyComponent {
 
     ngOnInit(): void {
 
-        // console.log(this.propertyForm.invalid);
+       
         let PgsObservable: Observable<Pg>;
-        // console.log(this.activatedRoute);
+
         this.activatedRoute.params.subscribe((params: any) => {
 
 
@@ -126,15 +126,13 @@ export class EditpropertyComponent {
                     });
                     this.roomsgroup.push(roomGroup);
                 })
-                console.log(this.propertyForm);
+             
 
             });
 
 
-            // if (this.user !== this.pg.owner) {
-            //   return;
-            // }
-            // console.log(this.pg);
+         
+    
 
         }
         )
@@ -172,7 +170,7 @@ export class EditpropertyComponent {
     formdetails() {
         const formData: FormData = new FormData();
         this.uploadedFiles.forEach(file => {
-            console.log(file);
+           
             formData.append('files', file, file.name);
         });
 
@@ -196,14 +194,14 @@ export class EditpropertyComponent {
 
     nowsubmit() {
         const { title, address, about, city, tenantgender, ownercontact } = this.propertyForm.controls;
-        console.log(this.propertyForm);
+    
         const addedRooms = this.propertyForm.get('roomsgroup')?.value;
         const addedAmenities = this.addedAmenities;
         const addedRules = this.addedRules;
         const images = this.imageurls;
         this.uploadedFiles = [];
         // images.push(this.imageurls);
-        console.log(images);
+     
 
         this.pgservice.editpg({
             title: title.value,
@@ -221,7 +219,6 @@ export class EditpropertyComponent {
             images
         }, this.pg.id).subscribe({
             next: (res) => {
-                console.log('Property addition successful:', res);
                 this.router.navigate(['/home']);
             },
             error: (err) => {
@@ -239,7 +236,7 @@ export class EditpropertyComponent {
             this.uploadedFiles.push(files[i]);
             this.fileUrls.push(URL.createObjectURL(files[i]));
         }
-        console.log(this.uploadedFiles);
+
 
     }
 

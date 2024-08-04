@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
 
       CityObservable.subscribe((serverlocalities) => {
         this.cities = serverlocalities;
-        console.log(serverlocalities);
+       
       });
       PgsObservable.subscribe((serverpgs) => {
         this.totalpgs = serverpgs.length;
@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
     );
     this.userService.userObservable.subscribe(user => {
       this.user = user;
-      console.log(this.user);
+
     });
 
   }

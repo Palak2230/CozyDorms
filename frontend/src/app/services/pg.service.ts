@@ -25,7 +25,7 @@ export class PgService {
   }
 
   getCities(): Observable<string[]> {
-    console.log('');
+
     return this.http.get<string[]>(CITIES_URL).pipe(
       catchError(this.handleError)
     );
@@ -50,40 +50,38 @@ export class PgService {
     );
   }
   addpg(pgadd: IPg) {
-    // console.log('hey');
+   
     return this.http.post<Pg>(ADD_PG_URL, pgadd).pipe
       (tap({
         next: (pg) => {
-          // this.setuserToLocalStorage(user);
-          // this.userSubject.next(user);
-          console.log(pg);
+
+
           this.toastrService.success(`Welcome to CozyDorms`,
             "Registration successful !"
           )
-          // console.log('hey');
+
         },
         error: (errorResponse) => {
           this.toastrService.error(errorResponse.error,
-            "Registration failed !"); console.log('hey');
+            "Registration failed !");
         }
       }))
   }
   editpg(pgadd: IPg, id: string) {
-    // console.log('hey');
+  
     return this.http.post<Pg>(EDIT_PG_URL, { pgadd, id }).pipe
       (tap({
         next: (pg) => {
-          // this.setuserToLocalStorage(user);
-          // this.userSubject.next(user);
-          console.log(pg);
+         
+        
           this.toastrService.success(`Updating successful`,
             "Registration successful !"
           )
-          // console.log('hey');
+         
         },
         error: (errorResponse) => {
           this.toastrService.error(errorResponse.error,
-            "PG could not be updated !"); console.log('hey');
+            "PG could not be updated !");
         }
       }))
   }
@@ -95,12 +93,12 @@ export class PgService {
   addreview(review: Review): Observable<Review> {
     return this.http.post<Review>(ADD_REVIEW_URL, review).pipe(tap({
       next: (review) => {
-        console.log(review);
+     
         this.toastrService.success('Review added successfully!', 'Success');
       },
       error: (errorResponse) => {
         this.toastrService.error(errorResponse.error.message, 'Error');
-        console.log(errorResponse.error);
+     
       }
     }));
   }
@@ -122,7 +120,7 @@ export class PgService {
 
 
 
-  filter(pgs: Pg[], selectedTenantsValues: any, selectedRoomsValues: any, selectedRatingsValues: any): Pg[] {
+  filter(pgs: Pg[], selectedTenantsValues: any, selectedRoomsValues: any, selectedRatingsValues: any, selectedACValues: any): Pg[] {
 
     let pgsample = pgs;
 
@@ -152,6 +150,20 @@ export class PgService {
         return false;
       });
     }
+    if (selectedACValues.length != 0) {
+      pgsample = pgsample.filter(function (item) {
+        for (let room of selectedACValues) {
+          for (let i of item.rooms) {
+            if (i.type == room.type) {
+              return true;
+            }
+          }
+        }
+
+        return false;
+      });
+    }
+
     if (selectedRatingsValues.length != 0) {
       pgsample = pgsample.filter(function (item) {
         for (let rating of selectedRatingsValues) {

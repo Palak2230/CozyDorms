@@ -41,13 +41,13 @@ export class YourpropertyComponent {
   ngOnInit(): void {
     const item = localStorage.getItem('User');
     const user = JSON.parse(item || '')
-    // if(! user){}
-    // console.log(user);
+   
+   
     let PgsObservable: Observable<Pg[]> = this.pgService.getAll();
     PgsObservable.subscribe((serverpgs) => {
       // this.pgs = serverpgs;
       this.pgs = serverpgs.filter(pg => pg.owner && pg.owner.email === user.email);
-      console.log(this.pgs);
+  
     }, (error) => {
       console.error('Error fetching PGs:', error);
     });
@@ -67,8 +67,7 @@ export class YourpropertyComponent {
   wishlist: Pg[] = [];
   user!: User;
   IsInWishlist(pg: Pg) {
-    console.log(this.wishlist);
-    // console.log(this.user);
+   
 
     const item = localStorage.getItem('Wishlist');
     this.wishlist = item ? JSON.parse(item) : [];
@@ -77,20 +76,20 @@ export class YourpropertyComponent {
     const pgIndex = this.wishlist.findIndex((pgs) => pgs.id === pg.id);
     if (pgIndex !== -1) {
       this.wishlist.splice(pgIndex, 1);
-      console.log('Removed from wishlist');
+
     } else {
       this.wishlist.push(pg);
-      console.log('Added to wishlist');
+  
     }
     localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
-    console.log(this.wishlist);
+  
 
   }
   isPgInWishlist(pg: Pg): boolean {
     return this.wishlist.some((pgs: Pg) => pgs.id === pg.id);
   }
   deletepg(id: string) {
-    console.log('Reached deletepg');
+   
     this.pgService.deletepg(id).subscribe();
     this.ngOnInit();
   }

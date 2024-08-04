@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 
     this.userService.userObservable.subscribe(user => {
       this.user = user;
-      console.log(this.user);
+  
     });
 
   }
@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
   }
 
   gotowishlist() {
-    console.log(this.user);
+
     if (!this.user.name) {
       this._dialog.open(LoginPageComponent, {
         panelClass: 'bg-color',

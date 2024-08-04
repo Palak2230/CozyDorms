@@ -82,7 +82,7 @@ export class LoginPageComponent implements OnInit {
   }
   userLogin(): void {
     if (this.loginForm.invalid) {
-      console.log('required');
+   
     }
     else {
       this.userService.login({ email: this.fclogin.email.value, password: this.fclogin.password.value }).subscribe((res) => {
@@ -96,13 +96,12 @@ export class LoginPageComponent implements OnInit {
   }
 
   userRegister() {
-    console.log(this.signUpForm);
+  
     if (this.signUpForm.invalid) {
-      console.log('required');
+     
     }
     else {
-      // this.userLogged = true;
-      // console.log(this.fcsignup.email.value, this.fcsignup.password.value);
+     
       this.userService.register({
         name: this.fcsignup.name.value,
         email: this.fcsignup.email.value,
@@ -122,27 +121,27 @@ export class LoginPageComponent implements OnInit {
   showOtpComponent = false;
 
   passwordReset() {
-    console.log(this.resetForm);
+  
 
     if (this.resetForm.errors) {
-      console.log('Form is invalid');
+     
       return;
     }
 
     const email = this.fcupdate.email.value;
     const password = this.fcupdate.password.value;
 
-    console.log(`Email: ${email}, Password: ${password}`);
+
 
     this.userService.update({ email, password }).subscribe(
       (res) => {
-        console.log('Password update successful:', res);
+      
         this.isLoggedIn = true;
         this.otpverified = false;
         this.forgotpassword = false;
       },
       (err) => {
-        console.error('Error updating password:', err);
+     
       }
     );
   }

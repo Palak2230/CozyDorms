@@ -27,7 +27,7 @@ export class SearchResultsComponent implements OnInit {
   wishlist: Pg[] = [];
   filterOptions!: Observable<Pg[]>;
   formControl = new FormControl('');
-
+  finalpgs !: Pg[];
 
   constructor(
     private pgService: PgService,
@@ -41,32 +41,30 @@ export class SearchResultsComponent implements OnInit {
   minvalue: number = 0;
   maxvalue: number = 100000;
   ngOnInit(): void {
-    console.log(history);
+
     if (history.state.data) this.minvalue = history.state.data.minvalue;
     if (history.state.data) this.maxvalue = history.state.data.maxvalue;
-    console.log(this.minvalue);
-    console.log(this.maxvalue);
+
     let PgsObservable: Observable<Pg[]>;
     let LocalityObservable: Observable<string[]>;
     this.activatedRoute.params.subscribe((params) => {
       if (params['searchTerm']) {
         PgsObservable = this.pgService.getAllBySearch(params['searchTerm']);
-        // LocalityObservable = this.pgService.getlocalitiesBySearch(params['searchTerm']);
+
       } else {
         PgsObservable = this.pgService.getAll();
-        // LocalityObservable = this.pgService.getLocalities();
+
       }
       PgsObservable.subscribe((serverpgs) => {
         this.pgs = serverpgs;
         this.pgsample = serverpgs;
         this.pgfiltered = serverpgs;
+
         this.size = this.pgfiltered.length;
-        console.log(this.pgfiltered);
+
         this.changePage(1);
       });
-      // LocalityObservable.subscribe((serverlocalities) => {
-      //   this.localities = serverlocalities;
-      // });
+
     });
 
     this.filterOptions = this.formControl.valueChanges.pipe(
@@ -121,6 +119,10 @@ export class SearchResultsComponent implements OnInit {
   { id: 4, type: '4' },
   { id: 5, type: '5' },
   ];
+  AC: any[] = [{ id: 1, type: 'AC' },
+  { id: 2, type: 'Non-AC' },
+
+  ];
 
   foundfilters: any[] = [];
 
@@ -154,6 +156,11 @@ export class SearchResultsComponent implements OnInit {
   get selectedRatingsValues() {
     return this.rating_type.filter((e, i) => this.selectedRatings[i]);
   }
+  selectedAC: any[] = [];
+
+  get selectedACValues() {
+    return this.AC.filter((e, i) => this.selectedAC[i]);
+  }
   selectedLocalities: any[] = [];
   updateMySelection(event: any) {
     this.selectedLocalities.push(event.option.value);
@@ -168,8 +175,9 @@ export class SearchResultsComponent implements OnInit {
     this.selectedFilters = this.selectedFilters.concat(this.selectedRoomsValues);
     this.selectedFilters = this.selectedFilters.concat(this.selectedTenantsValues);
     this.selectedFilters = this.selectedFilters.concat(this.selectedRatingsValues);
-    this.pgfiltered = this.pgService.filter(this.pgsample, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues);
-    this.size = this.pgfiltered.length;
+    this.selectedFilters = this.selectedFilters.concat(this.selectedACValues);
+    this.pgfiltered = this.pgService.filter(this.pgsample, this.selectedTenantsValues, this.selectedRoomsValues, this.selectedRatingsValues, this.selectedACValues);
+
     this.changePage(this.currentPage);
   }
 
@@ -185,8 +193,7 @@ export class SearchResultsComponent implements OnInit {
 
   // if(this.user) { wishlist = JSON.parse(localStorage.getItem()) }
   IsInWishlist(pg: Pg) {
-    console.log(this.wishlist);
-    console.log(this.user);
+
 
     const item = localStorage.getItem('Wishlist');
     this.wishlist = item ? JSON.parse(item) : [];
@@ -199,13 +206,13 @@ export class SearchResultsComponent implements OnInit {
       const pgIndex = this.wishlist.findIndex((pgs) => pgs.id === pg.id);
       if (pgIndex !== -1) {
         this.wishlist.splice(pgIndex, 1);
-        console.log('Removed from wishlist');
+
       } else {
         this.wishlist.push(pg);
-        console.log('Added to wishlist');
+
       }
       localStorage.setItem('Wishlist', JSON.stringify(this.wishlist));
-      console.log(this.wishlist);
+
     }
   }
 
@@ -230,19 +237,23 @@ export class SearchResultsComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 4;
   // items: any[] = []; // Replace with your data type
-  paginatedItems: any[] = this.pgfiltered; // Store items for the current page
+  paginatedItems: any[] = this.finalpgs; // Store items for the current page
 
 
   changePage(page: number): void {
     // if (page < 1 || page > this.totalPages) {
     //   return; // Exit if page is out of bounds
     // }
+
+    this.finalpgs = this.pgfiltered.filter((item) => {
+      return this.findminprice(item.rooms) >= this.minvalue && this.findminprice(item.rooms) <= this.maxvalue;
+    })
     this.currentPage = page;
-    this.size = this.pgfiltered.length;
-    console.log(this.size);
+    this.size = this.finalpgs.length;
+    console.log(this.finalpgs);
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    this.paginatedItems = this.pgfiltered.slice(start, end);
+    this.paginatedItems = this.finalpgs.slice(start, end);
     console.log(this.paginatedItems);
   }
 

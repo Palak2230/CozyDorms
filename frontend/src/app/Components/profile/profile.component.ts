@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
       email: [this.user.email, [Validators.required, Validators.email]],
       contact: [this.user.contact, [Validators.required, Validators.pattern('^[0-9]+$')]]
     });
-    console.log(this.user);
+   
     this.url = this.user.image;
   }
 
@@ -64,16 +64,9 @@ export class ProfileComponent implements OnInit {
 
   private updateUserProfile(): void {
     const image = this.imageurl[0] || this.url;
-    console.log(image);
+   
     const { name, email, contact } = this.profileForm.value;
 
-    this.userService.updateUser(image, name, email, contact).subscribe({
-      next: (res) => {
-        console.log('User updated successfully:', res);
-      },
-      error: (err) => {
-        console.error('Error:', err);
-      }
-    });
+    this.userService.updateUser(image, name, email, contact).subscribe();
   }
 }

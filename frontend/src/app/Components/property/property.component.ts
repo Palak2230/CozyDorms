@@ -88,7 +88,7 @@ export class PropertyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.propertyForm.invalid);
+    
     const item = localStorage.getItem('User');
     this.user = JSON.parse(item || '');
   }
@@ -124,7 +124,7 @@ export class PropertyComponent implements OnInit {
   formdetails() {
     const formData: FormData = new FormData();
     this.uploadedFiles.forEach(file => {
-      console.log(file);
+
       formData.append('files', file, file.name);
     });
 
@@ -162,7 +162,7 @@ export class PropertyComponent implements OnInit {
 
     }).subscribe({
       next: (res) => {
-        console.log('Property addition successful:', res);
+ 
         this.router.navigate(['/home']);
       },
       error: (err) => {
@@ -177,7 +177,7 @@ export class PropertyComponent implements OnInit {
       this.uploadedFiles.push(files[i]);
       this.fileUrls.push(URL.createObjectURL(files[i]));
     }
-    console.log(this.uploadedFiles);
+
 
   }
 

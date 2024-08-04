@@ -31,7 +31,6 @@ export const PgSchema = new Schema<Pg>(
         tenantgender: { type: String, required: true },
         about: { type: String },
         city: { type: String, required: true },
-        price: { type: Number, required: true },
         stars: { type: Number, required: true },
         imageUrl: { type: [String], required: true },
         ratingcnt: { type: Number, required: true },

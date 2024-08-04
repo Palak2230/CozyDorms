@@ -25,7 +25,7 @@ export class UserService {
   login(userLogin: IUserLogin): Observable<User> {
     return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(tap({
       next: (user) => {
-        console.log(user);
+       
         this.setuserToLocalStorage(user);
         this.userSubject.next(user);
 
@@ -98,7 +98,7 @@ export class UserService {
       next: (user) => {
         // this.setuserToLocalStorage(user);
         // this.userSubject.next(user);
-        console.log(user);
+      
         this.setuserToLocalStorage(user);
         this.toastrService.success(`got updated successfully !`
 
@@ -126,10 +126,10 @@ export class UserService {
   }
 
   private setuserToLocalStorage(user: User) {
-    console.log(user);
+   
     localStorage.setItem(USER_KEY, JSON.stringify(user));
     // localStorage.setItem('Wishlist', JSON.stringify([]));
-    console.log(localStorage.getItem(USER_KEY));
+
     window.location.reload();
   }
   private getUserFromLocalStorage(): User {

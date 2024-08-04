@@ -32,10 +32,7 @@ router.get('/', expressAsyncHandler(
 router.post('/login', expressAsyncHandler(
     async (req: any, res: any) => {
         const { email, password } = req.body;
-        console.log('hey');
-        // const encryptedPassword = await bcrypt.hash(password, 10);
-        // console.log(encryptedPassword);
-        // const user = await UserModel.findOne({ email, password });
+      
         const user = await UserModel.findOne({ email })
             .then(user => {
                 //if user not exist than return status 400
@@ -63,7 +60,7 @@ const generateTokenResponse = (user: any) => {
         email: user.email
     }, "someRandomText")
     user.token = user;
-    console.log(user);
+   
     return user;
 }
 router.post('/register', expressAsyncHandler(
@@ -106,7 +103,7 @@ router.post('/update-password', expressAsyncHandler(
 
 router.post('/userproperty', expressAsyncHandler(
     async (req: any, res: any) => {
-        console.log(req.body);
+
         const pg = await PgModel.find({ owner: { email: req.body.email } });
         res.json(pg);
     }));
@@ -123,7 +120,7 @@ router.post('/update-profile', expressAsyncHandler(
         user.image = image;
         user.contact = contact;
         user.name = name;
-        console.log(user);
+
         await user.save();
 
         res.json({ message: "Profile updated successfully." });

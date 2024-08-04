@@ -32,7 +32,7 @@ router.post("/multiple", upload.array("files", 10), async (req: any, res: any) =
             const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
             const downloadURL = await getDownloadURL(snapshot.ref);
 
-            console.log(`File ${file.originalname} successfully uploaded.`);
+          
             return {
                 name: file.originalname,
                 type: file.mimetype,

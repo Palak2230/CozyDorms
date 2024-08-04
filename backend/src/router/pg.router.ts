@@ -17,7 +17,7 @@ router.get('/seed', expressAsyncHandler(
         }
         await PgModel.create(sample_pgs);
         res.send('seed is done!');
-        console.log(sample_pgs);
+      
 
     })
 );
@@ -46,7 +46,7 @@ router.get('/cities', expressAsyncHandler(
     async (req: any, res: any) => {
         try {
             const cities = await PgModel.distinct('city');
-            // console.log(localities);
+  
             res.json(cities);
         } catch (error) {
             console.error('Error retrieving localities:', error);
@@ -55,7 +55,7 @@ router.get('/cities', expressAsyncHandler(
     })
 );
 router.post('/reviews', expressAsyncHandler(async (req: any, res: any) => {
-    console.log(req.body);
+
     try {
         const objId = new mongoose.Types.ObjectId(req.body.id);
         const pg = await PgModel.findById(objId);
@@ -71,14 +71,14 @@ router.post('/reviews', expressAsyncHandler(async (req: any, res: any) => {
         });
 
         const dbReview = await review.save();
-        console.log(dbReview);
+
 
         pg.stars = pg.stars * pg.ratingcnt + dbReview.rating;
         pg.ratingcnt = pg.ratingcnt + 1;
         pg.stars = pg.stars / pg.ratingcnt;
         pg.reviews.push(dbReview);
         await pg.save();
-        console.log(pg.reviews);
+
 
         return res.status(201).send(pg.reviews);
     } catch (error) {
@@ -88,7 +88,7 @@ router.post('/reviews', expressAsyncHandler(async (req: any, res: any) => {
 }));
 router.post('/edit', expressAsyncHandler(
     async (req: any, res: any) => {
-        // console.log(req.body);
+  
         try {
             const objId = new mongoose.Types.ObjectId(req.body.id);
             const pg = await PgModel.findById(objId);
@@ -108,7 +108,7 @@ router.post('/edit', expressAsyncHandler(
                 pg.amenities = obj.addedAmenities,
                 pg.rules = obj.addedRules
             await pg.save();
-            console.log(pg);
+      
             res.send(pg);
         }
         catch (error) {
@@ -119,10 +119,10 @@ router.post('/edit', expressAsyncHandler(
 router.post('/delete', expressAsyncHandler(async (req: any, res: any) => {
     try {
         const objId = new mongoose.Types.ObjectId(req.body.id);
-        console.log('Received ID:', req.body.id);
+       
 
         const result = await PgModel.deleteOne({ _id: objId });
-        console.log(result);
+        
         if (result.deletedCount === 1) {
             res.send('ok');
         } else {
@@ -138,7 +138,7 @@ router.post('/delete', expressAsyncHandler(async (req: any, res: any) => {
 router.post('/add', expressAsyncHandler(
     async (req: any, res: any) => {
 
-        // console.log(req.body);
+
         const obj = req.body;
         const newPg: Pg = {
             id: '',
