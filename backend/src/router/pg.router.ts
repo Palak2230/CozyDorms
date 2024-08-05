@@ -17,7 +17,7 @@ router.get('/seed', expressAsyncHandler(
         }
         await PgModel.create(sample_pgs);
         res.send('seed is done!');
-      
+
 
     })
 );
@@ -46,7 +46,7 @@ router.get('/cities', expressAsyncHandler(
     async (req: any, res: any) => {
         try {
             const cities = await PgModel.distinct('city');
-  
+
             res.json(cities);
         } catch (error) {
             console.error('Error retrieving localities:', error);
@@ -88,7 +88,7 @@ router.post('/reviews', expressAsyncHandler(async (req: any, res: any) => {
 }));
 router.post('/edit', expressAsyncHandler(
     async (req: any, res: any) => {
-  
+
         try {
             const objId = new mongoose.Types.ObjectId(req.body.id);
             const pg = await PgModel.findById(objId);
@@ -108,7 +108,7 @@ router.post('/edit', expressAsyncHandler(
                 pg.amenities = obj.addedAmenities,
                 pg.rules = obj.addedRules
             await pg.save();
-      
+
             res.send(pg);
         }
         catch (error) {
@@ -119,12 +119,12 @@ router.post('/edit', expressAsyncHandler(
 router.post('/delete', expressAsyncHandler(async (req: any, res: any) => {
     try {
         const objId = new mongoose.Types.ObjectId(req.body.id);
-       
+
 
         const result = await PgModel.deleteOne({ _id: objId });
-        
+
         if (result.deletedCount === 1) {
-            res.send('ok');
+            res.send(result);
         } else {
             res.status(404).send({ message: 'PG not found' });
         }

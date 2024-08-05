@@ -121,7 +121,7 @@ nav {
 
   height: 80px;
 
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav__bar {
@@ -569,23 +569,23 @@ nav {
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    width:100rem;
+    width: 100rem;
   }
   .banner__container {
     // overflow: scroll;
     // display: flex;
     // flex-direction: column;
 
-    width:100rem;
+    width: 100rem;
   }
-.footer{
-  width:100rem;
-}
-.footer__container {
-  display: flex;
-  flex-direction: row;
-  gap: 4rem 2rem;
-}
+  .footer {
+    width: 100rem;
+  }
+  .footer__container {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem 2rem;
+  }
 
   .about__image img {
     max-width: 450px;
